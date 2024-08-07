@@ -8,23 +8,23 @@
     "net6.0": []
   },
   "packageFolders": {
-    "C:\\Users\\vhern\\.nuget\\packages\\": {},
+    "C:\\Users\\hendr\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\vhern\\Downloads\\SWAD\\SWAD_CLASS_2\\SWAD_iCar\\SWAD_iCar\\SWAD_iCar.csproj",
+      "projectUniqueName": "C:\\Users\\hendr\\OneDrive\\Desktop\\SWAD_Team_3\\SWAD_iCar\\SWAD_iCar\\SWAD_iCar.csproj",
       "projectName": "SWAD_iCar",
-      "projectPath": "C:\\Users\\vhern\\Downloads\\SWAD\\SWAD_CLASS_2\\SWAD_iCar\\SWAD_iCar\\SWAD_iCar.csproj",
-      "packagesPath": "C:\\Users\\vhern\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\vhern\\Downloads\\SWAD\\SWAD_CLASS_2\\SWAD_iCar\\SWAD_iCar\\obj\\",
+      "projectPath": "C:\\Users\\hendr\\OneDrive\\Desktop\\SWAD_Team_3\\SWAD_iCar\\SWAD_iCar\\SWAD_iCar.csproj",
+      "packagesPath": "C:\\Users\\hendr\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\hendr\\OneDrive\\Desktop\\SWAD_Team_3\\SWAD_iCar\\SWAD_iCar\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\vhern\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\hendr\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -33,6 +33,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -66,7 +67,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
       }
     }
   }

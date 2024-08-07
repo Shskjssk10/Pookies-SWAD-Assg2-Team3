@@ -45,7 +45,6 @@ public class Insurance
         return $"Insurance Policy No: {PolicyNo}\n" +
                $"Issue Date: {IssueDate.ToShortDateString()}\n" +
                $"Expiry Date: {ExpiryDate.ToShortDateString()}\n" +
-               $"Insurer: {Insurer}\n" +
-               $"Insured Car ID: {(Has != null ? Has.Id.ToString() : "No car insured")}";
+               $"Insurer: {Insurer}\n";
     }
 }
