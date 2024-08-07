@@ -87,4 +87,18 @@ public class Car
         LicensePlate = licensePlate;
         RentalRate = rentalRate;
     }
+
+    public override string ToString()
+    {
+        return $"Car ID: {Id}\n" +
+               $"Make: {Make}\n" +
+               $"Model: {Model}\n" +
+               $"Year: {Year.Year}\n" +
+               $"Mileage: {Mileage} km\n" +
+               $"Is Withdrawn: {IsWithdrawn}\n" +
+               $"License Plate: {LicensePlate}\n" +
+               $"Rental Rate: ${RentalRate:F2}\n" +
+               $"Photos: {(Photos.Count > 0 ? string.Join(", ", Photos) : "No photos available")}\n" +
+               $"Reviews: {(Reviews.Count > 0 ? string.Join(", ", Reviews.Values) : "No reviews available")}";
+    }
 }
