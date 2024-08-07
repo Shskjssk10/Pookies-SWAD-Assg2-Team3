@@ -1,13 +1,46 @@
 using System;
 
-public class Card {
-	private string type;
-	private int cardNo;
-	private int cvv;
-	private DateTime expiryDate;
+public class Card
+{
+    private string type;
 
-	private Transaction[] perform;
+    public string Type
+    {
+        get { return type; }
+        set { type = value; }
+    }
 
-	private User has;
+    private int cardNo;
 
+    public int CardNo
+    {
+        get { return cardNo; }
+        set { cardNo = value; }
+    }
+
+    private int cvv;
+
+    public int CVV
+    {
+        get { return cvv; }
+        set { cvv = value; }
+    }
+
+    private DateTime expiryDate;
+
+    public DateTime ExpiryDate
+    {
+        get { return expiryDate; }
+        set { expiryDate = value; }
+    }
+
+    public Card() { }
+
+    public Card(string t, int cn, int cv, DateTime ed)
+    {
+        Type = t;
+        CardNo = cn;
+        CVV = cv;
+        ExpiryDate = ed;
+    }
 }

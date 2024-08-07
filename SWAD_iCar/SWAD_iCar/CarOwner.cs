@@ -1,13 +1,26 @@
 using System;
 
-public class CarOwner : User  {
-	private DateTime dateOfBirth;
-	private int contact;
+public class CarOwner : User
+{
+    private DateTime dateOfBirth;
 
-	public void AddNewCar(ref object car_acar) {
-		throw new System.NotImplementedException("Not implemented");
-	}
+    public DateTime DateOfBirth
+    {
+        get { return dateOfBirth; }
+        set { dateOfBirth = value; }
+    }
 
-	private Car[] registers;
+    private int contact;
 
+    public int Contact
+    {
+        get { return contact; }
+        set { contact = value; }
+    }
+
+    public CarOwner(int id, string name, string username, Card card, DateTime dob, int contact) : base(id, name, username, card)
+    {
+        dateOfBirth = dob;
+        this.contact = contact;
+    }
 }

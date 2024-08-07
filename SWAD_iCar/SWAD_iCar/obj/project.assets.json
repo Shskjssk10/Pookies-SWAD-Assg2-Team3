@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\hendr\\OneDrive\\Desktop\\SWAD_Team3\\SWAD_iCar\\SWAD_iCar\\SWAD_iCar.csproj",
+      "projectUniqueName": "C:\\Users\\hendr\\OneDrive\\Desktop\\SWAD_Team_3\\SWAD_iCar\\SWAD_iCar\\SWAD_iCar.csproj",
       "projectName": "SWAD_iCar",
-      "projectPath": "C:\\Users\\hendr\\OneDrive\\Desktop\\SWAD_Team3\\SWAD_iCar\\SWAD_iCar\\SWAD_iCar.csproj",
+      "projectPath": "C:\\Users\\hendr\\OneDrive\\Desktop\\SWAD_Team_3\\SWAD_iCar\\SWAD_iCar\\SWAD_iCar.csproj",
       "packagesPath": "C:\\Users\\hendr\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\hendr\\OneDrive\\Desktop\\SWAD_Team3\\SWAD_iCar\\SWAD_iCar\\obj\\",
+      "outputPath": "C:\\Users\\hendr\\OneDrive\\Desktop\\SWAD_Team_3\\SWAD_iCar\\SWAD_iCar\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
