@@ -23,6 +23,13 @@ public class Booking
         set { endDateTime = value; }
     }
 
+    private DateTime returnTime;
+    public DateTime ReturnTime
+    {
+        get { return returnTime; }
+        set { returnTime = value; }
+    }
+
     private Location returnMethod;
     public Location ReturnMethod
     {
@@ -116,11 +123,12 @@ public class Booking
     }
 
     // Constructor
-    public Booking(int id, DateTime startDateTime, DateTime endDateTime, Location returnMethod, Location pickUpMethod, bool vehicleInspectionStatus, float penaltyFee, float damagesFee, float totalBookingFee, string bookingStatus, Car car, Location dropOffTo, Location pickUpFrom, List<Report> about, Admin updates, List<Transaction> bookingTransactions)
+    public Booking(int id, DateTime startDateTime, DateTime endDateTime, DateTime returnTime, Location returnMethod, Location pickUpMethod, bool vehicleInspectionStatus, float penaltyFee, float damagesFee, float totalBookingFee, string bookingStatus, Car car, Location dropOffTo, Location pickUpFrom, List<Report> about, Admin updates, List<Transaction> bookingTransactions)
     {
         this.id = id;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
+        this.returnTime = returnTime;   
         this.returnMethod = returnMethod;
         this.pickUpMethod = pickUpMethod;
         this.vehicleInspectionStatus = vehicleInspectionStatus;
@@ -136,10 +144,9 @@ public class Booking
         this.bookingTransactions = bookingTransactions;
     }
 
-    public string GetBookingDetails()
+    public DateTime SetReturnTime()
     {
-        throw new System.NotImplementedException("Not implemented");
-        // return string
+        return this.returnTime = DateTime.Now;
     }
 
     public string ConfirmUpdateBooking(int bookingId, Booking updatedBooking)
@@ -161,26 +168,44 @@ public class Booking
 
     public bool CheckLocation(string currentAddress)
     {
-        throw new System.NotImplementedException("Not implemented");
+        if (returnMethod.Address == currentAddress) return true;
+        else return false;
+
+        //throw new System.NotImplementedException("Not implemented");
         // return bool
     }
 
-    public bool UpdateBooking()
-    {
-        throw new System.NotImplementedException("Not implemented");
-        // return bool
-    }
+    //public bool UpdateBooking()
+    //{
+    //    throw new System.NotImplementedException("Not implemented");
+    //    // return bool
+    //}
 
-    public bool CheckPenalty()
-    {
-        throw new System.NotImplementedException("Not implemented");
-        // return bool
-    }
+    //public bool CheckPenalty()
+    //{
+    //    if (DateTime.Now <= endDateTime)
+    //    {
+            
+    //    }
 
-    public float CalculatePenalty()
+    //    throw new System.NotImplementedException("Not implemented");
+    //    // return bool
+    //}
+
+    public float CalculatePenalty(DateTime returnTime)
     {
-        throw new System.NotImplementedException("Not implemented");
+        TimeSpan difference = returnTime - endDateTime;
+        // have to reimburse by checking the rental rate in the timeslot
+        float penaltyFee = difference.Hours * 5;
+        return penaltyFee;
+
+        //throw new System.NotImplementedException("Not implemented");
         // return float
+    }
+
+    public void addNewTransaction(Transaction transaction)
+    {
+        bookingTransactions.Add(transaction);
     }
 
 

@@ -66,9 +66,15 @@ public class Renter : User
         set { driversLicense = value; }
     }
 
+    private Booking? currentBooking;
+    public Booking? CurrentBooking
+    {
+        get { return currentBooking; }
+        set { currentBooking = value; }
+    }
 
     // Constructor
-    public Renter(int id, string name, string username, Card card, DateTime dateOfBirth, int contact, bool isVerified, string password, string email, List<Booking> bookingHistory, Admin isVerifiedBy, DigitalWallet wallet, License driversLicense)
+    public Renter(int id, string name, string username, Card card, DateTime dateOfBirth, int contact, bool isVerified, string password, string email, List<Booking> bookingHistory, Admin isVerifiedBy, DigitalWallet wallet, License driversLicense, Booking? currentBooking)
         : base(id, name, username, card)
     {
         this.dateOfBirth = dateOfBirth;
@@ -80,6 +86,7 @@ public class Renter : User
         this.isVerifiedBy = isVerifiedBy;
         this.wallet = wallet;
         this.driversLicense = driversLicense;
+        this.currentBooking = currentBooking;
     }
 
     public void CheckAnyOngoingBooking(DateTime start, DateTime end)
@@ -94,7 +101,14 @@ public class Renter : User
 
     public Transaction MakePayment(float bookingFee)
     {
-        throw new System.NotImplementedException("Not implemented");
+        //random transaction id 
+        Random rnd = new Random();
+        int num = rnd.Next();
+
+        //assume transaction will always be completed
+        return new Transaction(num, bookingFee, DateTime.Now);
+
+        //throw new System.NotImplementedException("Not implemented");
         // return Transaction
     }
 
@@ -106,8 +120,31 @@ public class Renter : User
 
     public Booking GetCurrentBooking()
     {
-        throw new System.NotImplementedException("Not implemented");
+        return this.currentBooking;
+        //throw new System.NotImplementedException("Not implemented");
         // return Booking
+    }
+
+    public bool UpdateBooking()
+    {
+        Booking tempBooking = currentBooking;
+        BookingHistory.Add(tempBooking);
+        currentBooking = null;
+
+        return true;
+        //if (bookingHistory == tempBooking)
+        //{
+        //    return true;
+        //}
+        //else
+        //{
+        //    return false;
+        //}
+
+
+        //return true;
+        //    throw new System.NotImplementedException("Not implemented");
+        //    // return bool
     }
 
     // ToString method

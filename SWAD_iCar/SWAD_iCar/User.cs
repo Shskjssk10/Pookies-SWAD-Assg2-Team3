@@ -31,10 +31,10 @@ public class User
     }
     public User(int id, string name, string username, Card card)
     {
-        this.id = id;
-        this.name = name;
-        this.username = username;
-        this.card = card;
+        this.Id = id;
+        this.Name = name;
+        this.Username = username;
+        this.Card = card;
     }
 
 }
