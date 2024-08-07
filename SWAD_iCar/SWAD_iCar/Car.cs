@@ -71,10 +71,17 @@ public class Car
     public float RentalRate 
     { 
         get { return rentalRate; } 
-        set { rentalRate = value; } 
+        set { rentalRate = value; }
     }
 
-    public Car(string make,string model,DateTime year,float mileage,List<string> photos,bool isWithdrawn,Dictionary<int, string> reviews,string licensePlate,float rentalRate)
+    private List<Timeslot> registeredTimeSlots;
+    public List<Timeslot> RegisteredTimeSlots
+    {
+        get { return registeredTimeSlots; }
+        set { registeredTimeSlots = value; }
+    }
+
+    public Car(string make, string model, DateTime year, float mileage, List<string> photos, bool isWithdrawn, Dictionary<int, string> reviews, string licensePlate, float rentalRate)
     {
         Id = nextId++; // Assign the current ID and increment the counter
         Make = make;
@@ -86,19 +93,52 @@ public class Car
         Reviews = reviews ?? new Dictionary<int, string>(); // Use an empty dictionary if null
         LicensePlate = licensePlate;
         RentalRate = rentalRate;
+        RegisteredTimeSlots = new List<Timeslot>();
+    }
+
+    public List<Timeslot> getTimeSlots()
+    {
+        return registeredTimeSlots;
+    }
+
+    public void addNewTimeSlot(Timeslot timeslot)
+    {
+        registeredTimeSlots.Add(timeslot);
+    }
+
+    public bool removeTimeSlots(int startID, int endID)
+    {
+        bool flag = false;
+        List<Timeslot> registeredTimeslots = getTimeSlots();
+        foreach (Timeslot timeslot in registeredTimeslots)
+        {
+            if (timeslot.Id >= startID || timeslot.Id <= endID)
+            {
+                registeredTimeslots.Remove(timeslot);
+                flag = true;
+            }
+        }
+        return flag;
+    }
+
+    public bool updateRentalRate(float newRate)
+    {
+        try
+        {
+            rentalRate = newRate;
+            return true;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.ToString());
+            return false;
+        }
     }
 
     public override string ToString()
     {
-        return $"Car ID: {Id}\n" +
-               $"Make: {Make}\n" +
-               $"Model: {Model}\n" +
-               $"Year: {Year.Year}\n" +
-               $"Mileage: {Mileage} km\n" +
-               $"Is Withdrawn: {IsWithdrawn}\n" +
-               $"License Plate: {LicensePlate}\n" +
-               $"Rental Rate: ${RentalRate:F2}\n" +
-               $"Photos: {(Photos.Count > 0 ? string.Join(", ", Photos) : "No photos available")}\n" +
-               $"Reviews: {(Reviews.Count > 0 ? string.Join(", ", Reviews.Values) : "No reviews available")}";
+        return $"Car ID:{id} Make: {make} Model: {model} Year: {year} Mileage: {mileage} IsWithdrawn: {isWithdrawn} License Plate: {licensePlate} " +
+            $"Rental Rate: {rentalRate} Photos: {(photos.Count > 0 ? string.Join(", ", photos) : "No photos available")}"
+            + $"Reviews: {(Reviews.Count > 0 ? string.Join(", ", Reviews.Values) : "No reviews available")}";
     }
 }
