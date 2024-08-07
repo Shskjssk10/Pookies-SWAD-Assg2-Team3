@@ -114,8 +114,15 @@ public class Booking
         set { updates = value; }
     }
 
+    private Transaction bookingTransaction;
+    public Transaction BookingTransaction
+    {
+        get { return bookingTransaction; }
+        set { bookingTransaction = value; }
+    }
+
     // Constructor
-    public Booking(int id, DateTime startDateTime, DateTime endDateTime, Location returnMethod, Location pickUpMethod, bool vehicleInspectionStatus, float penaltyFee, float damagesFee, float totalBookingFee, string bookingStatus, Car car, Location dropOffTo, Location pickUpFrom, Renter makes, Report[] about, Admin updates)
+    public Booking(int id, DateTime startDateTime, DateTime endDateTime, Location returnMethod, Location pickUpMethod, bool vehicleInspectionStatus, float penaltyFee, float damagesFee, float totalBookingFee, string bookingStatus, Car car, Location dropOffTo, Location pickUpFrom, Renter makes, Report[] about, Admin updates, Transaction bookingTransaction)
     {
         this.id = id;
         this.startDateTime = startDateTime;
@@ -133,6 +140,7 @@ public class Booking
         this.makes = makes;
         this.about = about;
         this.updates = updates;
+        this.bookingTransaction = bookingTransaction;
     }
 
     public string GetBookingDetails()
@@ -182,6 +190,7 @@ public class Booking
         // return float
     }
 
+
     // ToString method
     public override string ToString()
     {
@@ -191,7 +200,7 @@ public class Booking
                $"Damages Fee: {DamagesFee}, Total Booking Fee: {TotalBookingFee}, " +
                $"Booking Status: {BookingStatus}, Car: {Car}, Drop Off To: {DropOffTo}, " +
                $"Pick Up From: {PickUpFrom}, Renter: {Makes}, Reports: {About.Length}, " +
-               $"Updated By: {Updates}";
+               $"Updated By: {Updates}, Booking Transaction: {BookingTransaction}";
     }
 
 }

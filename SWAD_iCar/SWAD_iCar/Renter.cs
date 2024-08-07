@@ -1,4 +1,5 @@
 using System;
+using System.Reflection.Metadata.Ecma335;
 
 public class Renter : User
 {
@@ -72,9 +73,16 @@ public class Renter : User
         set { has = value; }
     }
 
+    private License driversLicense;
+    public License DriversLicense
+    {
+        get { return driversLicense; }
+        set { driversLicense = value; }
+    }
+
 
     // Constructor
-    public Renter(int id, DateTime dateOfBirth, int contact, string bookingHistory, bool isVerified, string password, string email, Booking[] makes, Admin isVerifiedBy, DigitalWallet has)
+    public Renter(int id, DateTime dateOfBirth, int contact, string bookingHistory, bool isVerified, string password, string email, Booking[] makes, Admin isVerifiedBy, DigitalWallet has, License driversLicense)
     {
         this.id = id;
         this.dateOfBirth = dateOfBirth;
@@ -86,7 +94,9 @@ public class Renter : User
         this.makes = makes;
         this.isVerifiedBy = isVerifiedBy;
         this.has = has;
+        this.driversLicense = driversLicense;
     }
+
 
     public void CheckAnyOngoingBooking(DateTime start, DateTime end)
     {
@@ -121,6 +131,8 @@ public class Renter : User
     {
         return $"Renter ID: {Id}, Date of Birth: {DateOfBirth.ToShortDateString()}, Contact: {Contact}, " +
                $"Booking History: {BookingHistory}, Is Verified: {IsVerified}, Email: {Email}, " +
-               $"Bookings: {Makes.Length}, Verified By: {IsVerifiedBy}, Digital Wallet: {Has}";
+               $"Bookings: {Makes.Length}, Verified By: {IsVerifiedBy}, Digital Wallet: {Has}, " +
+               $"Driver's License: {DriversLicense}";
     }
+
 }
