@@ -1,7 +1,9 @@
 using System;
 
 public class License {
-	private int id;
+
+    private static int nextId = 1; // Static field to track the next ID
+    private int id;
 	public int Id { 
 		get { return id; }
 		set { id = value; }
@@ -56,9 +58,9 @@ public class License {
 		set { renter = value; }
 	}
 
-	public License(int id, DateTime issueDate, int serialNo, string issueAuthority, DateTime expiryDate, int noOfDemerit, List<string> photo, Renter renter)
+	public License(DateTime issueDate, int serialNo, string issueAuthority, DateTime expiryDate, int noOfDemerit, List<string> photo, Renter renter)
     {
-        Id = id;
+		Id = nextId++;
         IssueDate = issueDate;
         SerialNo = serialNo;
         IssueAuthority = issueAuthority;
