@@ -115,7 +115,7 @@ public class Booking
     }
 
     // Constructor
-    public Booking(int id, DateTime startDateTime, DateTime endDateTime, Location returnMethod, Location pickUpMethod, bool vehicleInspectionStatus, float penaltyFee, float damagesFee, float totalBookingFee, string bookingStatus, Car @for, Location dropOffTo, Location pickUpFrom, Renter makes, Report[] about, Admin updates)
+    public Booking(int id, DateTime startDateTime, DateTime endDateTime, Location returnMethod, Location pickUpMethod, bool vehicleInspectionStatus, float penaltyFee, float damagesFee, float totalBookingFee, string bookingStatus, Car car, Location dropOffTo, Location pickUpFrom, Renter makes, Report[] about, Admin updates)
     {
         this.id = id;
         this.startDateTime = startDateTime;
@@ -127,7 +127,7 @@ public class Booking
         this.damagesFee = damagesFee;
         this.totalBookingFee = totalBookingFee;
         this.bookingStatus = bookingStatus;
-        this.@for = @for;
+        this.car = car;
         this.dropOffTo = dropOffTo;
         this.pickUpFrom = pickUpFrom;
         this.makes = makes;
@@ -189,8 +189,9 @@ public class Booking
                $"Return Method: {ReturnMethod}, Pick Up Method: {PickUpMethod}, " +
                $"Vehicle Inspection Status: {VehicleInspectionStatus}, Penalty Fee: {PenaltyFee}, " +
                $"Damages Fee: {DamagesFee}, Total Booking Fee: {TotalBookingFee}, " +
-               $"Booking Status: {BookingStatus}, Car: {For}, Drop Off To: {DropOffTo}, " +
+               $"Booking Status: {BookingStatus}, Car: {Car}, Drop Off To: {DropOffTo}, " +
                $"Pick Up From: {PickUpFrom}, Renter: {Makes}, Reports: {About.Length}, " +
                $"Updated By: {Updates}";
     }
+
 }
