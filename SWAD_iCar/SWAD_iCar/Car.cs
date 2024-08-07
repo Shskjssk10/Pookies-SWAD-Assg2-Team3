@@ -74,11 +74,18 @@ public class Car
         set { rentalRate = value; }
     }
 
-    private string insuranceNo;
-    public string InsuranceNo
+    private int insuranceNo;
+    public int InsuranceNo
     {
         get { return insuranceNo; }
         set { insuranceNo = value; }
+    }
+
+    private Insurance insuranceDetails;
+    public Insurance InsuranceDetails
+    {
+        get { return insuranceDetails; }
+        set { insuranceDetails = value; }
     }
 
     public Car(string make, string model, int year, float mileage, List<string> photos, bool isWithdrawn, Dictionary<int, string> reviews, string licensePlate, float rentalRate)
@@ -93,6 +100,18 @@ public class Car
         Reviews = reviews ?? new Dictionary<int, string>(); // Use an empty dictionary if null
         LicensePlate = licensePlate;
         RentalRate = rentalRate;
+    }
+
+    public Car(string make, string model, int year, float mileage, string licensePlate, int insuranceNo, List<string> photos, Insurance insuranceDetails)
+    {
+        Id = nextId++;
+        Make = make;
+        Model = model;
+        Year = year;
+        Mileage = mileage;
+        InsuranceNo = insuranceNo;
+        Photos = photos ?? new List<string>(); // Use an empty list if null
+        InsuranceDetails = insuranceDetails;
     }
 
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Schema;
@@ -18,10 +19,10 @@ namespace SWAD_iCar
 
         private void AddNewCar()
         {
-               
+            DisplayRegisterCarForm();
         }
 
-        public void DisplayRegisterCarForm()
+        private void DisplayRegisterCarForm()
         {
             // Prompt for make
             Console.Write("Enter car make: ");
@@ -45,7 +46,7 @@ namespace SWAD_iCar
 
             // Prompt for insurance number
             Console.Write("Enter insurance number: ");
-            string insuranceNo = Console.ReadLine();
+            int insuranceNo = int.Parse(Console.ReadLine());
 
             // Prompt for list of photos
             List<string> photos = new List<string>();
@@ -58,21 +59,33 @@ namespace SWAD_iCar
             }
 
             // Prompt for insurance details
-            Console.Write("Enter insurance details: ");
-            string insuranceDetails = Console.ReadLine(); // Simplified; ideally this would be more structured
+            Console.Write("Enter insurance policy number: ");
+            int policyNo = int.Parse(Console.ReadLine());
+
+            Console.Write("Enter insurance expiry date (YYYY-MM-DD): ");
+            DateTime expiryDate;
+            while (!DateTime.TryParse(Console.ReadLine(), out expiryDate))
+            {
+                Console.WriteLine("Invalid date format. Please enter the date in YYYY-MM-DD format.");
+                Console.Write("Enter insurance expiry date (YYYY-MM-DD): ");
+            }
+
+            Console.Write("Enter insurance issue date (YYYY-MM-DD): ");
+            DateTime issueDate;
+            while (!DateTime.TryParse(Console.ReadLine(), out issueDate))
+            {
+                Console.WriteLine("Invalid date format. Please enter the date in YYYY-MM-DD format.");
+                Console.Write("Enter insurance issue date (YYYY-MM-DD): ");
+            }
+
+            Console.Write("Enter insurance insurer: ");
+            string insurer = Console.ReadLine();
+
+            // Create the Insurance object with the provided details
+            Insurance insuranceDetails = new Insurance(policyNo, expiryDate, issueDate, insurer);
 
             // Create a Car object or equivalent to store the data
-            Car car = new Car
-            {
-                Make = make,
-                Model = model,
-                Year = year,
-                Mileage = mileage,
-                LicensePlate = licensePlate,
-                InsuranceNumber = insuranceNo,
-                Photos = photos,
-                InsuranceDetails = insuranceDetails
-            };
+            Car car = new Car(make, model, year, mileage, licensePlate, insuranceNo, photos, insuranceDetails);
 
             // Optional: Display the collected information
             DisplayCarDetails(car);
@@ -95,9 +108,18 @@ namespace SWAD_iCar
             }
         }
 
-        private void AddNewCar()
+        private void AddNewCar(int carOwnerId, string make, string model, int year, float mileage, string licensePlate, int insuranceNo, List<string> photos, Insurance insuranceDetails)
         {
-
+            Console.WriteLine("Are you sure you want to add new car?");
+            string option = Console.ReadLine();
+            if (option == "yes")
+            {
+                ctlRegisterCar.AddNewCar(carOwnerId, make, model, year, mileage, licensePlate, insuranceNo, photos, insuranceDetails);
+            }
+            else
+            {
+                Console.WriteLine("Add new car cancelled");
+            }
         }
     }
 }

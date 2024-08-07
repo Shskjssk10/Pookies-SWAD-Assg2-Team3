@@ -20,7 +20,7 @@ public class Transaction
 
     private DateTime time;
 
-    public float Time
+    public DateTime Time
     {
         get { return time; }
         set { time = value; }

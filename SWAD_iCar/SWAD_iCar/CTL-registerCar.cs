@@ -19,7 +19,7 @@ namespace SWAD_iCar
             // Validate and process the new car registration
             if (CheckForCompleteAndCorrect(make, model, year, mileage, licensePlate, insuranceNo, photos, insuranceDetails))
             {
-                Car newCar = new Car(make, model, year, mileage, licensePlate, insuranceNo, photos, insuranceDetails);
+                Car newCar = new Car(make, model, year, mileage,licensePlate, insuranceNo, photos, insuranceDetails);
                 //add the car to the list
                 cars.Add(newCar);
             }
