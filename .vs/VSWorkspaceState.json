@@ -1,6 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\SWAD_iCar",
+    "\\SWAD_iCar\\SWAD_iCar"
   ],
+  "SelectedNode": "\\SWAD_iCar\\SWAD_iCar\\CarOwner.cs",
   "PreviewInSolutionExplorer": false
 }
