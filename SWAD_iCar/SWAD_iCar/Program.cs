@@ -1,16 +1,31 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using SWAD_iCar;
+using static System.Net.Mime.MediaTypeNames;
+
 Console.WriteLine("Hello, World!");
 
 //have test car owner 
 //have test car 
 //add to car owner
-DateTime dateOfBirth = new DateTime(2005, 5, 12);
-DateTime expDate = new DateTime(2024, 08, 19);
-Card card = new Card("credit", 123, 667, expDate);
-CarOwner testCarOwner = new CarOwner(1, "hendrik", "hendrikywr", card ,dateOfBirth, 91234567);
+DateTime dob = new DateTime(2005, 5, 12);
+DateTime cardExpDate = new DateTime(2024, 8, 19);
+DateTime insuranceExpDate = new DateTime(2025, 3, 08);
+DateTime insuranceIssueDate = new DateTime(2021, 05, 06);
+Card card = new Card("credit", 123, 667, cardExpDate);
+var photosForCamry = new List<string> { "image1.jpg", "image2.jpg" };
+Insurance insuranceDetails = new Insurance(1, insuranceExpDate, insuranceIssueDate, "AIA");
+CarOwner owner = new CarOwner(1, "Hendrik", "hendrikywr", card, dob, 91234567);
 
-Console.WriteLine(testCarOwner.Username);
+CTL_registerCar registerCar = new CTL_registerCar();
 
+registerCar.AddNewCar(1, "Toyota", "Camry", 2020, 15000, "SJF1234A", 1, photosForCamry, insuranceDetails);
+// Print the owner details
+foreach (var car in owner.GetCars())
+{
+    Console.WriteLine(car);
+}
+
+Console.WriteLine(owner.ToString());
 
 
 

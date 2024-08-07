@@ -21,7 +21,9 @@ namespace SWAD_iCar
             {
                 Car newCar = new Car(make, model, year, mileage,licensePlate, insuranceNo, photos, insuranceDetails);
                 //add the car to the list
+                //owner.AddNewCar(newCar);
                 cars.Add(newCar);
+                Console.WriteLine("Car successfully registered");
             }
             else
             {

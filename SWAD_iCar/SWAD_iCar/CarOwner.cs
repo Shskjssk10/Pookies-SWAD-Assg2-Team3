@@ -39,7 +39,7 @@ public class CarOwner : User
     //method to get all cars owned by this CarOwner
     public List<Car> GetCars()
     {
-        return new List<Car>(cars);
+        return cars;
     }
 
     public override string ToString()

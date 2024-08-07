@@ -122,10 +122,7 @@ public class Car
                $"Model: {Model}\n" +
                $"Year: {Year}\n" +
                $"Mileage: {Mileage} km\n" +
-               $"Is Withdrawn: {IsWithdrawn}\n" +
                $"License Plate: {LicensePlate}\n" +
-               $"Rental Rate: ${RentalRate:F2}\n" +
-               $"Photos: {(Photos.Count > 0 ? string.Join(", ", Photos) : "No photos available")}\n" +
-               $"Reviews: {(Reviews.Count > 0 ? string.Join(", ", Reviews.Values) : "No reviews available")}";
+               $"Photos: {(Photos.Count > 0 ? string.Join(", ", Photos) : "No photos available")}\n";
     }
 }
