@@ -1,70 +1,76 @@
 using System;
 
-public class License {
-	private int id;
-	public int Id { 
-		get { return id; }
-		set { id = value; }
-	}
 
-	private DateTime issueDate;
-	public DateTime IssueDate
+namespace SWAD_iCar
+{
+	public class License
 	{
-		get { return issueDate; }
-		set { issueDate = value; }
-	}
+		private int id;
+		public int Id
+		{
+			get { return id; }
+			set { id = value; }
+		}
 
-	private int serialNo;
-	public int SerialNo
-	{
-		get { return serialNo; }
-		set { serialNo = value; }
-	}
+		private DateTime issueDate;
+		public DateTime IssueDate
+		{
+			get { return issueDate; }
+			set { issueDate = value; }
+		}
 
-	private string issueAuthority;
-	public string IssueAuthority
-	{
-		get { return issueAuthority; }
-		set { issueAuthority = value; }
-	}
+		private int serialNo;
+		public int SerialNo
+		{
+			get { return serialNo; }
+			set { serialNo = value; }
+		}
 
-	private DateTime expiryDate;
-	public DateTime ExpiryDate
-	{
-		get { return expiryDate; }
-		set { expiryDate = value; }
-	}
+		private string issueAuthority;
+		public string IssueAuthority
+		{
+			get { return issueAuthority; }
+			set { issueAuthority = value; }
+		}
 
-	private int noOfDemerit;
-	public int NoOfDemerit
-	{
-		get { return noOfDemerit; }
-		set { noOfDemerit = value; }
-	}
+		private DateTime expiryDate;
+		public DateTime ExpiryDate
+		{
+			get { return expiryDate; }
+			set { expiryDate = value; }
+		}
 
-	private List<string> photo;
-	public List<string> Photo
-	{
-		get { return photo; }
-		set { photo = value; }
-	}
+		private int noOfDemerit;
+		public int NoOfDemerit
+		{
+			get { return noOfDemerit; }
+			set { noOfDemerit = value; }
+		}
 
-	private Renter renter;
-	public Renter Renter
-	{
-		get { return renter; }
-		set { renter = value; }
-	}
+		private List<string> photo;
+		public List<string> Photo
+		{
+			get { return photo; }
+			set { photo = value; }
+		}
 
-	public License(int id, DateTime issueDate, int serialNo, string issueAuthority, DateTime expiryDate, int noOfDemerit, List<string> photo, Renter renter)
-    {
-        Id = id;
-        IssueDate = issueDate;
-        SerialNo = serialNo;
-        IssueAuthority = issueAuthority;
-        ExpiryDate = expiryDate;
-        NoOfDemerit = noOfDemerit;
-        Photo = photo;
-        Renter = renter;
-    }
+		private Renter renter;
+		public Renter Renter
+		{
+			get { return renter; }
+			set { renter = value; }
+		}
+
+		public License(int id, DateTime issueDate, int serialNo, string issueAuthority, DateTime expiryDate, int noOfDemerit, List<string> photo, Renter renter)
+		{
+			Id = id;
+			IssueDate = issueDate;
+			SerialNo = serialNo;
+			IssueAuthority = issueAuthority;
+			ExpiryDate = expiryDate;
+			NoOfDemerit = noOfDemerit;
+			Photo = photo;
+			Renter = renter;
+		}
+	}
 }
