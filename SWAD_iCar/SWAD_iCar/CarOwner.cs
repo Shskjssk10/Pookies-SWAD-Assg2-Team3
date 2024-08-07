@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 
 public class CarOwner : User
 {
@@ -39,5 +40,14 @@ public class CarOwner : User
     public List<Car> GetCars()
     {
         return new List<Car>(cars);
+    }
+
+    public override string ToString()
+    {
+        return $"ID: {Id}, " +
+           $"Name: {Name}, " +
+           $"Username: {Username}, " +
+           $"Date of Birth: {DateOfBirth.ToShortDateString()}, " +
+           $"Contact: {Contact}";
     }
 }
