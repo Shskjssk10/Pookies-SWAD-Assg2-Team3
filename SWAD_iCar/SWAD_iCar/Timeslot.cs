@@ -2,9 +2,10 @@ using System;
 using System.Runtime.CompilerServices;
 
 public class Timeslot {
-    public Timeslot(int id, DateTime timeSlot, bool availabilityStatus, Car car)
+    private static int nextId = 1; // Static field to track the next ID
+    public Timeslot(DateTime timeSlot, bool availabilityStatus, Car car)
     {
-        Id = id;
+        Id = nextId++; // Assign the current ID and increment the counter
         TimeSlot = timeSlot;
         AvailabilityStatus = availabilityStatus;
         Car = car;
@@ -46,7 +47,7 @@ public class Timeslot {
 
     public void ToString()
     {
-        Console.WriteLine($"Timeslot Id: {id}, TimeSlot: {timeSlot}, Availability: {availabilityStatus}, Car: {car?.ToString() ?? "No Car"}");
+        Console.WriteLine($"Timeslot Id: {id}, TimeSlot: {timeSlot}, Availability: {availabilityStatus}");
         return;
     }
 }

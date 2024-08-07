@@ -17,13 +17,6 @@ public class Renter : User
         set { contact = value; }
     }
 
-    private string bookingHistory;
-    public string BookingHistory
-    {
-        get { return bookingHistory; }
-        set { bookingHistory = value; }
-    }
-
     private bool isVerified;
     public bool IsVerified
     {
@@ -45,11 +38,11 @@ public class Renter : User
         set { email = value; }
     }
 
-    private List<Booking> makes = new List<Booking>();
-    public List<Booking> Makes
+    private List<Booking> bookingHistory = new List<Booking>();
+    public List<Booking> BookingHistory
     {
-        get { return makes; }
-        set { makes = value; }
+        get { return bookingHistory; }
+        set { bookingHistory = value; }
     }
 
     private Admin isVerifiedBy;
@@ -59,11 +52,11 @@ public class Renter : User
         set { isVerifiedBy = value; }
     }
 
-    private DigitalWallet has;
-    public DigitalWallet Has
+    private DigitalWallet wallet;
+    public DigitalWallet Wallet
     {
-        get { return has; }
-        set { has = value; }
+        get { return wallet; }
+        set { wallet = value; }
     }
 
     private License driversLicense;
@@ -75,18 +68,17 @@ public class Renter : User
 
 
     // Constructor
-    public Renter(int id, DateTime dateOfBirth, int contact, string bookingHistory, bool isVerified, string password, string email, List<Booking> makes, Admin isVerifiedBy, DigitalWallet has, License driversLicense)
+    public Renter(int id, string name, string username, Card card, DateTime dateOfBirth, int contact, bool isVerified, string password, string email, List<Booking> bookingHistory, Admin isVerifiedBy, DigitalWallet wallet, License driversLicense)
+        : base(id, name, username, card)
     {
-        this.id = id;
         this.dateOfBirth = dateOfBirth;
         this.contact = contact;
         this.bookingHistory = bookingHistory;
         this.isVerified = isVerified;
         this.password = password;
         this.email = email;
-        this.makes = makes;
         this.isVerifiedBy = isVerifiedBy;
-        this.has = has;
+        this.wallet = wallet;
         this.driversLicense = driversLicense;
     }
 
@@ -122,8 +114,8 @@ public class Renter : User
     public override string ToString()
     {
         return $"Renter ID: {Id}, Date of Birth: {DateOfBirth.ToShortDateString()}, Contact: {Contact}, " +
-               $"Booking History: {BookingHistory}, Is Verified: {IsVerified}, Email: {Email}, " +
-               $"Number of Bookings: {Makes.Count}, Verified By: {IsVerifiedBy}, Digital Wallet: {Has}, " +
+               $"Is Verified: {IsVerified}, Email: {Email}, " +
+               $"Number of Bookings: {bookingHistory.Count}, Verified By: {IsVerifiedBy}, Digital Wallet: {Wallet}, " +
                $"Driver's License: {DriversLicense}";
     }
 }
