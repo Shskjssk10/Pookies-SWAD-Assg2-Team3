@@ -26,7 +26,7 @@ namespace SWAD_iCar
             if (booking1 != null)
             {
                 DisplayBookingDetails(booking1);
-                DisplayBookingOptions(booking1, renterId);
+                DisplayBookingOptions(booking1);
 
             }
 
@@ -54,7 +54,7 @@ namespace SWAD_iCar
             Console.WriteLine($"Transactions: {string.Join(", ", booking.BookingTransactions)}");
         }
 
-        public void DisplayBookingOptions(Booking booking, int renterId)
+        public void DisplayBookingOptions(Booking booking)
         {
             Console.WriteLine("What type of modification would you like to make to the booking?");
             Console.WriteLine("1. Update Booking");
@@ -68,11 +68,11 @@ namespace SWAD_iCar
                     selectUpdateBooking(booking);
                     break;
                 case "2":
-                    //selectCancelBooking(booking.Id, renterId);
+                    selectCancelBookingOption(booking);
                     break;
                 default:
                     Console.WriteLine("Invalid choice. Please try again.");
-                    DisplayBookingOptions(booking, renterId);
+                    DisplayBookingOptions(booking);
                     break;
             }
         }
@@ -107,6 +107,31 @@ namespace SWAD_iCar
             }
         }
 
+        public void selectCancelBookingOption(Booking booking)
+        {
+            displayCancelConfirmation(booking);
+        }
+
+        public void displayCancelConfirmation(Booking booking)
+        {
+            Console.WriteLine("Are you sure you want to cancel the booking?");
+            Console.WriteLine("1. Yes");
+            Console.WriteLine("2. No");
+
+            string choice = Console.ReadLine();
+            switch (choice)
+            {
+                case "1":
+                    confirmCancellation(booking);
+                    break;
+                case "2":
+                    declineCancellation();
+                    DisplayBookingDetails(booking);
+                    DisplayBookingOptions(booking);
+                    break;
+            }
+        }
+
 
         public void displayUpdateForm()
         {
@@ -117,6 +142,26 @@ namespace SWAD_iCar
             Console.WriteLine("4. Pick Up Method");
             Console.WriteLine("5. Drop Off To");
             Console.WriteLine("6. Pick Up From");
+        }
+
+        public void confirmCancellation(Booking booking)
+        {
+            string result = modifyBookingController.cancelBooking(booking, renterId);
+
+            if (result.Contains("successfully cancelled"))
+            {
+                Console.WriteLine(result);
+            }
+            else
+            {
+                Console.WriteLine(result);
+            }
+        }
+
+
+        public void declineCancellation()
+        {
+            Console.WriteLine("Booking cancellation declined.");
         }
 
         public Booking submitUpdatedBookingDetails(Booking booking)

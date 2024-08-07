@@ -144,10 +144,27 @@ namespace SWAD_iCar
             // return string
         }
 
-        public string ProcessCancelBooking(int bookingId)
+        public string ProcessCancelBooking(Renter renter)
         {
-            throw new System.NotImplementedException("Not implemented");
-            // return string
+            try
+            {
+                // Change the booking status to "Cancelled"
+                BookingStatus = "Cancelled";
+
+                float ogFunds = renter.Wallet.Balance;
+                // Add the total booking fee to the renter's wallet
+                renter.Wallet.addFunds(totalBookingFee);
+
+                // Return a success message
+                string successMessage = $"Booking successfully cancelled.\nYour balance before refund is {ogFunds} \nYour current balance is: {renter.Wallet.Balance}";
+                return successMessage;
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions and return an error message
+                string errorMessage = $"An error occurred while cancelling the booking: {ex.Message}";
+                return errorMessage;
+            }
         }
 
         public void AddNewTransaction(Transaction transaction)
@@ -156,12 +173,6 @@ namespace SWAD_iCar
         }
 
         public bool CheckLocation(string currentAddress)
-        {
-            throw new System.NotImplementedException("Not implemented");
-            // return bool
-        }
-
-        public bool UpdateBooking()
         {
             throw new System.NotImplementedException("Not implemented");
             // return bool

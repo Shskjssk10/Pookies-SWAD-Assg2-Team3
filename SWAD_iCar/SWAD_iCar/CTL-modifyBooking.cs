@@ -10,7 +10,7 @@ namespace SWAD_iCar
     {
         private int bookingIdToModify;
         private List<Renter> renters;
-        private Booking originalBooking; // New attribute to store the original booking
+        private Booking originalBooking;
 
 
         public CTL_modifyBooking(int bookingIdToModify, List<Renter> renters)
@@ -133,10 +133,34 @@ namespace SWAD_iCar
             }
         }
 
-        public string processCancelBooking(Booking booking)
+        public string cancelBooking(Booking booking, int renterId)
         {
+            try
+            {
+                if (originalBooking != null && originalBooking.Id == booking.Id)
+                {
+                    Renter renter = GetRenter(renterId);
 
-            return "";
+                    if (renter == null)
+                    {
+                        throw new Exception("Renter not found.");
+                    }
+
+                    string result = booking.ProcessCancelBooking(renter);
+                    return result;
+                }
+                else
+                {
+                    return "Original booking not found or mismatched.";
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions and return an error message
+                string errorMessage = $"An error occurred while cancelling the booking: {ex.Message}";
+                return errorMessage;
+            }
         }
+
     }
 }

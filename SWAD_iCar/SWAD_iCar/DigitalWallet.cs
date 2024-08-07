@@ -27,4 +27,14 @@ public class DigitalWallet
         Id = i;
         Balance = b;
     }
+
+    public void addFunds(float amount)
+    {
+        balance += amount;
+    }
+
+    public void removeFunds(float amount) 
+    {
+        balance -= amount;
+    }
 }
