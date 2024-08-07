@@ -25,8 +25,8 @@ public class Car
         set { model = value; } 
     }
 
-    private DateTime year;
-    public DateTime Year 
+    private int year;
+    public int Year 
     { 
         get { return year; } 
         set { year = value; } 
@@ -81,7 +81,7 @@ public class Car
         set { registeredTimeSlots = value; }
     }
 
-    public Car(string make, string model, DateTime year, float mileage, List<string> photos, bool isWithdrawn, Dictionary<int, string> reviews, string licensePlate, float rentalRate)
+    public Car(string make, string model, int year, float mileage, List<string> photos, bool isWithdrawn, Dictionary<int, string> reviews, string licensePlate, float rentalRate)
     {
         Id = nextId++; // Assign the current ID and increment the counter
         Make = make;
@@ -137,8 +137,9 @@ public class Car
 
     public override string ToString()
     {
-        return $"Car ID:{id} Make: {make} Model: {model} Year: {year} Mileage: {mileage} IsWithdrawn: {isWithdrawn} License Plate: {licensePlate} " +
+        Console.WriteLine($"Car ID:{id} Make: {make} Model: {model} Year: {year} Mileage: {mileage} IsWithdrawn: {isWithdrawn} License Plate: {licensePlate} " +
             $"Rental Rate: {rentalRate} Photos: {(photos.Count > 0 ? string.Join(", ", photos) : "No photos available")}"
-            + $"Reviews: {(Reviews.Count > 0 ? string.Join(", ", Reviews.Values) : "No reviews available")}";
+            + $"Reviews: {(Reviews.Count > 0 ? string.Join(", ", Reviews.Values) : "No reviews available")}");
+        return "";
     }
 }
