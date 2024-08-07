@@ -18,7 +18,7 @@ public class CarOwner : User
         set { contact = value; }
     }
 
-    public CarOwner(DateTime dob, int contact)
+    public CarOwner(int id, string name, string username, Card card, DateTime dob, int contact) : base(id, name, username, card)
     {
         dateOfBirth = dob;
         this.contact = contact;
