@@ -1,11 +1,30 @@
 using System;
 
-public class DigitalWallet {
-	private int id;
-	private float balance;
+public class DigitalWallet
+{
+    private int id;
 
-	private Transaction[] perform;
+    public int Id
+    {
+        get { return id; }
+        set { id = value; }
+    }
 
-	private Renter has;
+    private float balance;
 
+    public float Balance
+    {
+        get { return balance; }
+        set { balance = value; }
+    }
+
+    public DigitalWallet()
+    {
+
+    }
+    public DigitalWallet(int i, float b)
+    {
+        Id = i;
+        Balance = b;
+    }
 }
