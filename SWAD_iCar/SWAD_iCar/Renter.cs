@@ -3,13 +3,6 @@ using System.Reflection.Metadata.Ecma335;
 
 public class Renter : User
 {
-    private int id;
-    public int Id
-    {
-        get { return id; }
-        set { id = value; }
-    }
-
     private DateTime dateOfBirth;
     public DateTime DateOfBirth
     {
@@ -82,9 +75,9 @@ public class Renter : User
 
 
     // Constructor
-    public Renter(int id, DateTime dateOfBirth, int contact, string bookingHistory, bool isVerified, string password, string email, Booking[] makes, Admin isVerifiedBy, DigitalWallet has, License driversLicense)
+    public Renter(int id, string name, string username, Card card, DateTime dateOfBirth, int contact, string bookingHistory, bool isVerified, string password, string email, Booking[] makes, Admin isVerifiedBy, DigitalWallet has, License driversLicense)
+        : base(id, name, username, card)
     {
-        this.id = id;
         this.dateOfBirth = dateOfBirth;
         this.contact = contact;
         this.bookingHistory = bookingHistory;
@@ -96,7 +89,6 @@ public class Renter : User
         this.has = has;
         this.driversLicense = driversLicense;
     }
-
 
     public void CheckAnyOngoingBooking(DateTime start, DateTime end)
     {
