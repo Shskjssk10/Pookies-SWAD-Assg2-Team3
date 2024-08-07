@@ -74,8 +74,28 @@ public class Car
         set { rentalRate = value; }
     }
 
+    private Insurance carInsurance;
+    public Insurance CarInsurance
+    {
+        get { return carInsurance; }
+        set { carInsurance = value; }
+    }
+
     private List<Timeslot> registeredTimeSlots;
     public List<Timeslot> RegisteredTimeSlots
+    {
+        get { return registeredTimeSlots; }
+        set { registeredTimeSlots = value; }
+    }
+
+    private List<Booking> carBookings;
+    public List<Booking> CarBookings
+    {
+        get { return carBookings; }
+        set { carBookings = value; }
+    }
+
+    public Car(string make, string model, DateTime year, float mileage, List<string> photos, bool isWithdrawn, Dictionary<int, string> reviews, string licensePlate, float rentalRate)
     {
         get { return registeredTimeSlots; }
         set { registeredTimeSlots = value; }
@@ -94,22 +114,48 @@ public class Car
         LicensePlate = licensePlate;
         RentalRate = rentalRate;
         RegisteredTimeSlots = new List<Timeslot>();
+        CarBookings = new List<Booking>(); 
     }
 
-    public List<Timeslot> getTimeSlots()
+    public bool CheckAvailability(DateTime start, DateTime end)
+    {
+        // Calculate the number of timeslots (hours) between the start and end times
+        int totalTimeSlots = (int)(end - start).TotalHours;
+
+        int numberOfTimeslotsRegistered = 0;
+        bool allSlotsAvailable = true;
+        foreach (Timeslot aTimeSlot in RegisteredTimeSlots) 
+        {
+            // Check if the timeslot falls within the start and end times
+            if ((start >= aTimeSlot.TimeSlot) && (end <= aTimeSlot.TimeSlot))
+            {
+                numberOfTimeslotsRegistered++;
+                if (aTimeSlot.AvailabilityStatus == false)
+                {
+                    allSlotsAvailable = false;
+                    break;
+                }
+            }
+        }
+
+        // checks if the number of timeslots registred matches the total timeslots wanting to be booked by renter
+        return allSlotsAvailable && (totalTimeSlots == numberOfTimeslotsRegistered);
+    }
+
+    public List<Timeslot> GetTimeSlots()
     {
         return registeredTimeSlots;
     }
 
-    public void addNewTimeSlot(Timeslot timeslot)
+    public void AddNewTimeSlot(Timeslot timeslot)
     {
         registeredTimeSlots.Add(timeslot);
     }
 
-    public bool removeTimeSlots(int startID, int endID)
+    public bool RemoveTimeSlots(int startID, int endID)
     {
         bool flag = false;
-        List<Timeslot> registeredTimeslots = getTimeSlots();
+        List<Timeslot> registeredTimeslots = GetTimeSlots();
         foreach (Timeslot timeslot in registeredTimeslots)
         {
             if (timeslot.Id >= startID || timeslot.Id <= endID)
@@ -121,7 +167,7 @@ public class Car
         return flag;
     }
 
-    public bool updateRentalRate(float newRate)
+    public bool UpdateRentalRate(float newRate)
     {
         try
         {
@@ -135,10 +181,39 @@ public class Car
         }
     }
 
+    public void UpdateTimeSlotsAvailability(DateTime start, DateTime end, bool status)
+    {
+        foreach (Timeslot aTimeSlot in RegisteredTimeSlots)
+        {
+            if ((start >= aTimeSlot.TimeSlot) && (end <= aTimeSlot.TimeSlot))
+            {
+                aTimeSlot.UpdateTimeSlotAvailability(status);
+            }
+        }
+    }
+    public void AddNewBooking(Booking newBooking)
+    {
+        CarBookings.Add(newBooking);
+    }
     public override string ToString()
     {
         return $"Car ID:{id} Make: {make} Model: {model} Year: {year} Mileage: {mileage} IsWithdrawn: {isWithdrawn} License Plate: {licensePlate} " +
             $"Rental Rate: {rentalRate} Photos: {(photos.Count > 0 ? string.Join(", ", photos) : "No photos available")}"
             + $"Reviews: {(Reviews.Count > 0 ? string.Join(", ", Reviews.Values) : "No reviews available")}";
     }
+
+
+    //public override string ToString()
+    //{
+    //    return $"Car ID: {Id}\n" +
+    //           $"Make: {Make}\n" +
+    //           $"Model: {Model}\n" +
+    //           $"Year: {Year.Year}\n" +
+    //           $"Mileage: {Mileage} km\n" +
+    //           $"Is Withdrawn: {IsWithdrawn}\n" +
+    //           $"License Plate: {LicensePlate}\n" +
+    //           $"Rental Rate: ${RentalRate:F2}\n" +
+    //           $"Photos: {(Photos.Count > 0 ? string.Join(", ", Photos) : "No photos available")}\n" +
+    //           $"Reviews: {(Reviews.Count > 0 ? string.Join(", ", Reviews.Values) : "No reviews available")}";
+    //}
 }

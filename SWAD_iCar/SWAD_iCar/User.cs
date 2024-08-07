@@ -2,6 +2,7 @@ using System;
 
 public class User
 {
+    private static int nextId = 1; // Static field to track the next ID
     private int id;
     public int Id
     {
@@ -29,9 +30,9 @@ public class User
         get { return card; }
         set { card = value; }
     }
-    public User(int id, string name, string username, Card card)
+    public User(string name, string username, Card card)
     {
-        this.id = id;
+        Id = nextId++; // Assign the current ID and increment the counter
         this.name = name;
         this.username = username;
         this.card = card;

@@ -2,6 +2,7 @@ using System;
 
 public class Booking
 {
+    private static int nextId = 1; // Static field to track the next ID
     private int id;
     public int Id
     {
@@ -79,21 +80,6 @@ public class Booking
         set { car = value; }
     }
 
-    private Location dropOffTo;
-    public Location DropOffTo
-    {
-        get { return dropOffTo; }
-        set { dropOffTo = value; }
-    }
-
-    private Location pickUpFrom;
-    public Location PickUpFrom
-    {
-        get { return pickUpFrom; }
-        set { pickUpFrom = value; }
-    }
-
-
     private List<Report> about = new List<Report>();
     public List<Report> About
     {
@@ -101,11 +87,11 @@ public class Booking
         set { about = value; }
     }
 
-    private Admin updates;
-    public Admin Updates
+    private Admin updatedBy;
+    public Admin UpdatedBy
     {
-        get { return updates; }
-        set { updates = value; }
+        get { return updatedBy; }
+        set { updatedBy = value; }
     }
 
     private List<Transaction> bookingTransactions = new List<Transaction>();
@@ -116,24 +102,19 @@ public class Booking
     }
 
     // Constructor
-    public Booking(int id, DateTime startDateTime, DateTime endDateTime, Location returnMethod, Location pickUpMethod, bool vehicleInspectionStatus, float penaltyFee, float damagesFee, float totalBookingFee, string bookingStatus, Car car, Location dropOffTo, Location pickUpFrom, List<Report> about, Admin updates, List<Transaction> bookingTransactions)
+    public Booking(DateTime startDateTime, DateTime endDateTime, Location returnMethod, Location pickUpMethod, float totalBookingFee, string bookingStatus, Car car)
     {
-        this.id = id;
-        this.startDateTime = startDateTime;
-        this.endDateTime = endDateTime;
-        this.returnMethod = returnMethod;
-        this.pickUpMethod = pickUpMethod;
-        this.vehicleInspectionStatus = vehicleInspectionStatus;
-        this.penaltyFee = penaltyFee;
-        this.damagesFee = damagesFee;
-        this.totalBookingFee = totalBookingFee;
-        this.bookingStatus = bookingStatus;
-        this.car = car;
-        this.dropOffTo = dropOffTo;
-        this.pickUpFrom = pickUpFrom;
-        this.about = about;
-        this.updates = updates;
-        this.bookingTransactions = bookingTransactions;
+        Id = nextId++; // Assign the current ID and increment the counter
+        StartDateTime = startDateTime;
+        EndDateTime = endDateTime;
+        ReturnMethod = returnMethod;
+        PickUpMethod = pickUpMethod;
+        VehicleInspectionStatus = false; // by default
+        PenaltyFee = 0; // by default
+        DamagesFee = 0; // by default
+        TotalBookingFee = totalBookingFee;
+        BookingStatus = bookingStatus;
+        Car = car;
     }
 
     public string GetBookingDetails()
@@ -156,7 +137,7 @@ public class Booking
 
     public void AddNewTransaction(Transaction transaction)
     {
-        throw new System.NotImplementedException("Not implemented");
+        bookingTransactions.Add(transaction);
     }
 
     public bool CheckLocation(string currentAddress)
@@ -191,9 +172,8 @@ public class Booking
                $"Return Method: {ReturnMethod}, Pick Up Method: {PickUpMethod}, " +
                $"Vehicle Inspection Status: {VehicleInspectionStatus}, Penalty Fee: {PenaltyFee}, " +
                $"Damages Fee: {DamagesFee}, Total Booking Fee: {TotalBookingFee}, " +
-               $"Booking Status: {BookingStatus}, Car: {Car}, Drop Off To: {DropOffTo}, " +
-               $"Pick Up From: {PickUpFrom}, Reports: {About.Count}, " +
-               $"Updated By: {Updates}, Number of Transactions: {BookingTransactions.Count}";
+               $"Booking Status: {BookingStatus}, Car: {Car}" +
+               $"Reports: {About.Length}, Number of Transactions: {BookingTransactions.Count}";
     }
 
 }
