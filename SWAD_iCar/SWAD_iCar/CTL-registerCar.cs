@@ -13,14 +13,13 @@ namespace SWAD_iCar
 {
     public class CTL_registerCar
     {
-        public Car newCar;
         List<Car> cars = new List<Car>(); 
         public void AddNewCar(int carOwnerId, string make, string model, int year, float mileage, string licensePlate, int insuranceNo, List<string> photos, Insurance insuranceDetails)
         {
             // Validate and process the new car registration
             if (CheckForCompleteAndCorrect(make, model, year, mileage, licensePlate, insuranceNo, photos, insuranceDetails))
             {
-                Console.WriteLine("Car registration successful!");
+                Car newCar = new Car(make, model, year, mileage, licensePlate, insuranceNo, photos, insuranceDetails);
                 //add the car to the list
                 cars.Add(newCar);
             }
@@ -86,16 +85,9 @@ namespace SWAD_iCar
             }
         }
 
-        public bool IsDuplicate()
+        public bool IsDuplicate(string licensePlate)
         {
-            for (int i = 0; i < cars.Count; i++)
-            {
-                if (newCar.LicensePlate == cars[i].LicensePlate)
-                {
-                    return true; // Duplicate found
-                }
-            }
-            return false; // No duplicates found
+            return cars.Any(car => car.LicensePlate == licensePlate);
         }
     }
 }
