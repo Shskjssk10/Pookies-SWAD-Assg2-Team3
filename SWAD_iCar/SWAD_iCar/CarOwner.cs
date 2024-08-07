@@ -1,8 +1,11 @@
 using System;
+using System.Collections.Generic;
 
 public class CarOwner : User
 {
     private DateTime dateOfBirth;
+    private int contact;
+    private List<Car> cars; // List to store cars
 
     public DateTime DateOfBirth
     {
@@ -10,17 +13,31 @@ public class CarOwner : User
         set { dateOfBirth = value; }
     }
 
-    private int contact;
-
     public int Contact
     {
         get { return contact; }
         set { contact = value; }
     }
 
-    public CarOwner(int id, string name, string username, Card card, DateTime dob, int contact) : base(id, name, username, card)
+    public CarOwner(int id, string name, string username, Card card, DateTime dob, int contact)
+        : base(id, name, username, card)
     {
         dateOfBirth = dob;
         this.contact = contact;
+        cars = new List<Car>(); // Initialize the list
+    }
+    public void AddNewCar(Car car)
+    {
+        if (car == null)
+        {
+            throw new ArgumentNullException(nameof(car), "Car cannot be null");
+        }
+        cars.Add(car);
+    }
+
+    //method to get all cars owned by this CarOwner
+    public List<Car> GetCars()
+    {
+        return new List<Car>(cars);
     }
 }

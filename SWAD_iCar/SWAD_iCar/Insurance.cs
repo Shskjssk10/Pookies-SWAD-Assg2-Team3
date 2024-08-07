@@ -47,4 +47,28 @@ public class Insurance
                $"Expiry Date: {ExpiryDate.ToShortDateString()}\n" +
                $"Insurer: {Insurer}\n";
     }
+
+    public bool isValid()
+    {
+        // Check if policyNo is positive
+        if (PolicyNo <= 0)
+        {
+            return false;
+        }
+
+        // Check if expiryDate is after issueDate
+        if (ExpiryDate <= IssueDate)
+        {
+            return false;
+        }
+
+        // Check if insurer is not null or empty
+        if (string.IsNullOrEmpty(Insurer))
+        {
+            return false;
+        }
+
+        // All checks passed
+        return true;
+    }
 }

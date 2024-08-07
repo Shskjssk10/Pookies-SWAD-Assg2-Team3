@@ -5,76 +5,76 @@ public class Car
     private static int nextId = 1; // Static field to track the next ID
     private int id;
 
-    public int Id 
-    { 
-        get { return id; } 
-        set { id = value; } 
+    public int Id
+    {
+        get { return id; }
+        set { id = value; }
     }
 
     private string make;
-    public string Make 
-    { 
-        get { return make; } 
-        set { make = value; } 
+    public string Make
+    {
+        get { return make; }
+        set { make = value; }
     }
 
     private string model;
-    public string Model 
-    { 
-        get { return model; } 
-        set { model = value; } 
+    public string Model
+    {
+        get { return model; }
+        set { model = value; }
     }
 
     private DateTime year;
-    public DateTime Year 
-    { 
-        get { return year; } 
-        set { year = value; } 
+    public DateTime Year
+    {
+        get { return year; }
+        set { year = value; }
     }
 
     private float mileage;
-    public float Mileage 
-    { 
-        get { return mileage; } 
-        set { mileage = value; } 
+    public float Mileage
+    {
+        get { return mileage; }
+        set { mileage = value; }
     }
 
     private List<string> photos;
-    public List<string> Photos 
-    { 
-        get { return photos; } 
-        set { photos = value; } 
+    public List<string> Photos
+    {
+        get { return photos; }
+        set { photos = value; }
     }
 
     private bool isWithdrawn;
-    public bool IsWithdrawn 
-    { 
-        get { return isWithdrawn; } 
-        set { isWithdrawn = value; } 
+    public bool IsWithdrawn
+    {
+        get { return isWithdrawn; }
+        set { isWithdrawn = value; }
     }
 
     private Dictionary<int, string> reviews;
-    public Dictionary<int, string> Reviews 
-    { 
-        get { return reviews; } 
-        set { reviews = value; } 
+    public Dictionary<int, string> Reviews
+    {
+        get { return reviews; }
+        set { reviews = value; }
     }
 
     private string licensePlate;
-    public string LicensePlate 
-    { 
-        get { return licensePlate; } 
-        set { licensePlate = value; } 
+    public string LicensePlate
+    {
+        get { return licensePlate; }
+        set { licensePlate = value; }
     }
 
     private float rentalRate;
-    public float RentalRate 
-    { 
-        get { return rentalRate; } 
-        set { rentalRate = value; } 
+    public float RentalRate
+    {
+        get { return rentalRate; }
+        set { rentalRate = value; }
     }
 
-    public Car(string make,string model,DateTime year,float mileage,List<string> photos,bool isWithdrawn,Dictionary<int, string> reviews,string licensePlate,float rentalRate)
+    public Car(string make, string model, DateTime year, float mileage, List<string> photos, bool isWithdrawn, Dictionary<int, string> reviews, string licensePlate, float rentalRate)
     {
         Id = nextId++; // Assign the current ID and increment the counter
         Make = make;
