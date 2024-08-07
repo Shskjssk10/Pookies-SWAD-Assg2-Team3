@@ -75,9 +75,9 @@ public class Renter : User
 
 
     // Constructor
-    public Renter(int id, DateTime dateOfBirth, int contact, string bookingHistory, bool isVerified, string password, string email, List<Booking> makes, Admin isVerifiedBy, DigitalWallet has, License driversLicense)
+    public Renter(int id, string name, string username, Card card, DateTime dateOfBirth, int contact, string bookingHistory, bool isVerified, string password, string email, List<Booking> makes, Admin isVerifiedBy, DigitalWallet has, License driversLicense)
+        : base(id, name, username, card)
     {
-        this.id = id;
         this.dateOfBirth = dateOfBirth;
         this.contact = contact;
         this.bookingHistory = bookingHistory;

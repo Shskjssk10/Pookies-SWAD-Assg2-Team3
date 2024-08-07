@@ -94,8 +94,8 @@ public class Booking
     }
 
 
-    private Report[] about;
-    public Report[] About
+    private List<Report> about = new List<Report>();
+    public List<Report> About
     {
         get { return about; }
         set { about = value; }
@@ -116,7 +116,7 @@ public class Booking
     }
 
     // Constructor
-    public Booking(int id, DateTime startDateTime, DateTime endDateTime, Location returnMethod, Location pickUpMethod, bool vehicleInspectionStatus, float penaltyFee, float damagesFee, float totalBookingFee, string bookingStatus, Car car, Location dropOffTo, Location pickUpFrom, Report[] about, Admin updates, List<Transaction> bookingTransactions)
+    public Booking(int id, DateTime startDateTime, DateTime endDateTime, Location returnMethod, Location pickUpMethod, bool vehicleInspectionStatus, float penaltyFee, float damagesFee, float totalBookingFee, string bookingStatus, Car car, Location dropOffTo, Location pickUpFrom, List<Report> about, Admin updates, List<Transaction> bookingTransactions)
     {
         this.id = id;
         this.startDateTime = startDateTime;
@@ -192,7 +192,7 @@ public class Booking
                $"Vehicle Inspection Status: {VehicleInspectionStatus}, Penalty Fee: {PenaltyFee}, " +
                $"Damages Fee: {DamagesFee}, Total Booking Fee: {TotalBookingFee}, " +
                $"Booking Status: {BookingStatus}, Car: {Car}, Drop Off To: {DropOffTo}, " +
-               $"Pick Up From: {PickUpFrom}, Reports: {About.Length}, " +
+               $"Pick Up From: {PickUpFrom}, Reports: {About.Count}, " +
                $"Updated By: {Updates}, Number of Transactions: {BookingTransactions.Count}";
     }
 
