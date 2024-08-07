@@ -14,11 +14,10 @@ namespace SWAD_iCar
     {
         public Car newCar;
         List<Car> cars = new List<Car>(); 
-        bool isDuplicate = false;
-        public void addNewCar()
+        public void AddNewCar()
         {
             // Validate and process the new car registration
-            if (checkForCompleteAndCorrect(make, model, year, mileage, licensePlate, insuranceNo, photos, insuranceDetails))
+            if (CheckForCompleteAndCorrect(make, model, year, mileage, licensePlate, insuranceNo, photos, insuranceDetails))
             {
                 Console.WriteLine("Car registration successful!");
                 //add the car to the list
@@ -30,7 +29,7 @@ namespace SWAD_iCar
             }
         }
 
-        public bool checkForCompleteAndCorrect(string make, string model, DateTime year, float mileage, string licensePlate, int insuranceNo, List<string> photos, Insurance insuranceDetails)
+        public bool CheckForCompleteAndCorrect(string make, string model, DateTime year, float mileage, string licensePlate, int insuranceNo, List<string> photos, Insurance insuranceDetails)
         {
             //check if the make and model are not null or empty
             if (string.IsNullOrWhiteSpace(make) || string.IsNullOrWhiteSpace(model))
@@ -79,7 +78,7 @@ namespace SWAD_iCar
             return true;
         }
 
-        public void getAllCars()
+        public void GetAllCars()
         {
             for (int i = 0; i < cars.Count; i++)
             {
@@ -87,9 +86,19 @@ namespace SWAD_iCar
             }
         }
 
-
+        public bool IsDuplicate()
+        {
+            for (int i = 0; i < cars.Count; i++)
+            {
+                if (newCar.LicensePlate == cars[i].LicensePlate)
+                {
+                    return true; // Duplicate found
+                }
+            }
+            return false; // No duplicates found
+        }
 
     }
 
-    
+
 }
