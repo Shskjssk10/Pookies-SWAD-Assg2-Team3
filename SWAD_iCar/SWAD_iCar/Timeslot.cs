@@ -1,17 +1,52 @@
 using System;
+using System.Runtime.CompilerServices;
 
 public class Timeslot {
-	private int id;
+    public Timeslot(int id, DateTime timeSlot, bool availabilityStatus, Car car)
+    {
+        Id = id;
+        TimeSlot = timeSlot;
+        AvailabilityStatus = availabilityStatus;
+        Car = car;
+    }
+
+    private int id;
+	public int Id
+	{
+		get { return id; }
+		set { id = value; }
+	}
+
 	private DateTime timeSlot;
+	public DateTime TimeSlot
+	{
+		get { return timeSlot; }
+		set { timeSlot = value; }
+	}
+
+
 	private bool availabilityStatus;
-
-	public void UpdateTimeSlotAvailability(ref object bool_status) {
-		throw new System.NotImplementedException("Not implemented");
-	}
-	public void ToString() {
-		throw new System.NotImplementedException("Not implemented");
+	public bool AvailabilityStatus
+	{
+		get { return availabilityStatus; }
+		set { availabilityStatus = value; }
 	}
 
-	private Car has;
+	public void UpdateTimeSlotAvailability(bool status) {
+		availabilityStatus = status;
+		return;
+	}
 
+    private Car car;
+	public Car Car
+	{
+		get { return car; }
+		set { car = value; }
+	}
+
+    public void ToString()
+    {
+        Console.WriteLine($"Timeslot Id: {id}, TimeSlot: {timeSlot}, Availability: {availabilityStatus}, Car: {car?.ToString() ?? "No Car"}");
+        return;
+    }
 }

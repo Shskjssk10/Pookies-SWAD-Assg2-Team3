@@ -2,8 +2,13 @@ using System;
 
 public class Location {
 	private string address;
-
-	private Booking[] dropOffTo;
-	private Booking[] pickUpFrom;
-
+	public string Address
+	{
+		get { return address; }
+		set { address = value; }
+	}
+	public Location(string address)
+    {
+        Address = address;
+    }
 }
