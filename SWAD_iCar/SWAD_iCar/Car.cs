@@ -1,39 +1,90 @@
 using System;
 
-public class Car {
-	private int id;
-	private string make;
-	private string model;
-	private DateTime year;
-	private float mileage;
-	private List<string> photos;
-	private bool isWithdrawn;
-	private Dict<int, string> reviews;
-	private string licensePlate;
-	private float rentalRate;
+public class Car
+{
+    private static int nextId = 1; // Static field to track the next ID
+    private int id;
 
-	public bool CheckAvailability(ref object dateTime_start, ref object dateTime_end) {
-		throw new System.NotImplementedException("Not implemented");
-	}
-	public List<TimeSlot> GetTimeSlots() {
-		throw new System.NotImplementedException("Not implemented");
-	}
-	public void AddNewBooking(ref object booking_newBooking) {
-		throw new System.NotImplementedException("Not implemented");
-	}
-	public bool RemoveTimeSlots(ref object int_startId, ref object int_endId) {
-		throw new System.NotImplementedException("Not implemented");
-	}
-	public bool UpdateRentalRate(ref object float_newRate) {
-		throw new System.NotImplementedException("Not implemented");
-	}
-	public void UpdateTimeSlotsAvailability(ref object dateTime_start, ref object dateTime_end, ref object bool_status) {
-		throw new System.NotImplementedException("Not implemented");
-	}
+    public int Id 
+    { 
+        get { return id; } 
+        set { id = value; } 
+    }
 
-	private Insurance has;
+    private string make;
+    public string Make 
+    { 
+        get { return make; } 
+        set { make = value; } 
+    }
 
-	private Booking[] for;
-	private CarOwner registers;
+    private string model;
+    public string Model 
+    { 
+        get { return model; } 
+        set { model = value; } 
+    }
 
+    private DateTime year;
+    public DateTime Year 
+    { 
+        get { return year; } 
+        set { year = value; } 
+    }
+
+    private float mileage;
+    public float Mileage 
+    { 
+        get { return mileage; } 
+        set { mileage = value; } 
+    }
+
+    private List<string> photos;
+    public List<string> Photos 
+    { 
+        get { return photos; } 
+        set { photos = value; } 
+    }
+
+    private bool isWithdrawn;
+    public bool IsWithdrawn 
+    { 
+        get { return isWithdrawn; } 
+        set { isWithdrawn = value; } 
+    }
+
+    private Dictionary<int, string> reviews;
+    public Dictionary<int, string> Reviews 
+    { 
+        get { return reviews; } 
+        set { reviews = value; } 
+    }
+
+    private string licensePlate;
+    public string LicensePlate 
+    { 
+        get { return licensePlate; } 
+        set { licensePlate = value; } 
+    }
+
+    private float rentalRate;
+    public float RentalRate 
+    { 
+        get { return rentalRate; } 
+        set { rentalRate = value; } 
+    }
+
+    public Car(string make,string model,DateTime year,float mileage,List<string> photos,bool isWithdrawn,Dictionary<int, string> reviews,string licensePlate,float rentalRate)
+    {
+        Id = nextId++; // Assign the current ID and increment the counter
+        Make = make;
+        Model = model;
+        Year = year;
+        Mileage = mileage;
+        Photos = photos ?? new List<string>(); // Use an empty list if null
+        IsWithdrawn = isWithdrawn;
+        Reviews = reviews ?? new Dictionary<int, string>(); // Use an empty dictionary if null
+        LicensePlate = licensePlate;
+        RentalRate = rentalRate;
+    }
 }
