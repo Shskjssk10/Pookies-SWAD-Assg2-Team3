@@ -138,10 +138,26 @@ namespace SWAD_iCar
             this.bookingTransactions = bookingTransactions;
         }
 
-        public string ConfirmUpdateBooking(int bookingId, Booking updatedBooking)
+        public string ConfirmUpdateBooking(Booking updatedBooking)
         {
-            throw new System.NotImplementedException("Not implemented");
-            // return string
+            if (Id == updatedBooking.Id)
+            {
+                // Update the properties of the original booking
+                StartDateTime = updatedBooking.StartDateTime;
+                EndDateTime = updatedBooking.EndDateTime;
+                ReturnMethod = updatedBooking.ReturnMethod;
+                PickUpMethod = updatedBooking.PickUpMethod;
+                DropOffTo = updatedBooking.DropOffTo;
+                PickUpFrom = updatedBooking.PickUpFrom;
+
+                string successMessage = "Booking updated Successfully";
+                return successMessage;
+            }
+            else
+            {
+                string errorMessage = "Booking mismatch.";
+                return errorMessage;
+            }            
         }
 
         public string ProcessCancelBooking(Renter renter)

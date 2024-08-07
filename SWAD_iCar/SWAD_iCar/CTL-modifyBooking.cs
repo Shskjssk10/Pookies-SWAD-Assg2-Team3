@@ -105,32 +105,14 @@ namespace SWAD_iCar
                 Console.WriteLine("Pick Up From location cannot be empty.");
                 return false;
             }
-
-            // Additional validations can be added here
-
             return true;
         }
 
         public string confirmUpdateBooking(Booking updatedBooking)
         {
-            if (originalBooking != null && originalBooking.Id == updatedBooking.Id)
-            {
-                // Update the properties of the original booking
-                originalBooking.StartDateTime = updatedBooking.StartDateTime;
-                originalBooking.EndDateTime = updatedBooking.EndDateTime;
-                originalBooking.ReturnMethod = updatedBooking.ReturnMethod;
-                originalBooking.PickUpMethod = updatedBooking.PickUpMethod;
-                originalBooking.DropOffTo = updatedBooking.DropOffTo;
-                originalBooking.PickUpFrom = updatedBooking.PickUpFrom;
+            string result = originalBooking.ConfirmUpdateBooking(updatedBooking);
 
-                string successMessage = "Booking updated Successfully";
-                return successMessage;
-            }
-            else
-            {
-                string errorMessage = "Original booking not found or mismatched.";
-                return errorMessage;
-            }
+            return result;
         }
 
         public string cancelBooking(Booking booking, int renterId)
@@ -156,7 +138,6 @@ namespace SWAD_iCar
             }
             catch (Exception ex)
             {
-                // Handle exceptions and return an error message
                 string errorMessage = $"An error occurred while cancelling the booking: {ex.Message}";
                 return errorMessage;
             }
