@@ -10,7 +10,7 @@ using System.Xml.Schema;
 
 namespace SWAD_iCar
 {
-    internal class CTL_registerCar
+    public class CTL_registerCar
     {
         public Car newCar;
         List<Car> cars = new List<Car>(); 
@@ -29,7 +29,7 @@ namespace SWAD_iCar
             }
         }
 
-        public bool CheckForCompleteAndCorrect(string make, string model, DateTime year, float mileage, string licensePlate, int insuranceNo, List<string> photos, Insurance insuranceDetails)
+        public bool CheckForCompleteAndCorrect(string make, string model, int year, float mileage, string licensePlate, int insuranceNo, List<string> photos, Insurance insuranceDetails)
         {
             //check if the make and model are not null or empty
             if (string.IsNullOrWhiteSpace(make) || string.IsNullOrWhiteSpace(model))
@@ -44,8 +44,7 @@ namespace SWAD_iCar
             }
 
             //check if year is a reasonable value
-            int yearValue = year.Year;
-            if (yearValue < 1900 || yearValue > DateTime.Now.Year)
+            if (year <=0)
             {
                 return false;
             }

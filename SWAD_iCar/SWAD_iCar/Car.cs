@@ -25,8 +25,8 @@ public class Car
         set { model = value; }
     }
 
-    private DateTime year;
-    public DateTime Year
+    private int year;
+    public int Year
     {
         get { return year; }
         set { year = value; }
@@ -74,7 +74,7 @@ public class Car
         set { rentalRate = value; }
     }
 
-    public Car(string make, string model, DateTime year, float mileage, List<string> photos, bool isWithdrawn, Dictionary<int, string> reviews, string licensePlate, float rentalRate)
+    public Car(string make, string model, int year, float mileage, List<string> photos, bool isWithdrawn, Dictionary<int, string> reviews, string licensePlate, float rentalRate)
     {
         Id = nextId++; // Assign the current ID and increment the counter
         Make = make;
