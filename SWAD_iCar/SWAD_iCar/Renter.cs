@@ -45,8 +45,8 @@ public class Renter : User
         set { email = value; }
     }
 
-    private Booking[] makes;
-    public Booking[] Makes
+    private List<Booking> makes = new List<Booking>();
+    public List<Booking> Makes
     {
         get { return makes; }
         set { makes = value; }
@@ -75,9 +75,9 @@ public class Renter : User
 
 
     // Constructor
-    public Renter(int id, string name, string username, Card card, DateTime dateOfBirth, int contact, string bookingHistory, bool isVerified, string password, string email, Booking[] makes, Admin isVerifiedBy, DigitalWallet has, License driversLicense)
-        : base(id, name, username, card)
+    public Renter(int id, DateTime dateOfBirth, int contact, string bookingHistory, bool isVerified, string password, string email, List<Booking> makes, Admin isVerifiedBy, DigitalWallet has, License driversLicense)
     {
+        this.id = id;
         this.dateOfBirth = dateOfBirth;
         this.contact = contact;
         this.bookingHistory = bookingHistory;
@@ -123,8 +123,7 @@ public class Renter : User
     {
         return $"Renter ID: {Id}, Date of Birth: {DateOfBirth.ToShortDateString()}, Contact: {Contact}, " +
                $"Booking History: {BookingHistory}, Is Verified: {IsVerified}, Email: {Email}, " +
-               $"Bookings: {Makes.Length}, Verified By: {IsVerifiedBy}, Digital Wallet: {Has}, " +
+               $"Number of Bookings: {Makes.Count}, Verified By: {IsVerifiedBy}, Digital Wallet: {Has}, " +
                $"Driver's License: {DriversLicense}";
     }
-
 }
