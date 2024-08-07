@@ -8,10 +8,7 @@ public class Timeslot {
 	public void UpdateTimeSlotAvailability(ref object bool_status) {
 		throw new System.NotImplementedException("Not implemented");
 	}
-	public void ToString() {
-		throw new System.NotImplementedException("Not implemented");
-	}
-
-	private Car has;
-
+	//public void ToString() {
+	//	throw new System.NotImplementedException("Not implemented");
+	//}
 }

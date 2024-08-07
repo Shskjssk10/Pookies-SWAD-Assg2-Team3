@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -14,7 +15,7 @@ namespace SWAD_iCar
     {
         public Car newCar;
         List<Car> cars = new List<Car>(); 
-        public void AddNewCar()
+        public void AddNewCar(int carOwnerId, string make, string model, int year, float mileage, string licensePlate, int insuranceNo, List<string> photos, Insurance insuranceDetails)
         {
             // Validate and process the new car registration
             if (CheckForCompleteAndCorrect(make, model, year, mileage, licensePlate, insuranceNo, photos, insuranceDetails))
@@ -96,8 +97,5 @@ namespace SWAD_iCar
             }
             return false; // No duplicates found
         }
-
     }
-
-
 }
