@@ -74,6 +74,13 @@ public class Car
         set { rentalRate = value; }
     }
 
+    private string insuranceNo;
+    public string InsuranceNo
+    {
+        get { return insuranceNo; }
+        set { insuranceNo = value; }
+    }
+
     public Car(string make, string model, int year, float mileage, List<string> photos, bool isWithdrawn, Dictionary<int, string> reviews, string licensePlate, float rentalRate)
     {
         Id = nextId++; // Assign the current ID and increment the counter
@@ -82,18 +89,19 @@ public class Car
         Year = year;
         Mileage = mileage;
         Photos = photos ?? new List<string>(); // Use an empty list if null
-        IsWithdrawn = isWithdrawn;
+        IsWithdrawn = false;
         Reviews = reviews ?? new Dictionary<int, string>(); // Use an empty dictionary if null
         LicensePlate = licensePlate;
         RentalRate = rentalRate;
     }
+
 
     public override string ToString()
     {
         return $"Car ID: {Id}\n" +
                $"Make: {Make}\n" +
                $"Model: {Model}\n" +
-               $"Year: {Year.Year}\n" +
+               $"Year: {Year}\n" +
                $"Mileage: {Mileage} km\n" +
                $"Is Withdrawn: {IsWithdrawn}\n" +
                $"License Plate: {LicensePlate}\n" +
