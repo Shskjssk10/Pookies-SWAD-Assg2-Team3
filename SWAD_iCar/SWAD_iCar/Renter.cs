@@ -1,31 +1,126 @@
 using System;
 
-public class Renter : User  {
-	private DateTime dateOfBirth;
-	private int contact;
-	private String bookingHistory;
-	private bool isVerified;
-	private string password;
-	private string email;
+public class Renter : User
+{
+    private int id;
+    public int Id
+    {
+        get { return id; }
+        set { id = value; }
+    }
 
-	public void CheckAnyOngoingBooking(ref object dateTime_start, ref object dateTime_end) {
-		throw new System.NotImplementedException("Not implemented");
-	}
-	public void CreateBooking(ref object dateTime_start, ref object dateTime_end, ref object float_bookingFee, ref object location_pickUpMethod, ref object location_returnMethod, ref object car_car) {
-		throw new System.NotImplementedException("Not implemented");
-	}
-	public Transaction MakePayment(ref object float_bookingFee) {
-		throw new System.NotImplementedException("Not implemented");
-	}
-	public Booking GetBooking() {
-		throw new System.NotImplementedException("Not implemented");
-	}
-	public Booking GetCurrentBooking() {
-		throw new System.NotImplementedException("Not implemented");
-	}
+    private DateTime dateOfBirth;
+    public DateTime DateOfBirth
+    {
+        get { return dateOfBirth; }
+        set { dateOfBirth = value; }
+    }
 
-	private Booking[] makes;
-	private Admin isVerifiedBy;
-	private DigitalWallet has;
+    private int contact;
+    public int Contact
+    {
+        get { return contact; }
+        set { contact = value; }
+    }
 
+    private string bookingHistory;
+    public string BookingHistory
+    {
+        get { return bookingHistory; }
+        set { bookingHistory = value; }
+    }
+
+    private bool isVerified;
+    public bool IsVerified
+    {
+        get { return isVerified; }
+        set { isVerified = value; }
+    }
+
+    private string password;
+    public string Password
+    {
+        get { return password; }
+        set { password = value; }
+    }
+
+    private string email;
+    public string Email
+    {
+        get { return email; }
+        set { email = value; }
+    }
+
+    private Booking[] makes;
+    public Booking[] Makes
+    {
+        get { return makes; }
+        set { makes = value; }
+    }
+
+    private Admin isVerifiedBy;
+    public Admin IsVerifiedBy
+    {
+        get { return isVerifiedBy; }
+        set { isVerifiedBy = value; }
+    }
+
+    private DigitalWallet has;
+    public DigitalWallet Has
+    {
+        get { return has; }
+        set { has = value; }
+    }
+
+
+    // Constructor
+    public Renter(int id, DateTime dateOfBirth, int contact, string bookingHistory, bool isVerified, string password, string email, Booking[] makes, Admin isVerifiedBy, DigitalWallet has)
+    {
+        this.id = id;
+        this.dateOfBirth = dateOfBirth;
+        this.contact = contact;
+        this.bookingHistory = bookingHistory;
+        this.isVerified = isVerified;
+        this.password = password;
+        this.email = email;
+        this.makes = makes;
+        this.isVerifiedBy = isVerifiedBy;
+        this.has = has;
+    }
+
+    public void CheckAnyOngoingBooking(DateTime start, DateTime end)
+    {
+        throw new System.NotImplementedException("Not implemented");
+    }
+
+    public void CreateBooking(DateTime start, DateTime end, float bookingFee, Location pickUpMethod, Location returnMethod, Car car1)
+    {
+        throw new System.NotImplementedException("Not implemented");
+    }
+
+    public Transaction MakePayment(float bookingFee)
+    {
+        throw new System.NotImplementedException("Not implemented");
+        // return Transaction
+    }
+
+    public Booking GetBooking()
+    {
+        throw new System.NotImplementedException("Not implemented");
+        // return Booking
+    }
+
+    public Booking GetCurrentBooking()
+    {
+        throw new System.NotImplementedException("Not implemented");
+        // return Booking
+    }
+
+    // ToString method
+    public override string ToString()
+    {
+        return $"Renter ID: {Id}, Date of Birth: {DateOfBirth.ToShortDateString()}, Contact: {Contact}, " +
+               $"Booking History: {BookingHistory}, Is Verified: {IsVerified}, Email: {Email}, " +
+               $"Bookings: {Makes.Length}, Verified By: {IsVerifiedBy}, Digital Wallet: {Has}";
+    }
 }
