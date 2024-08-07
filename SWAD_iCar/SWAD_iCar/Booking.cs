@@ -93,12 +93,6 @@ public class Booking
         set { pickUpFrom = value; }
     }
 
-    private Renter makes;
-    public Renter Makes
-    {
-        get { return makes; }
-        set { makes = value; }
-    }
 
     private Report[] about;
     public Report[] About
@@ -114,15 +108,15 @@ public class Booking
         set { updates = value; }
     }
 
-    private Transaction bookingTransaction;
-    public Transaction BookingTransaction
+    private List<Transaction> bookingTransactions = new List<Transaction>();
+    public List<Transaction> BookingTransactions
     {
-        get { return bookingTransaction; }
-        set { bookingTransaction = value; }
+        get { return bookingTransactions; }
+        set { bookingTransactions = value; }
     }
 
     // Constructor
-    public Booking(int id, DateTime startDateTime, DateTime endDateTime, Location returnMethod, Location pickUpMethod, bool vehicleInspectionStatus, float penaltyFee, float damagesFee, float totalBookingFee, string bookingStatus, Car car, Location dropOffTo, Location pickUpFrom, Renter makes, Report[] about, Admin updates, Transaction bookingTransaction)
+    public Booking(int id, DateTime startDateTime, DateTime endDateTime, Location returnMethod, Location pickUpMethod, bool vehicleInspectionStatus, float penaltyFee, float damagesFee, float totalBookingFee, string bookingStatus, Car car, Location dropOffTo, Location pickUpFrom, Report[] about, Admin updates, List<Transaction> bookingTransactions)
     {
         this.id = id;
         this.startDateTime = startDateTime;
@@ -137,10 +131,9 @@ public class Booking
         this.car = car;
         this.dropOffTo = dropOffTo;
         this.pickUpFrom = pickUpFrom;
-        this.makes = makes;
         this.about = about;
         this.updates = updates;
-        this.bookingTransaction = bookingTransaction;
+        this.bookingTransactions = bookingTransactions;
     }
 
     public string GetBookingDetails()
@@ -199,8 +192,8 @@ public class Booking
                $"Vehicle Inspection Status: {VehicleInspectionStatus}, Penalty Fee: {PenaltyFee}, " +
                $"Damages Fee: {DamagesFee}, Total Booking Fee: {TotalBookingFee}, " +
                $"Booking Status: {BookingStatus}, Car: {Car}, Drop Off To: {DropOffTo}, " +
-               $"Pick Up From: {PickUpFrom}, Renter: {Makes}, Reports: {About.Length}, " +
-               $"Updated By: {Updates}, Booking Transaction: {BookingTransaction}";
+               $"Pick Up From: {PickUpFrom}, Reports: {About.Length}, " +
+               $"Updated By: {Updates}, Number of Transactions: {BookingTransactions.Count}";
     }
 
 }
