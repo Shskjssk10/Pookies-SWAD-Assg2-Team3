@@ -16,16 +16,20 @@ var photosForCamry = new List<string> { "image1.jpg", "image2.jpg" };
 Insurance insuranceDetails = new Insurance(1, insuranceExpDate, insuranceIssueDate, "AIA");
 CarOwner owner = new CarOwner(1, "Hendrik", "hendrikywr", card, dob, 91234567);
 
-CTL_registerCar registerCar = new CTL_registerCar();
+CTL_registerCar registerCTL = new CTL_registerCar();
+UI_registerCar registerUI = new UI_registerCar();
 
-registerCar.AddNewCar(1, "Toyota", "Camry", 2020, 15000, "SJF1234A", 1, photosForCamry, insuranceDetails);
+registerUI.AddNewCar();
+
+
+registerCTL.AddNewCar(1, "Toyota", "Camry", 2020, 15000, "SJF1234A", 1, photosForCamry, insuranceDetails);
 // Print the owner details
+Console.WriteLine(owner.ToString());
+
 foreach (var car in owner.GetCars())
 {
     Console.WriteLine(car);
 }
-
-Console.WriteLine(owner.ToString());
 
 
 

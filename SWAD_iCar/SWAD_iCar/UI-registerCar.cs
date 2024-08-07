@@ -17,12 +17,12 @@ namespace SWAD_iCar
             ctlRegisterCar = new CTL_registerCar();
         }
 
-        private void AddNewCar()
+        public void AddNewCar()
         {
             DisplayRegisterCarForm();
         }
 
-        private void DisplayRegisterCarForm()
+        public void DisplayRegisterCarForm()
         {
             // Prompt for make
             Console.Write("Enter car make: ");
@@ -91,7 +91,7 @@ namespace SWAD_iCar
             DisplayCarDetails(car);
         }
 
-        private void DisplayCarDetails(Car car)
+        public void DisplayCarDetails(Car car)
         {
             Console.WriteLine("\nCar Details:");
             Console.WriteLine($"Make: {car.Make}");
@@ -108,7 +108,7 @@ namespace SWAD_iCar
             }
         }
 
-        private void AddNewCar(int carOwnerId, string make, string model, int year, float mileage, string licensePlate, int insuranceNo, List<string> photos, Insurance insuranceDetails)
+        public void AddNewCar(int carOwnerId, string make, string model, int year, float mileage, string licensePlate, int insuranceNo, List<string> photos, Insurance insuranceDetails)
         {
             Console.WriteLine("Are you sure you want to add new car?");
             string option = Console.ReadLine();

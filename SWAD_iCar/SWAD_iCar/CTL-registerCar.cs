@@ -13,7 +13,7 @@ namespace SWAD_iCar
 {
     public class CTL_registerCar
     {
-        List<Car> cars = new List<Car>(); 
+        List<Car> cars = new List<Car>();
         public void AddNewCar(int carOwnerId, string make, string model, int year, float mileage, string licensePlate, int insuranceNo, List<string> photos, Insurance insuranceDetails)
         {
             // Validate and process the new car registration
@@ -21,7 +21,6 @@ namespace SWAD_iCar
             {
                 Car newCar = new Car(make, model, year, mileage,licensePlate, insuranceNo, photos, insuranceDetails);
                 //add the car to the list
-                //owner.AddNewCar(newCar);
                 cars.Add(newCar);
                 Console.WriteLine("Car successfully registered");
             }
