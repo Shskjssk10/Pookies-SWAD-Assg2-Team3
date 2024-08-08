@@ -24,6 +24,13 @@ public class Booking
         set { endDateTime = value; }
     }
 
+    private DateTime returnTime;
+    public DateTime ReturnTime
+    {
+        get { return returnTime; }
+        set { returnTime = value; }
+    }
+
     private Location returnMethod;
     public Location ReturnMethod
     {
@@ -102,25 +109,30 @@ public class Booking
     }
 
     // Constructor
-    public Booking(DateTime startDateTime, DateTime endDateTime, Location returnMethod, Location pickUpMethod, float totalBookingFee, string bookingStatus, Car car)
+    public Booking(int id, DateTime startDateTime, DateTime endDateTime, DateTime returnTime, Location returnMethod, Location pickUpMethod, bool vehicleInspectionStatus, float penaltyFee, float damagesFee, float totalBookingFee, string bookingStatus, Car car, Location dropOffTo, Location pickUpFrom, List<Report> about, Admin updates, List<Transaction> bookingTransactions)
     {
-        Id = nextId++; // Assign the current ID and increment the counter
-        StartDateTime = startDateTime;
-        EndDateTime = endDateTime;
-        ReturnMethod = returnMethod;
-        PickUpMethod = pickUpMethod;
-        VehicleInspectionStatus = false; // by default
-        PenaltyFee = 0; // by default
-        DamagesFee = 0; // by default
-        TotalBookingFee = totalBookingFee;
-        BookingStatus = bookingStatus;
-        Car = car;
+        this.id = id;
+        this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
+        this.returnTime = returnTime;   
+        this.returnMethod = returnMethod;
+        this.pickUpMethod = pickUpMethod;
+        this.vehicleInspectionStatus = vehicleInspectionStatus;
+        this.penaltyFee = penaltyFee;
+        this.damagesFee = damagesFee;
+        this.totalBookingFee = totalBookingFee;
+        this.bookingStatus = bookingStatus;
+        this.car = car;
+        this.dropOffTo = dropOffTo;
+        this.pickUpFrom = pickUpFrom;
+        this.about = about;
+        this.updates = updates;
+        this.bookingTransactions = bookingTransactions;
     }
 
-    public string GetBookingDetails()
+    public DateTime SetReturnTime()
     {
-        throw new System.NotImplementedException("Not implemented");
-        // return string
+        return this.returnTime = DateTime.Now;
     }
 
     public string ConfirmUpdateBooking(int bookingId, Booking updatedBooking)
@@ -142,26 +154,44 @@ public class Booking
 
     public bool CheckLocation(string currentAddress)
     {
-        throw new System.NotImplementedException("Not implemented");
+        if (returnMethod.Address == currentAddress) return true;
+        else return false;
+
+        //throw new System.NotImplementedException("Not implemented");
         // return bool
     }
 
-    public bool UpdateBooking()
-    {
-        throw new System.NotImplementedException("Not implemented");
-        // return bool
-    }
+    //public bool UpdateBooking()
+    //{
+    //    throw new System.NotImplementedException("Not implemented");
+    //    // return bool
+    //}
 
-    public bool CheckPenalty()
-    {
-        throw new System.NotImplementedException("Not implemented");
-        // return bool
-    }
+    //public bool CheckPenalty()
+    //{
+    //    if (DateTime.Now <= endDateTime)
+    //    {
+            
+    //    }
 
-    public float CalculatePenalty()
+    //    throw new System.NotImplementedException("Not implemented");
+    //    // return bool
+    //}
+
+    public float CalculatePenalty(DateTime returnTime)
     {
-        throw new System.NotImplementedException("Not implemented");
+        TimeSpan difference = returnTime - endDateTime;
+        // have to reimburse by checking the rental rate in the timeslot
+        float penaltyFee = difference.Hours * 5;
+        return penaltyFee;
+
+        //throw new System.NotImplementedException("Not implemented");
         // return float
+    }
+
+    public void addNewTransaction(Transaction transaction)
+    {
+        bookingTransactions.Add(transaction);
     }
 
 

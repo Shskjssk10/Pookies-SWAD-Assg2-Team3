@@ -66,10 +66,16 @@ public class Renter : User
         set { driversLicense = value; }
     }
 
+    private Booking? currentBooking;
+    public Booking? CurrentBooking
+    {
+        get { return currentBooking; }
+        set { currentBooking = value; }
+    }
 
     // Constructor
-    public Renter(string name, string username, Card card, DateTime dateOfBirth, int contact, string password, string email)
-        : base(name, username, card)
+    public Renter(int id, string name, string username, Card card, DateTime dateOfBirth, int contact, bool isVerified, string password, string email, List<Booking> bookingHistory, Admin isVerifiedBy, DigitalWallet wallet, License driversLicense, Booking? currentBooking)
+        : base(id, name, username, card)
     {
         this.id = id;
         this.dateOfBirth = dateOfBirth;
@@ -82,6 +88,7 @@ public class Renter : User
         this.isVerifiedBy = isVerifiedBy;
         this.has = has;
         this.driversLicense = driversLicense;
+        this.currentBooking = currentBooking;
     }
 
 
@@ -108,11 +115,12 @@ public class Renter : User
 
     public Transaction MakePayment(float bookingFee)
     {
-        // assume payment was successful, supposed to call a make payment controller
-        // assume payment went through at this moment
-        DateTime paymentTime = DateTime.Now;
-        Transaction transaction = new Transaction(bookingFee, paymentTime);
-        return transaction;
+        //random transaction id 
+        Random rnd = new Random();
+        int num = rnd.Next();
+
+        //assume transaction will always be completed
+        return new Transaction(num, bookingFee, DateTime.Now);
     }
 
     public Booking GetBooking()
@@ -123,7 +131,8 @@ public class Renter : User
 
     public Booking GetCurrentBooking()
     {
-        throw new System.NotImplementedException("Not implemented");
+        return this.currentBooking;
+        //throw new System.NotImplementedException("Not implemented");
         // return Booking
     }
     public void AddDriverLicense(License license)
@@ -131,6 +140,28 @@ public class Renter : User
         DriversLicense = license;
     }
 
+
+    public bool UpdateBooking()
+    {
+        Booking tempBooking = currentBooking;
+        BookingHistory.Add(tempBooking);
+        currentBooking = null;
+
+        return true;
+        //if (bookingHistory == tempBooking)
+        //{
+        //    return true;
+        //}
+        //else
+        //{
+        //    return false;
+        //}
+
+
+        //return true;
+        //    throw new System.NotImplementedException("Not implemented");
+        //    // return bool
+    }
 
     // ToString method
     public override string ToString()

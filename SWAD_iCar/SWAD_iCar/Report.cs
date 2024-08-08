@@ -31,9 +31,9 @@ public class Report
     }
     public Report(int id, string content, Admin admin, Booking booking)
     {
-        this.id = id;
-        this.content = content;
-        this.admin = admin;
-        this.booking = booking;
+        this.Id = id;
+        this.Content = content;
+        this.Admin = admin;
+        this.Booking = booking;
     }
 }
