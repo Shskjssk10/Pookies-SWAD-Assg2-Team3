@@ -4,40 +4,58 @@ public class Admin : User
 {
 
 
-    private Booking booking;
-    public Booking Booking
+    private List<Booking> booking;
+    public List<Booking> Booking
     {
         get { return booking; }
         set { booking = value; }
     }
 
-    private Renter renter;
-    public Renter Renter
+    private List<Renter> renter;
+    public List<Renter> Renter
     {
         get { return renter; }
         set { renter = value; }
     }
 
-    private Report report;
-    public Report Report
+    private List<Report> report;
+    public List<Report> Report
     {
         get { return report; }
         set { report = value; }
     }
 
 
-    public Admin(int id, string name, string username, Card card, Booking booking, Renter renter, Report report)
+    public Admin(int id, string name, string username, Card card, List<Booking> booking, List<Renter> renter, List<Report> report)
         : base(id, name, username, card)
     {
-        this.booking = booking;
-        this.renter = renter;
-        this.report = report;
+        this.Booking = booking;
+        this.Renter = renter;
+        this.Report = report;
     }
 
 
     public float UpdateInspectionStatus()
     {
-        //update status
-        return 1;
+        //DUMMY DATA FOR DAMAGES FEE
+
+        // Create a random number generator
+        Random random = new Random();
+
+        // Generate a random boolean (50% chance true or false)
+        bool isNoDamage = random.Next(2) == 0; // random.Next(2) generates either 0 or 1
+
+        if (isNoDamage)
+        {
+            //Console.WriteLine("Calls the update inspection status use case: No damages.");
+            return 0;
+        }
+        else
+        {
+            // Generate a random number between 100 and 500
+            float damageCost = random.Next(100, 501); // random.Next(minValue, maxValue) returns a number >= minValue and < maxValue
+            //Console.WriteLine($"Calls the update inspection status use case: Damage cost is {damageCost}.");
+            return damageCost;
+        }
     }
 }

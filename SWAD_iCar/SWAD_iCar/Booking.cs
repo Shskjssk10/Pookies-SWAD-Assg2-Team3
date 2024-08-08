@@ -2,6 +2,7 @@ using System;
 
 public class Booking
 {
+    private static int nextId = 1; // Static field to track the next ID
     private int id;
     public int Id
     {
@@ -21,6 +22,13 @@ public class Booking
     {
         get { return endDateTime; }
         set { endDateTime = value; }
+    }
+
+    private DateTime returnTime;
+    public DateTime ReturnTime
+    {
+        get { return returnTime; }
+        set { returnTime = value; }
     }
 
     private Location returnMethod;
@@ -79,54 +87,34 @@ public class Booking
         set { car = value; }
     }
 
-    private Location dropOffTo;
-    public Location DropOffTo
-    {
-        get { return dropOffTo; }
-        set { dropOffTo = value; }
-    }
-
-    private Location pickUpFrom;
-    public Location PickUpFrom
-    {
-        get { return pickUpFrom; }
-        set { pickUpFrom = value; }
-    }
-
-    private Renter makes;
-    public Renter Makes
-    {
-        get { return makes; }
-        set { makes = value; }
-    }
-
-    private Report[] about;
-    public Report[] About
+    private List<Report> about = new List<Report>();
+    public List<Report> About
     {
         get { return about; }
         set { about = value; }
     }
 
-    private Admin updates;
-    public Admin Updates
+    private Admin updatedBy;
+    public Admin UpdatedBy
     {
-        get { return updates; }
-        set { updates = value; }
+        get { return updatedBy; }
+        set { updatedBy = value; }
     }
 
-    private Transaction bookingTransaction;
-    public Transaction BookingTransaction
+    private List<Transaction> bookingTransactions = new List<Transaction>();
+    public List<Transaction> BookingTransactions
     {
-        get { return bookingTransaction; }
-        set { bookingTransaction = value; }
+        get { return bookingTransactions; }
+        set { bookingTransactions = value; }
     }
 
     // Constructor
-    public Booking(int id, DateTime startDateTime, DateTime endDateTime, Location returnMethod, Location pickUpMethod, bool vehicleInspectionStatus, float penaltyFee, float damagesFee, float totalBookingFee, string bookingStatus, Car car, Location dropOffTo, Location pickUpFrom, Renter makes, Report[] about, Admin updates, Transaction bookingTransaction)
+    public Booking(int id, DateTime startDateTime, DateTime endDateTime, DateTime returnTime, Location returnMethod, Location pickUpMethod, bool vehicleInspectionStatus, float penaltyFee, float damagesFee, float totalBookingFee, string bookingStatus, Car car, Location dropOffTo, Location pickUpFrom, List<Report> about, Admin updates, List<Transaction> bookingTransactions)
     {
         this.id = id;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
+        this.returnTime = returnTime;   
         this.returnMethod = returnMethod;
         this.pickUpMethod = pickUpMethod;
         this.vehicleInspectionStatus = vehicleInspectionStatus;
@@ -137,16 +125,14 @@ public class Booking
         this.car = car;
         this.dropOffTo = dropOffTo;
         this.pickUpFrom = pickUpFrom;
-        this.makes = makes;
         this.about = about;
         this.updates = updates;
-        this.bookingTransaction = bookingTransaction;
+        this.bookingTransactions = bookingTransactions;
     }
 
-    public string GetBookingDetails()
+    public DateTime SetReturnTime()
     {
-        throw new System.NotImplementedException("Not implemented");
-        // return string
+        return this.returnTime = DateTime.Now;
     }
 
     public string ConfirmUpdateBooking(int bookingId, Booking updatedBooking)
@@ -163,31 +149,49 @@ public class Booking
 
     public void AddNewTransaction(Transaction transaction)
     {
-        throw new System.NotImplementedException("Not implemented");
+        bookingTransactions.Add(transaction);
     }
 
     public bool CheckLocation(string currentAddress)
     {
-        throw new System.NotImplementedException("Not implemented");
+        if (returnMethod.Address == currentAddress) return true;
+        else return false;
+
+        //throw new System.NotImplementedException("Not implemented");
         // return bool
     }
 
-    public bool UpdateBooking()
-    {
-        throw new System.NotImplementedException("Not implemented");
-        // return bool
-    }
+    //public bool UpdateBooking()
+    //{
+    //    throw new System.NotImplementedException("Not implemented");
+    //    // return bool
+    //}
 
-    public bool CheckPenalty()
-    {
-        throw new System.NotImplementedException("Not implemented");
-        // return bool
-    }
+    //public bool CheckPenalty()
+    //{
+    //    if (DateTime.Now <= endDateTime)
+    //    {
+            
+    //    }
 
-    public float CalculatePenalty()
+    //    throw new System.NotImplementedException("Not implemented");
+    //    // return bool
+    //}
+
+    public float CalculatePenalty(DateTime returnTime)
     {
-        throw new System.NotImplementedException("Not implemented");
+        TimeSpan difference = returnTime - endDateTime;
+        // have to reimburse by checking the rental rate in the timeslot
+        float penaltyFee = difference.Hours * 5;
+        return penaltyFee;
+
+        //throw new System.NotImplementedException("Not implemented");
         // return float
+    }
+
+    public void addNewTransaction(Transaction transaction)
+    {
+        bookingTransactions.Add(transaction);
     }
 
 
@@ -198,9 +202,8 @@ public class Booking
                $"Return Method: {ReturnMethod}, Pick Up Method: {PickUpMethod}, " +
                $"Vehicle Inspection Status: {VehicleInspectionStatus}, Penalty Fee: {PenaltyFee}, " +
                $"Damages Fee: {DamagesFee}, Total Booking Fee: {TotalBookingFee}, " +
-               $"Booking Status: {BookingStatus}, Car: {Car}, Drop Off To: {DropOffTo}, " +
-               $"Pick Up From: {PickUpFrom}, Renter: {Makes}, Reports: {About.Length}, " +
-               $"Updated By: {Updates}, Booking Transaction: {BookingTransaction}";
+               $"Booking Status: {BookingStatus}, Car: {Car}" +
+               $"Reports: {About.Length}, Number of Transactions: {BookingTransactions.Count}";
     }
 
 }
