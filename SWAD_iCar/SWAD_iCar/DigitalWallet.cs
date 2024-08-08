@@ -2,6 +2,7 @@ using System;
 
 public class DigitalWallet
 {
+    private static int nextId = 1; // Static field to track the next ID
     private int id;
 
     public int Id
@@ -22,9 +23,9 @@ public class DigitalWallet
     {
 
     }
-    public DigitalWallet(int i, float b)
+    public DigitalWallet(float b)
     {
-        Id = i;
+        Id = nextId++;
         Balance = b;
     }
 }

@@ -10,3 +10,4 @@ public class Prime : Renter
         // Additional initialization for Prime renters can be added here.
     }
 }
+
