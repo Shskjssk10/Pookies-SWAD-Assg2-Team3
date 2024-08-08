@@ -1,70 +1,73 @@
 using System;
+using System.Diagnostics.Metrics;
 using System.Reflection.Metadata.Ecma335;
 
-public class Renter : User
+namespace SWAD_iCar
 {
-    private DateTime dateOfBirth;
-    public DateTime DateOfBirth
+    public class Renter : User
     {
-        get { return dateOfBirth; }
-        set { dateOfBirth = value; }
-    }
+        private DateTime dateOfBirth;
+        public DateTime DateOfBirth
+        {
+            get { return dateOfBirth; }
+            set { dateOfBirth = value; }
+        }
 
-    private int contact;
-    public int Contact
-    {
-        get { return contact; }
-        set { contact = value; }
-    }
+        private int contact;
+        public int Contact
+        {
+            get { return contact; }
+            set { contact = value; }
+        }
 
-    private bool isVerified;
-    public bool IsVerified
-    {
-        get { return isVerified; }
-        set { isVerified = value; }
-    }
+        private bool isVerified;
+        public bool IsVerified
+        {
+            get { return isVerified; }
+            set { isVerified = value; }
+        }
 
-    private string password;
-    public string Password
-    {
-        get { return password; }
-        set { password = value; }
-    }
+        private string password;
+        public string Password
+        {
+            get { return password; }
+            set { password = value; }
+        }
 
-    private string email;
-    public string Email
-    {
-        get { return email; }
-        set { email = value; }
-    }
+        private string email;
+        public string Email
+        {
+            get { return email; }
+            set { email = value; }
+        }
 
-    private List<Booking> bookingHistory = new List<Booking>();
-    public List<Booking> BookingHistory
-    {
-        get { return bookingHistory; }
-        set { bookingHistory = value; }
-    }
+        private List<Booking> bookingHistory = new List<Booking>();
+        public List<Booking> BookingHistory
+        {
+            get { return bookingHistory; }
+            set { bookingHistory = value; }
+        }
 
-    private Admin isVerifiedBy;
-    public Admin IsVerifiedBy
-    {
-        get { return isVerifiedBy; }
-        set { isVerifiedBy = value; }
-    }
+        private Admin isVerifiedBy;
+        public Admin IsVerifiedBy
+        {
+            get { return isVerifiedBy; }
+            set { isVerifiedBy = value; }
+        }
 
-    private DigitalWallet wallet;
-    public DigitalWallet Wallet
-    {
-        get { return wallet; }
-        set { wallet = value; }
-    }
+        private DigitalWallet wallet;
+        public DigitalWallet Wallet
+        {
+            get { return wallet; }
+            set { wallet = value; }
+        }
 
-    private License driversLicense;
-    public License DriversLicense
-    {
-        get { return driversLicense; }
-        set { driversLicense = value; }
-    }
+        private License driversLicense;
+        public License DriversLicense
+        {
+            get { return driversLicense; }
+            set { driversLicense = value; }
+        }
 
     private Booking? currentBooking;
     public Booking? CurrentBooking
@@ -123,11 +126,11 @@ public class Renter : User
         return new Transaction(num, bookingFee, DateTime.Now);
     }
 
-    public Booking GetBooking()
-    {
-        throw new System.NotImplementedException("Not implemented");
-        // return Booking
-    }
+        public Booking GetBooking(int bookingId)
+        {
+            Booking booking1 = bookingHistory.FirstOrDefault(b => b.Id == bookingId);
+            return booking1;
+        }
 
     public Booking GetCurrentBooking()
     {
