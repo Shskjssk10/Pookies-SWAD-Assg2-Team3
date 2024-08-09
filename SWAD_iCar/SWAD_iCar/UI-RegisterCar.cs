@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -88,13 +89,38 @@ namespace SWAD_iCar
             promptConfirmation();
         }
 
-        public void addNewCar(int carOwnerId, string make, string model, int year, float mileage, string licensePlate, List<string> photos, Insurance insuranceDetails)
+
+        public void promptConfirmation()
+        {
+            string choice;
+
+            while (true)
+            {
+                Console.WriteLine("Do you want to register car? (yes or no)");
+                choice = Console.ReadLine().ToLower().Trim();
+
+                if (choice == "yes")
+                {
+                    submitConfirmation();
+                }
+                else if (choice == "no")
+                {
+                    Console.WriteLine("Car not registered");
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input. Please enter 'yes' or 'no'.");
+                }
+            }           
+        }
+
+        public void addNewCar(int carOwnerId, string make, string model, int year, float mileage, string licensePlate, float rentalRate, List<string> photos, Insurance insuranceDetails)
         {
             Console.WriteLine("Are you sure you want to add new car?");
             string option = Console.ReadLine();
             if (option == "yes")
             {
-                ctlRegisterCar.addNewCar(carOwnerId, make, model, year, mileage, licensePlate, photos, insuranceDetails);
+                ctlRegisterCar.createCar(carOwnerId, make, model, year, mileage, licensePlate,rentalRate, photos, insuranceDetails);
             }
             else
             {
@@ -102,25 +128,10 @@ namespace SWAD_iCar
             }
 
         }
-
-        public bool promptConfirmation()
-        {
-            Console.WriteLine("Do you want to register car? ");
-            string choice = Console.ReadLine().ToLower().Trim();
-
-            if (choice == "yes") 
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
         public void submitConfirmation()
         {
-
+            
         }
+
     }
 }

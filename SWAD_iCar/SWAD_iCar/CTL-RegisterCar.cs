@@ -10,12 +10,12 @@ namespace SWAD_iCar
     internal class CTL_RegisterCar
     {
         List<Car> cars = new List<Car>();
-        public void addNewCar(int carOwnerId,string make,string model,int year,float mileage,string licensePlate, List<string> photos, Insurance insuranceDetails)
+        public void createCar(int carOwnerId,string make,string model,int year,float mileage,string licensePlate,float rentalRate, List<string> photos, Insurance insuranceDetails)
         {
-            
+            Car car = new Car(make, model, year, mileage, licensePlate, rentalRate, photos, insuranceDetails);
         }
 
-        public bool isCorrect(string make, string model, int year, float mileage, string licensePlate, List<string> photos, Insurance insuranceDetails)
+        public bool isCorrect(string make, string model, int year, float mileage, string licensePlate, float rentalRate, List<string> photos, Insurance insuranceDetails)
         {
             //check if the make and model are not null or empty
             if (string.IsNullOrWhiteSpace(make) || string.IsNullOrWhiteSpace(model))
@@ -40,6 +40,12 @@ namespace SWAD_iCar
                 return false;
             }
 
+            // Check if rentalRate is a positive number
+            if (rentalRate <= 0)
+            {
+                return false; // Rental rate must be greater than 0
+            }
+
             if (photos == null || photos.Count == 0 || photos.Any(photo => string.IsNullOrWhiteSpace(photo)))
             {
                 return false;
@@ -52,9 +58,18 @@ namespace SWAD_iCar
             //}
             //// All fields are valid
             return true;
-
-
         }
 
+        public bool isDuplicate()
+        {
+            foreach (Car car in cars)
+            {
+                if (car.licensePlate)
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
     }
 }
