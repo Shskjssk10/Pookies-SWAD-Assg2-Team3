@@ -17,13 +17,6 @@ public class Renter : User
         set { contact = value; }
     }
 
-    private string bookingHistory;
-    public string BookingHistory
-    {
-        get { return bookingHistory; }
-        set { bookingHistory = value; }
-    }
-
     private bool isVerified;
     public bool IsVerified
     {
@@ -45,11 +38,11 @@ public class Renter : User
         set { email = value; }
     }
 
-    private Booking[] makes;
-    public Booking[] Makes
+    private List<Booking> bookingHistory = new List<Booking>();
+    public List<Booking> BookingHistory
     {
-        get { return makes; }
-        set { makes = value; }
+        get { return bookingHistory; }
+        set { bookingHistory = value; }
     }
 
     private Admin isVerifiedBy;
@@ -59,11 +52,11 @@ public class Renter : User
         set { isVerifiedBy = value; }
     }
 
-    private DigitalWallet has;
-    public DigitalWallet Has
+    private DigitalWallet wallet;
+    public DigitalWallet Wallet
     {
-        get { return has; }
-        set { has = value; }
+        get { return wallet; }
+        set { wallet = value; }
     }
 
     private License driversLicense;
@@ -73,11 +66,18 @@ public class Renter : User
         set { driversLicense = value; }
     }
 
+    private Booking? currentBooking;
+    public Booking? CurrentBooking
+    {
+        get { return currentBooking; }
+        set { currentBooking = value; }
+    }
 
     // Constructor
-    public Renter(int id, string name, string username, Card card, DateTime dateOfBirth, int contact, string bookingHistory, bool isVerified, string password, string email, Booking[] makes, Admin isVerifiedBy, DigitalWallet has, License driversLicense)
+    public Renter(int id, string name, string username, Card card, DateTime dateOfBirth, int contact, bool isVerified, string password, string email, List<Booking> bookingHistory, Admin isVerifiedBy, DigitalWallet wallet, License driversLicense, Booking? currentBooking)
         : base(id, name, username, card)
     {
+        this.id = id;
         this.dateOfBirth = dateOfBirth;
         this.contact = contact;
         this.bookingHistory = bookingHistory;
@@ -88,22 +88,39 @@ public class Renter : User
         this.isVerifiedBy = isVerifiedBy;
         this.has = has;
         this.driversLicense = driversLicense;
+        this.currentBooking = currentBooking;
     }
 
-    public void CheckAnyOngoingBooking(DateTime start, DateTime end)
+
+    public bool CheckAnyOngoingBooking(DateTime start, DateTime end)
     {
-        throw new System.NotImplementedException("Not implemented");
+        foreach (Booking booking in bookingHistory)
+        {
+            // at least one already booked timeslot is within the start and end date
+            if ((booking.StartDateTime > start && booking.StartDateTime < end) || (booking.EndDateTime > start && booking.EndDateTime < end))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
-    public void CreateBooking(DateTime start, DateTime end, float bookingFee, Location pickUpMethod, Location returnMethod, Car car1)
+    public Booking CreateBooking(DateTime start, DateTime end, float bookingFee, Location pickUpMethod, Location returnMethod, Car car1)
     {
-        throw new System.NotImplementedException("Not implemented");
+        string bookingStatus = "Booked";
+        Booking newBooking = new Booking(start, end, returnMethod, pickUpMethod, bookingFee, bookingStatus, car1);
+        BookingHistory.Add(newBooking);
+        return newBooking;
     }
 
     public Transaction MakePayment(float bookingFee)
     {
-        throw new System.NotImplementedException("Not implemented");
-        // return Transaction
+        //random transaction id 
+        Random rnd = new Random();
+        int num = rnd.Next();
+
+        //assume transaction will always be completed
+        return new Transaction(num, bookingFee, DateTime.Now);
     }
 
     public Booking GetBooking()
@@ -114,17 +131,44 @@ public class Renter : User
 
     public Booking GetCurrentBooking()
     {
-        throw new System.NotImplementedException("Not implemented");
+        return this.currentBooking;
+        //throw new System.NotImplementedException("Not implemented");
         // return Booking
+    }
+    public void AddDriverLicense(License license)
+    {
+        DriversLicense = license;
+    }
+
+
+    public bool UpdateBooking()
+    {
+        Booking tempBooking = currentBooking;
+        BookingHistory.Add(tempBooking);
+        currentBooking = null;
+
+        return true;
+        //if (bookingHistory == tempBooking)
+        //{
+        //    return true;
+        //}
+        //else
+        //{
+        //    return false;
+        //}
+
+
+        //return true;
+        //    throw new System.NotImplementedException("Not implemented");
+        //    // return bool
     }
 
     // ToString method
     public override string ToString()
-    {
-        return $"Renter ID: {Id}, Date of Birth: {DateOfBirth.ToShortDateString()}, Contact: {Contact}, " +
                $"Booking History: {BookingHistory}, Is Verified: {IsVerified}, Email: {Email}, " +
-               $"Bookings: {Makes.Length}, Verified By: {IsVerifiedBy}, Digital Wallet: {Has}, " +
+               $"Number of Bookings: {BookingHistory}, Verified By: {IsVerifiedBy}, Digital Wallet: {Wallet}, " +
+               $"Booking History: {BookingHistory}, Is Verified: {IsVerified}, Email: {Email}, " +
+               $"Number of Bookings: {Makes.Count}, Verified By: {IsVerifiedBy}, Digital Wallet: {Has}, " +
                $"Driver's License: {DriversLicense}";
     }
-
 }

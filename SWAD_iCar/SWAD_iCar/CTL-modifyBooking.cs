@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SWAD_iCar
 {
-    internal class CTL_modifyBooking__
+    internal class CTL_modifyBooking
     {
     }
 }
