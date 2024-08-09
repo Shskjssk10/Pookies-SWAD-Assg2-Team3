@@ -4,7 +4,8 @@ using System.Transactions;
 namespace SWAD_iCar
 {
     internal class Program
-    {   
+    {
+        public static List<Renter> listOfRenters = new List<Renter>();
         public static List<Booking> bookings = new List<Booking>();
         public static Renter dummyRenter;
         public static Admin dummyAdmin;
@@ -12,7 +13,16 @@ namespace SWAD_iCar
         
         static void Main(string[] args)
         {
+            // Adding dummy data
+            AddDummyData();
 
+            // Main menu
+            UI_Main uiMain = new UI_Main(bookings, listOfRenters, dummyRenter, dummyAdmin);
+            uiMain.mainMenu();
+        }
+
+        public static void AddDummyData()
+        {
             //var card = new Card(1, "1234-5678-9101-1121", new DateTime(2025, 12, 31));
             //var booking1 = new Booking(DateTime.Now.AddMonths(-1), DateTime.Now.AddMonths(-1).AddDays(7), DateTime.Now.AddMonths(-1).AddDays(7).AddHours(1));
             //var booking2 = new Booking(DateTime.Now.AddMonths(-3), DateTime.Now.AddMonths(-3).AddDays(5), DateTime.Now.AddMonths(-3).AddDays(5).AddHours(-1));
@@ -101,7 +111,7 @@ namespace SWAD_iCar
 
             Admin admin = new Admin(1, "Admin", "admin", null, null, null, null);
 
-            
+
             // Cards
             var card1 = new Card("Visa", 123456789, 123, new DateTime(2025, 12, 31));
             var card2 = new Card("MasterCard", 987654321, 321, new DateTime(2024, 6, 30));
@@ -130,10 +140,10 @@ namespace SWAD_iCar
 
             // Create a dummy dictionary of reviews
             Dictionary<int, string> reviews = new Dictionary<int, string>
-        {
-            { 1, "Great car, smooth ride." },
-            { 2, "Clean and well maintained." }
-        };
+            {
+                { 1, "Great car, smooth ride." },
+                { 2, "Clean and well maintained." }
+            };
 
 
             // Instantiate the Car object with dummy data
@@ -150,8 +160,8 @@ namespace SWAD_iCar
             );
 
 
-            var booking3 = new Booking(
-                3,
+            var booking4 = new Booking(
+                4,
                 new DateTime(2024, 11, 1, 10, 0, 0),
                 new DateTime(2024, 11, 10, 10, 0, 0),
                 DateTime.Now.AddDays(5), // Assuming a return time 5 days after booking start
@@ -170,8 +180,8 @@ namespace SWAD_iCar
                 new List<Transaction>()
             );
 
-            var booking4 = new Booking(
-                4,
+            var booking5 = new Booking(
+                5,
                 new DateTime(2024, 9, 1, 10, 0, 0),
                 new DateTime(2024, 9, 10, 10, 0, 0),
                 DateTime.Now.AddDays(3), // Assuming a return time 3 days after booking start
@@ -190,29 +200,27 @@ namespace SWAD_iCar
                 new List<Transaction>()
             );
             // Add bookings to renter's history
-            renter3.BookingHistory.Add(booking3);
-            renter4.BookingHistory.Add(booking4);
+            renter3.BookingHistory.Add(booking4);
+            renter4.BookingHistory.Add(booking5);
 
 
             ///define the dummy data
             bookings.Add(booking1);
             bookings.Add(booking2);
-            bookings.Add(booking3);
+            bookings.Add(currentBooking);
             bookings.Add(booking4);
+            bookings.Add(booking5);
 
-            dummyRenter = renter1;
+            dummyRenter = renter3;
             dummyAdmin = admin;
 
-            List<Renter> listOfRenters = new List<Renter>() { renter1, renter3, renter4};
+            listOfRenters.Add(renter1);
+            listOfRenters.Add(renter3);
+            listOfRenters.Add(renter4);
+
             //UI_ReturnVehicle uiReturnVehicle = new UI_ReturnVehicle();
             //uiReturnVehicle.ReturnCar(renter1.Id);
 
-            // Create Controller and UI
-            var modifyBookingController = new CTL_modifyBooking(3, listOfRenters);
-            var modifyBookingUI = new UI_modifyBooking(modifyBookingController, 3);
-
-            // Modify booking
-            modifyBookingUI.ModifyBooking(renter3.Id, booking3.Id);
 
             //alt way
             //CTL_ReturnVehicle ctlReturnVehicle = new CTL_ReturnVehicle();
