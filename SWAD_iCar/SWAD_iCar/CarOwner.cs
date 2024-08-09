@@ -1,26 +1,28 @@
 using System;
-
-public class CarOwner : User
+namespace SWAD_iCar
 {
-    private DateTime dateOfBirth;
-
-    public DateTime DateOfBirth
+    public class CarOwner : User
     {
-        get { return dateOfBirth; }
-        set { dateOfBirth = value; }
-    }
+        private DateTime dateOfBirth;
 
-    private int contact;
+        public DateTime DateOfBirth
+        {
+            get { return dateOfBirth; }
+            set { dateOfBirth = value; }
+        }
 
-    public int Contact
-    {
-        get { return contact; }
-        set { contact = value; }
-    }
+        private int contact;
 
-    public CarOwner(int id, string name, string username, Card card, DateTime dob, int contact) : base(id, name, username, card)
-    {
-        dateOfBirth = dob;
-        this.contact = contact;
+        public int Contact
+        {
+            get { return contact; }
+            set { contact = value; }
+        }
+
+        public CarOwner(int id, string name, string username, Card card, DateTime dob, int contact) : base(id, name, username, card)
+        {
+            dateOfBirth = dob;
+            this.contact = contact;
+        }
     }
 }

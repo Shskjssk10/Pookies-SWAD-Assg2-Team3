@@ -19,36 +19,35 @@ namespace SWAD_iCar
             this.renters = renters;
         }
 
-        public Booking ModifyBooking(int renterId, int bookingId)
+        public (Booking booking, string errorMessage) ModifyBooking(int renterId, int bookingId)
         {
-            Renter renter1 = GetRenter(renterId);
+            Renter renter = GetRenter(renterId);
 
-            originalBooking = renter1.GetBooking(bookingId);
+            originalBooking = renter.GetBooking(bookingId);
 
             bool isLessThan24Hours = checkIfLessThan24Hours(originalBooking);
 
             if (originalBooking == null)
             {
-                Console.WriteLine("Booking not found.");
-                return null;
+                return (null, "Booking not found.");
+
             }
 
             if (isLessThan24Hours == true)
             {
-                Console.WriteLine("Cannot modify booking. Less than 24 hours remaining.");
-                return null;
+                return (null, "Cannot modify booking. Less than 24 hours remaining.");
             }
             else if (isLessThan24Hours == false) { }
             {
-                return originalBooking;
+                return (originalBooking, null);
             }
         }
 
         public Renter GetRenter(int renterId)
         {
-            Renter renter1 = renters.FirstOrDefault(r => r.Id == renterId);
+            Renter renter = renters.FirstOrDefault(r => r.Id == renterId);
 
-            return renter1;
+            return renter;
         }
 
         public bool checkIfLessThan24Hours(Booking booking)

@@ -22,12 +22,20 @@ namespace SWAD_iCar
         public void ModifyBooking(int renterId, int bookingId)
         {
             Console.WriteLine($"Modifying booking {bookingId}");
-            Booking booking1 = modifyBookingController.ModifyBooking(renterId, bookingId);
-            if (booking1 != null)
-            {
-                DisplayBookingDetails(booking1);
-                DisplayBookingOptions(booking1);
+            var originalBooking = modifyBookingController.ModifyBooking(renterId, bookingId);
+            
+            Booking originalBookingData = originalBooking.booking;
+            string errorMessage = originalBooking.errorMessage;
 
+            if (originalBookingData != null)
+            {
+                DisplayBookingDetails(originalBookingData);
+                DisplayBookingOptions(originalBookingData);
+
+            }
+            else
+            {
+                DisplayError(errorMessage);
             }
 
 
@@ -39,18 +47,18 @@ namespace SWAD_iCar
             Console.WriteLine($"ID: {booking.Id}");
             Console.WriteLine($"Start DateTime: {booking.StartDateTime}");
             Console.WriteLine($"End DateTime: {booking.EndDateTime}");
-            Console.WriteLine($"Return Method: {booking.ReturnMethod}");
-            Console.WriteLine($"Pick Up Method: {booking.PickUpMethod}");
+            Console.WriteLine($"Return Method: {booking.ReturnMethod.Address}");
+            Console.WriteLine($"Pick Up Method: {booking.PickUpMethod.Address}");
             Console.WriteLine($"Vehicle Inspection Status: {booking.VehicleInspectionStatus}");
             Console.WriteLine($"Penalty Fee: {booking.PenaltyFee}");
             Console.WriteLine($"Damages Fee: {booking.DamagesFee}");
-            Console.WriteLine($"Total Booking Fee: {booking.TotalBookingFee}");
+            Console.WriteLine($"Total Booking Fee: ${booking.TotalBookingFee}");
             Console.WriteLine($"Booking Status: {booking.BookingStatus}");
-            Console.WriteLine($"Car: {booking.Car}");
-            Console.WriteLine($"Drop Off To: {booking.DropOffTo}");
-            Console.WriteLine($"Pick Up From: {booking.PickUpFrom}");
+            Console.WriteLine($"Car: {booking.Car.Make} {booking.Car.Model}");
+            Console.WriteLine($"Drop Off To: {booking.DropOffTo.Address}");
+            Console.WriteLine($"Pick Up From: {booking.PickUpFrom.Address}");
             Console.WriteLine($"Reports: {string.Join(", ", booking.About)}");
-            Console.WriteLine($"Updated By: {booking.UpdatedBy}");
+            Console.WriteLine($"Updated By: Admin {booking.UpdatedBy.Id}");
             Console.WriteLine($"Transactions: {string.Join(", ", booking.BookingTransactions)}");
         }
 
@@ -77,14 +85,14 @@ namespace SWAD_iCar
             }
         }
 
-        public void selectUpdateBooking(Booking booking1)
+        public void selectUpdateBooking(Booking originalBookingData)
         {
             displayUpdateForm();
 
             bool isValidChange = false;
             while (!isValidChange)
             {
-                Booking updatedBooking = submitUpdatedBookingDetails(booking1);
+                Booking updatedBooking = submitUpdatedBookingDetails(originalBookingData);
 
                 if (updatedBooking != null)
                 {
@@ -269,15 +277,18 @@ namespace SWAD_iCar
 
         public void getBookingDetails(int bookingId)
         {
-            Booking updatedBooking = modifyBookingController.ModifyBooking(renterId, bookingId);
+            var updatedBooking = modifyBookingController.ModifyBooking(renterId, bookingId);
 
-            if (updatedBooking != null)
+            string errorMessage = updatedBooking.errorMessage;
+            Booking updatedBookingData = updatedBooking.booking;
+
+            if (updatedBookingData != null)
             {
-                DisplayBookingDetails(updatedBooking);
+                DisplayBookingDetails(updatedBookingData);
             }
             else
             {
-                Console.WriteLine("Failed to retrieve booking details.");
+                DisplayError(errorMessage);
             }
         }
 

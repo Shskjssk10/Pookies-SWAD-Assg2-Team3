@@ -10,11 +10,13 @@ namespace SWAD_iCar
     {
         public Car GetCar(int carId)
         {
-            
-        } 
-        
+            throw new System.NotImplementedException("Not implemented");
+
+        }
+
         public Renter GetRenter(int renterId) 
         {
+            throw new System.NotImplementedException("Not implemented");
 
         }
 
@@ -30,7 +32,7 @@ namespace SWAD_iCar
 
         public List<ICarStation> getAlliCarStations()
         {
-            // HELP
+            throw new System.NotImplementedException("Not implemented");
         }
     }
 }

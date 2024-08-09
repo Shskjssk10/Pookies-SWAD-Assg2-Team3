@@ -1,41 +1,43 @@
 using System;
-
-public class DigitalWallet
+namespace SWAD_iCar
 {
-    private static int nextId = 1; // Static field to track the next ID
-    private int id;
-
-    public int Id
+    public class DigitalWallet
     {
-        get { return id; }
-        set { id = value; }
-    }
+        private static int nextId = 1; // Static field to track the next ID
+        private int id;
 
-    private float balance;
+        public int Id
+        {
+            get { return id; }
+            set { id = value; }
+        }
 
-    public float Balance
-    {
-        get { return balance; }
-        set { balance = value; }
-    }
+        private float balance;
 
-    public DigitalWallet()
-    {
+        public float Balance
+        {
+            get { return balance; }
+            set { balance = value; }
+        }
 
-    }
-    public DigitalWallet(float b)
-    {
-        Id = nextId++;
-        Balance = b;
-    }
+        public DigitalWallet()
+        {
 
-    public void addFunds(float amount)
-    {
-        balance += amount;
-    }
+        }
+        public DigitalWallet(float b)
+        {
+            Id = nextId++;
+            Balance = b;
+        }
 
-    public void removeFunds(float amount) 
-    {
-        balance -= amount;
+        public void addFunds(float amount)
+        {
+            balance += amount;
+        }
+
+        public void removeFunds(float amount)
+        {
+            balance -= amount;
+        }
     }
 }

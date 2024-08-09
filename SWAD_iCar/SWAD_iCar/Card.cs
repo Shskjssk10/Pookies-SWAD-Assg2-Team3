@@ -1,46 +1,49 @@
 using System;
 
-public class Card
+namespace SWAD_iCar
 {
-    private string type;
-
-    public string Type
+    public class Card
     {
-        get { return type; }
-        set { type = value; }
-    }
+        private string type;
 
-    private int cardNo;
+        public string Type
+        {
+            get { return type; }
+            set { type = value; }
+        }
 
-    public int CardNo
-    {
-        get { return cardNo; }
-        set { cardNo = value; }
-    }
+        private int cardNo;
 
-    private int cvv;
+        public int CardNo
+        {
+            get { return cardNo; }
+            set { cardNo = value; }
+        }
 
-    public int CVV
-    {
-        get { return cvv; }
-        set { cvv = value; }
-    }
+        private int cvv;
 
-    private DateTime expiryDate;
+        public int CVV
+        {
+            get { return cvv; }
+            set { cvv = value; }
+        }
 
-    public DateTime ExpiryDate
-    {
-        get { return expiryDate; }
-        set { expiryDate = value; }
-    }
+        private DateTime expiryDate;
 
-    public Card() { }
+        public DateTime ExpiryDate
+        {
+            get { return expiryDate; }
+            set { expiryDate = value; }
+        }
 
-    public Card(string t, int cn, int cv, DateTime ed)
-    {
-        Type = t;
-        CardNo = cn;
-        CVV = cv;
-        ExpiryDate = ed;
+        public Card() { }
+
+        public Card(string t, int cn, int cv, DateTime ed)
+        {
+            Type = t;
+            CardNo = cn;
+            CVV = cv;
+            ExpiryDate = ed;
+        }
     }
 }
