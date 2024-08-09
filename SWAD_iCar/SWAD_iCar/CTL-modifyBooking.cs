@@ -8,50 +8,57 @@ namespace SWAD_iCar
 {
     internal class CTL_modifyBooking
     {
-        private int bookingIdToModify;
         private List<Renter> renters;
         private Booking originalBooking;
+        private Renter renter;
 
 
-        public CTL_modifyBooking(int bookingIdToModify, List<Renter> renters)
+        public CTL_modifyBooking(List<Renter> renters)
         {
-            this.bookingIdToModify = bookingIdToModify;
             this.renters = renters;
         }
 
         public (Booking booking, string errorMessage) ModifyBooking(int renterId, int bookingId)
         {
-            Renter renter = GetRenter(renterId);
+            renter = GetRenter(renterId);
+
+            if (renter == null)
+            {
+                return (null, "Renter not found.");
+            }
 
             originalBooking = renter.GetBooking(bookingId);
-
-            bool isLessThan24Hours = checkIfLessThan24Hours(originalBooking);
-
+ 
             if (originalBooking == null)
             {
                 return (null, "Booking not found.");
-
             }
 
-            if (isLessThan24Hours == true)
+            bool isLessThan24Hours = checkIfLessThan24Hours(originalBooking);
+
+            if (isLessThan24Hours)
             {
                 return (null, "Cannot modify booking. Less than 24 hours remaining.");
             }
-            else if (isLessThan24Hours == false) { }
-            {
-                return (originalBooking, null);
-            }
+
+            // Booking can be modified
+            return (originalBooking, null);
         }
+
 
         public Renter GetRenter(int renterId)
         {
-            Renter renter = renters.FirstOrDefault(r => r.Id == renterId);
+            renter = renters.FirstOrDefault(r => r.Id == renterId);
 
             return renter;
         }
 
         public bool checkIfLessThan24Hours(Booking booking)
         {
+            if (booking == null)
+            {
+                throw new ArgumentNullException(nameof(booking));
+            }
             return (booking.StartDateTime - DateTime.Now).TotalHours < 24;
         }
 
@@ -61,57 +68,53 @@ namespace SWAD_iCar
             //bool isValid = validateUpdateBooking(booking);
         }
 
-        public bool validateUpdateBooking(Booking updatedBooking)
+        public (Booking booking, string errorMessage) validateUpdateBooking(Booking updatedBooking)
         {
             // Validate StartDateTime
             if (updatedBooking.StartDateTime <= DateTime.Now)
             {
-                Console.WriteLine("Start DateTime must be in the future.");
-                return false;
+                return (null, "Start DateTime must be in the future.");
             }
 
             // Validate EndDateTime
             if (updatedBooking.EndDateTime <= updatedBooking.StartDateTime)
             {
-                Console.WriteLine("Start date time must before end date time or End DateTime must be after Start DateTime.");
-                return false;
+                return (null, "End DateTime must be after Start DateTime.");
             }
 
             // Validate ReturnMethod
             if (updatedBooking.ReturnMethod == null)
             {
-                Console.WriteLine("Return Method cannot be empty.");
-                return false;
+                return (null, "Return Method cannot be empty.");
             }
 
             // Validate PickUpMethod
             if (updatedBooking.PickUpMethod == null)
             {
-                Console.WriteLine("Pick Up Method cannot be empty.");
-                return false;
+                return (null, "Pick Up Method cannot be empty.");
             }
 
             // Validate DropOffTo
             if (updatedBooking.DropOffTo == null)
             {
-                Console.WriteLine("Drop Off To location cannot be empty.");
-                return false;
+                return (null, "Drop Off To location cannot be empty.");
             }
 
             // Validate PickUpFrom
             if (updatedBooking.PickUpFrom == null)
             {
-                Console.WriteLine("Pick Up From location cannot be empty.");
-                return false;
+                return (null, "Pick Up From location cannot be empty.");
             }
-            return true;
+
+            // If all validations pass
+            return (updatedBooking, string.Empty);
         }
+
 
         public string confirmUpdateBooking(Booking updatedBooking)
         {
-            string result = originalBooking.ConfirmUpdateBooking(updatedBooking);
-
-            return result;
+            string bookingUpdateResult = originalBooking.ConfirmUpdateBooking(updatedBooking);
+            return bookingUpdateResult;
         }
 
         public string cancelBooking(Booking booking, int renterId)

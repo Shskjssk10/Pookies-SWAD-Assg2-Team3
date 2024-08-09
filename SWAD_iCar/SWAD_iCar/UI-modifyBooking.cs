@@ -57,16 +57,17 @@ namespace SWAD_iCar
             Console.WriteLine($"Car: {booking.Car.Make} {booking.Car.Model}");
             Console.WriteLine($"Drop Off To: {booking.DropOffTo.Address}");
             Console.WriteLine($"Pick Up From: {booking.PickUpFrom.Address}");
-            Console.WriteLine($"Reports: {string.Join(", ", booking.About)}");
-            Console.WriteLine($"Updated By: Admin {booking.UpdatedBy.Id}");
             Console.WriteLine($"Transactions: {string.Join(", ", booking.BookingTransactions)}");
         }
 
         public void DisplayBookingOptions(Booking booking)
         {
+            Console.WriteLine("------------------------------------");
             Console.WriteLine("What type of modification would you like to make to the booking?");
             Console.WriteLine("1. Update Booking");
             Console.WriteLine("2. Cancel Booking");
+            Console.WriteLine("------------------------------------");
+
 
             string choice = Console.ReadLine();
 
@@ -90,6 +91,7 @@ namespace SWAD_iCar
             displayUpdateForm();
 
             bool isValidChange = false;
+
             while (!isValidChange)
             {
                 Booking updatedBooking = submitUpdatedBookingDetails(originalBookingData);
@@ -97,15 +99,17 @@ namespace SWAD_iCar
                 if (updatedBooking != null)
                 {
                     modifyBookingController.updateBooking(updatedBooking.Id, updatedBooking);
-                    isValidChange = modifyBookingController.validateUpdateBooking(updatedBooking);
+                    var validatedBooking = modifyBookingController.validateUpdateBooking(updatedBooking);
 
-                    if (isValidChange)
+                    if (validatedBooking.booking == null)
                     {
-                        displayUpdateConfirmation(updatedBooking);
+                        isValidChange = false;
+                        DisplayError(validatedBooking.errorMessage);
                     }
                     else
                     {
-                        Console.WriteLine("Invalid booking details. Please try again.");
+                        isValidChange = true;
+                        displayUpdateConfirmation(updatedBooking);   
                     }
                 }
                 else
@@ -122,9 +126,11 @@ namespace SWAD_iCar
 
         public void displayCancelConfirmation(Booking booking)
         {
+            Console.WriteLine("------------------------------------");
             Console.WriteLine("Are you sure you want to cancel the booking?");
             Console.WriteLine("1. Yes");
             Console.WriteLine("2. No");
+            Console.WriteLine("------------------------------------");
 
             string choice = Console.ReadLine();
             switch (choice)
@@ -143,6 +149,7 @@ namespace SWAD_iCar
 
         public void displayUpdateForm()
         {
+            Console.WriteLine("------------------------------------");
             Console.WriteLine("Select the attribute you want to update:");
             Console.WriteLine("1. Start DateTime");
             Console.WriteLine("2. End DateTime");
@@ -150,6 +157,8 @@ namespace SWAD_iCar
             Console.WriteLine("4. Pick Up Method");
             Console.WriteLine("5. Drop Off To");
             Console.WriteLine("6. Pick Up From");
+            Console.WriteLine("------------------------------------");
+
         }
 
         public void confirmCancellation(Booking booking)
@@ -179,7 +188,10 @@ namespace SWAD_iCar
             switch (choice)
             {
                 case "1":
+                    Console.WriteLine("------------------------------------");
                     Console.WriteLine("Enter the new Start DateTime (format: yyyy-MM-dd HH:mm), e.g., 2024-09-10 14:30:");
+                    Console.WriteLine("------------------------------------");
+
                     DateTime startDateTime;
                     if (DateTime.TryParseExact(Console.ReadLine(), "yyyy-MM-dd HH:mm", null, System.Globalization.DateTimeStyles.None, out startDateTime))
                     {
@@ -192,7 +204,10 @@ namespace SWAD_iCar
                     }
                     return booking;
                 case "2":
+                    Console.WriteLine("------------------------------------");
                     Console.WriteLine("Enter the new End DateTime (format: yyyy-MM-dd HH:mm), e.g., 2024-09-15 18:00:");
+                    Console.WriteLine("------------------------------------");
+
                     DateTime endDateTime;
                     if (DateTime.TryParseExact(Console.ReadLine(), "yyyy-MM-dd HH:mm", null, System.Globalization.DateTimeStyles.None, out endDateTime))
                     {
@@ -205,19 +220,31 @@ namespace SWAD_iCar
                     }
                     return booking;
                 case "3":
+                    Console.WriteLine("------------------------------------");
                     Console.WriteLine("Enter the new Return Method:");
+                    Console.WriteLine("------------------------------------");
+
                     booking.ReturnMethod = new Location(Console.ReadLine());
                     return booking;
                 case "4":
+                    Console.WriteLine("------------------------------------");
                     Console.WriteLine("Enter the new Pick Up Method:");
+                    Console.WriteLine("------------------------------------");
+
                     booking.PickUpMethod = new Location(Console.ReadLine());
                     return booking;
                 case "5":
+                    Console.WriteLine("------------------------------------");
                     Console.WriteLine("Enter the new Drop Off To location:");
+                    Console.WriteLine("------------------------------------");
+
                     booking.DropOffTo = new Location(Console.ReadLine());
                     return booking;
                 case "6":
+                    Console.WriteLine("------------------------------------");
                     Console.WriteLine("Enter the new Pick Up From location:");
+                    Console.WriteLine("------------------------------------");
+
                     booking.PickUpFrom = new Location(Console.ReadLine());
                     return booking;
                 default:
@@ -228,9 +255,12 @@ namespace SWAD_iCar
 
         public void displayUpdateConfirmation(Booking updatedBookingData)
         {
+            Console.WriteLine("------------------------------------");
             Console.WriteLine("Are you sure you want to update the booking?");
             Console.WriteLine("1. Yes");
             Console.WriteLine("2. No");
+            Console.WriteLine("------------------------------------");
+
 
             string choice = Console.ReadLine();
 
@@ -255,8 +285,13 @@ namespace SWAD_iCar
 
             if (resultMessage == "Booking updated Successfully")
             {
+                Console.WriteLine("************************************");
                 DisplaySuccessMessage(resultMessage);
-                getBookingDetails(booking.Id);
+                Console.WriteLine("************************************");
+
+                var bookingDetails = getBookingDetails(booking.Id);
+                DisplayBookingDetails(bookingDetails.booking);
+                
             }
             else
             {
@@ -275,21 +310,28 @@ namespace SWAD_iCar
             Console.WriteLine(message);
         }
 
-        public void getBookingDetails(int bookingId)
+        public (Booking booking, string errorMessage) getBookingDetails(int bookingId)
         {
-            var updatedBooking = modifyBookingController.ModifyBooking(renterId, bookingId);
+            var result = modifyBookingController.ModifyBooking(renterId, bookingId);
 
-            string errorMessage = updatedBooking.errorMessage;
-            Booking updatedBookingData = updatedBooking.booking;
+            Booking updatedBookingData = result.booking;
+            string errorMessage = result.errorMessage;
 
-            if (updatedBookingData != null)
+            return (updatedBookingData, errorMessage);
+        }
+
+        public void DisplayBookingHistory(int renterId)
+        {
+            Renter renter = modifyBookingController.GetRenter(renterId);
+            Console.WriteLine("Bookings:");
+            foreach (Booking booking in renter.BookingHistory)
             {
-                DisplayBookingDetails(updatedBookingData);
+                Console.WriteLine("------------------------------------");
+                DisplayBookingDetails(booking);
+                Console.WriteLine("------------------------------------");
             }
-            else
-            {
-                DisplayError(errorMessage);
-            }
+
+
         }
 
     }

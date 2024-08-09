@@ -138,8 +138,11 @@ namespace SWAD_iCar
         public Booking GetBooking(int bookingId)
         {
             Booking originalBookingData = bookingHistory.FirstOrDefault(b => b.Id == bookingId);
+            
             return originalBookingData;
         }
+        
+
 
         public Booking GetCurrentBooking()
         {
