@@ -5,6 +5,7 @@ namespace SWAD_iCar
 {
     internal class Program
     {
+        public static List<CarOwner> listOfCarOwners = new List<CarOwner>();
         public static List<Renter> listOfRenters = new List<Renter>();
         public static List<Booking> bookings = new List<Booking>();
         public static Renter dummyRenter;
@@ -17,8 +18,8 @@ namespace SWAD_iCar
             AddDummyData();
 
             // Main menu
-            UI_Main uiMain = new UI_Main(bookings, listOfRenters, dummyRenter, dummyAdmin);
-            uiMain.mainMenu();
+            UI_Main uiMain = new UI_Main(bookings, listOfRenters, dummyRenter, dummyAdmin, listOfCarOwners);
+            uiMain.login();
         }
 
         public static void AddDummyData()
@@ -115,6 +116,7 @@ namespace SWAD_iCar
             // Cards
             var card1 = new Card("Visa", 123456789, 123, new DateTime(2025, 12, 31));
             var card2 = new Card("MasterCard", 987654321, 321, new DateTime(2024, 6, 30));
+            var card3 = new Card("Visa", 121212121, 123, new DateTime(2026, 12, 31));
 
             // Digital Wallets
             var wallet1 = new DigitalWallet(150.75f);
@@ -127,12 +129,17 @@ namespace SWAD_iCar
             // Renter
             var renter3 = new Renter(3, "John Doe", "jdoe", card1, new DateTime(1990, 5, 20), 1234567890, true, "password123", "jdoe@example.com", new List<Booking>(), null, wallet1, license1, null);
             var renter4 = new Renter(4, "Jane Smith", "jsmith", card2, new DateTime(1985, 8, 15), 987654210, false, "password456", "jsmith@example.com", new List<Booking>(), null, wallet2, license2, null);
+            var renter5 = new Renter(5, "Caden Toh", "Shskjssk10", card3, new DateTime(2000, 8, 10), 12121212, true, "password123", "cadentohjunyi@gmail.com", new List<Booking>(), null, wallet2, license2, null);
+
+            // Car Owners
+            CarOwner carOwner1 = new CarOwner(6, "Caden", "Shskjssk10", card1, new DateTime(2000, 8, 10), 84469588);
 
             // Admin
             var admin1 = new Admin(1, "Admin User", "admin", card1, new List<Booking>(), new List<Renter> { renter3, renter4 }, new List<Report>());
 
             renter3.IsVerifiedBy = admin1;
             renter4.IsVerifiedBy = admin1;
+            renter5.IsVerifiedBy = admin1;
 
 
             // Create a dummy list of photos
@@ -150,6 +157,18 @@ namespace SWAD_iCar
             Car dummyCar = new Car(
                 make: "Toyota",
                 model: "Camry",
+                year: new DateTime(2020, 1, 1),
+                mileage: 15000,
+                photos: photos,
+                isWithdrawn: false,
+                reviews: reviews,
+                licensePlate: "XYZ-1234",
+                rentalRate: 50.0f
+            );
+
+            Car dummyCar2 = new Car(
+                make: "Mercedes",
+                model: "Whatever",
                 year: new DateTime(2020, 1, 1),
                 mileage: 15000,
                 photos: photos,
@@ -203,6 +222,9 @@ namespace SWAD_iCar
             renter3.BookingHistory.Add(booking4);
             renter4.BookingHistory.Add(booking5);
 
+            // Add Cars to CarOwners
+            carOwner1.linkCarToCarOwner(dummyCar);
+            carOwner1.linkCarToCarOwner(dummyCar2);
 
             ///define the dummy data
             bookings.Add(booking1);
@@ -217,6 +239,8 @@ namespace SWAD_iCar
             listOfRenters.Add(renter1);
             listOfRenters.Add(renter3);
             listOfRenters.Add(renter4);
+
+            listOfCarOwners.Add(carOwner1);
 
             //UI_ReturnVehicle uiReturnVehicle = new UI_ReturnVehicle();
             //uiReturnVehicle.ReturnCar(renter1.Id);
