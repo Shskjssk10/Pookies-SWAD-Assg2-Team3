@@ -2,7 +2,7 @@
 using SWAD_iCar;
 using static System.Net.Mime.MediaTypeNames;
 
-Console.WriteLine("Hello, World!");
+Console.WriteLine("Register Car");
 
 //have test car owner 
 //have test car 
@@ -30,7 +30,6 @@ foreach (var car in owner.GetCars())
 {
     Console.WriteLine(car);
 }
-
 
 
 
