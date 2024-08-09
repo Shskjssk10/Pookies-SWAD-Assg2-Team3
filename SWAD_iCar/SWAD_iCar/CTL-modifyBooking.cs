@@ -130,8 +130,8 @@ namespace SWAD_iCar
                         throw new Exception("Renter not found.");
                     }
 
-                    string result = booking.ProcessCancelBooking(renter);
-                    return result;
+                    string SucessMessage = booking.ProcessCancelBooking(renter);
+                    return SucessMessage;
                 }
                 else
                 {

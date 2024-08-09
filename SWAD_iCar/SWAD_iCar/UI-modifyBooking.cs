@@ -163,15 +163,17 @@ namespace SWAD_iCar
 
         public void confirmCancellation(Booking booking)
         {
-            string result = modifyBookingController.cancelBooking(booking, renterId);
+            string Message = modifyBookingController.cancelBooking(booking, renterId);
 
-            if (result.Contains("successfully cancelled"))
+            if (Message.Contains("successfully cancelled"))
             {
-                Console.WriteLine(result);
+                string successMessage = Message;
+                DisplaySuccessMessage(successMessage);
             }
             else
             {
-                Console.WriteLine(result);
+                string errorMessage = Message;
+                DisplayError(errorMessage);
             }
         }
 
