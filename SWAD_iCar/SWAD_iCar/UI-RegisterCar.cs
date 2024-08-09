@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,6 +11,7 @@ namespace SWAD_iCar
     internal class UI_RegisterCar
     {
         private CTL_RegisterCar ctlRegisterCar;
+        List<Car> cars = new List<Car>();
 
         public UI_RegisterCar()
         {
@@ -102,6 +104,7 @@ namespace SWAD_iCar
                 if (choice == "yes")
                 {
                     submitConfirmation();
+                    break;
                 }
                 else if (choice == "no")
                 {
@@ -114,23 +117,22 @@ namespace SWAD_iCar
             }           
         }
 
-        public void addNewCar(int carOwnerId, string make, string model, int year, float mileage, string licensePlate, float rentalRate, List<string> photos, Insurance insuranceDetails)
+        public void addNewCar(string make, string model, int year, float mileage, string licensePlate, float rentalRate, List<string> photos, Insurance insuranceDetails)
         {
-            Console.WriteLine("Are you sure you want to add new car?");
-            string option = Console.ReadLine();
-            if (option == "yes")
-            {
-                ctlRegisterCar.createCar(carOwnerId, make, model, year, mileage, licensePlate,rentalRate, photos, insuranceDetails);
-            }
-            else
-            {
-                Console.WriteLine("Add new car cancelled");
-            }
-
+            ctlRegisterCar.createCar(make, model, year, mileage, licensePlate, rentalRate, photos, insuranceDetails);
         }
         public void submitConfirmation()
         {
-            
+            string make = "Toyota";
+            string model = "Camry";
+            int year = 2024;
+            float mileage = 5000.0f;
+            string licensePlate = "XYZ123";
+            float rentalRate = 50.0f;
+            List<string> photos = new List<string> { "photo1.jpg", "photo2.jpg" };
+            Insurance insuranceDetails = new Insurance(123, new DateTime(2024/12/01), new DateTime(2021/12/01), "AIA"); // Assume Insurance is already defined and properly initialized
+
+            addNewCar(make, model, year, mileage, licensePlate, rentalRate, photos, insuranceDetails);
         }
 
     }

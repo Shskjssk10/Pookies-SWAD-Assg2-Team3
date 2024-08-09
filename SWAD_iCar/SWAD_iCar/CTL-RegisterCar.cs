@@ -10,12 +10,13 @@ namespace SWAD_iCar
     internal class CTL_RegisterCar
     {
         List<Car> cars = new List<Car>();
-        public void createCar(int carOwnerId,string make,string model,int year,float mileage,string licensePlate,float rentalRate, List<string> photos, Insurance insuranceDetails)
+        public void createCar(string make,string model,int year,float mileage,string licensePlate,float rentalRate, List<string> photos, Insurance insuranceDetails)
         {
-            Car car = new Car(make, model, year, mileage, licensePlate, rentalRate, photos, insuranceDetails);
+            Car car = new Car(make , model, year, mileage, licensePlate, rentalRate, photos, insuranceDetails);
+            cars.Add(car);
         }
 
-        public bool isCorrect(string make, string model, int year, float mileage, string licensePlate, float rentalRate, List<string> photos, Insurance insuranceDetails)
+        public bool checkIsCorrect(string make, string model, int year, float mileage, string licensePlate, float rentalRate, List<string> photos, Insurance insuranceDetails)
         {
             //check if the make and model are not null or empty
             if (string.IsNullOrWhiteSpace(make) || string.IsNullOrWhiteSpace(model))
@@ -64,11 +65,19 @@ namespace SWAD_iCar
         {
             foreach (Car car in cars)
             {
-                if (car.licensePlate)
+                if (true)
                 {
                     return true;
                 }
-                return false;
+            }
+            return false;
+        }
+
+        public void getAllCars()
+        {
+            foreach(Car car in cars)
+            {
+                Console.WriteLine(car);
             }
         }
     }
