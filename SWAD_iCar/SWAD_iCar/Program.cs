@@ -150,7 +150,7 @@ namespace SWAD_iCar
             Car dummyCar = new Car(
                 make: "Toyota",
                 model: "Camry",
-                year: new DateTime(2020, 1, 1),
+                year: 2020,
                 mileage: 15000,
                 photos: photos,
                 isWithdrawn: false,

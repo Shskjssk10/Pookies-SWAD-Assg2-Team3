@@ -62,7 +62,11 @@ namespace SWAD_iCar
                         }
                     case "2":
                         {
-                            Console.WriteLine("Not Merged");
+                            var registerCarController = new CTL_RegisterCar();
+                            var registerCarUI = new UI_RegisterCar();
+
+                            registerCarUI.addNewCar();
+
                             break;
                         }
                     case "3":
