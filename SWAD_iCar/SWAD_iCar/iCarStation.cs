@@ -20,4 +20,10 @@ public class ICarStation : Location  {
 		Id = nextId++;
 		Name = name;
 	}
+
+	public ICarStation(int id, string name, string address) : base(address) 
+    {
+        Id = id;
+        Name = name;
+    }
 }

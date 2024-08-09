@@ -28,7 +28,7 @@ public class Insurance
     {
         get { return insurer; }
         set { insurer = value; }
-    }
+    }i
 
     // Constructor with parameters for all fields
     public Insurance(int policyNo, DateTime expiryDate, DateTime issueDate, string insurer)

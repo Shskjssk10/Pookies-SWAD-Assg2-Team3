@@ -38,7 +38,7 @@ public class Renter : User
         set { email = value; }
     }
 
-    private List<Booking> bookingHistory = new List<Booking>();
+    private List<Booking> bookingHistory;
     public List<Booking> BookingHistory
     {
         get { return bookingHistory; }
@@ -66,31 +66,49 @@ public class Renter : User
         set { driversLicense = value; }
     }
 
+    private Booking? currentBooking;
+    public Booking? CurrentBooking
+    {
+        get { return currentBooking; }
+        set { currentBooking = value; }
+    }
 
     // Constructor
     public Renter(string name, string username, Card card, DateTime dateOfBirth, int contact, string password, string email)
         : base(name, username, card)
     {
-        this.id = id;
         this.dateOfBirth = dateOfBirth;
         this.contact = contact;
-        this.bookingHistory = bookingHistory;
-        this.isVerified = isVerified;
         this.password = password;
         this.email = email;
-        this.makes = makes;
-        this.isVerifiedBy = isVerifiedBy;
-        this.has = has;
-        this.driversLicense = driversLicense;
+        BookingHistory = new List<Booking>();
+    }
+    public Renter(int id, string name, string username, Card card, DateTime dateOfBirth, int contact, bool isVerified, string password, string email, List<Booking> bookingHistory, Admin isVerifiedBy, DigitalWallet wallet, License driversLicense, Booking? currentBooking)
+        : base(id, name, username, card)
+    {
+        DateOfBirth = dateOfBirth;
+        Contact = contact;
+        BookingHistory = bookingHistory;
+        IsVerified = isVerified;
+        Password = password;
+        Email = email;
+        IsVerifiedBy = isVerifiedBy;
+        Wallet = wallet;
+        DriversLicense = driversLicense;
+        CurrentBooking = currentBooking;
     }
 
 
     public bool CheckAnyOngoingBooking(DateTime start, DateTime end)
-    {
-        foreach (Booking booking in bookingHistory)
+    {   
+        if (BookingHistory.Count == 0)
+        {
+            return true;
+        }
+        foreach (Booking booking in BookingHistory)
         {
             // at least one already booked timeslot is within the start and end date
-            if ((booking.StartDateTime > start && booking.StartDateTime < end) || (booking.EndDateTime > start && booking.EndDateTime < end))
+            if ((booking.StartDateTime >= start && booking.StartDateTime < end) || (booking.EndDateTime > start && booking.EndDateTime <= end))
             {
                 return true;
             }
@@ -133,11 +151,11 @@ public class Renter : User
 
 
     // ToString method
-    public override string ToString()
-               $"Booking History: {BookingHistory}, Is Verified: {IsVerified}, Email: {Email}, " +
-               $"Number of Bookings: {BookingHistory}, Verified By: {IsVerifiedBy}, Digital Wallet: {Wallet}, " +
-               $"Booking History: {BookingHistory}, Is Verified: {IsVerified}, Email: {Email}, " +
-               $"Number of Bookings: {Makes.Count}, Verified By: {IsVerifiedBy}, Digital Wallet: {Has}, " +
-               $"Driver's License: {DriversLicense}";
+    public override string ToString() { 
+        return $"Booking History: {BookingHistory}, Is Verified: {IsVerified}, Email: {Email}, " +
+        $"Number of Bookings: {BookingHistory}, Verified By: {IsVerifiedBy}, Digital Wallet: {Wallet}, " +
+        $"Booking History: {BookingHistory}, Is Verified: {IsVerified}, Email: {Email}, " +
+        $"Number of Bookings: {bookingHistory.Count}, Verified By: {IsVerifiedBy}, Digital Wallet: {Wallet}, " +
+        $"Driver's License: {DriversLicense}";
     }
 }

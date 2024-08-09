@@ -25,8 +25,8 @@ public class Car
         set { model = value; } 
     }
 
-    private DateTime year;
-    public DateTime Year 
+    private int year;
+    public int Year 
     { 
         get { return year; } 
         set { year = value; } 
@@ -95,13 +95,7 @@ public class Car
         set { carBookings = value; }
     }
 
-    public Car(string make, string model, DateTime year, float mileage, List<string> photos, bool isWithdrawn, Dictionary<int, string> reviews, string licensePlate, float rentalRate)
-    {
-        get { return registeredTimeSlots; }
-        set { registeredTimeSlots = value; }
-    }
-
-    public Car(string make, string model, DateTime year, float mileage, List<string> photos, bool isWithdrawn, Dictionary<int, string> reviews, string licensePlate, float rentalRate)
+    public Car(string make, string model, int year, float mileage, List<string> photos, bool isWithdrawn, Dictionary<int, string> reviews, string licensePlate, float rentalRate)
     {
         Id = nextId++; // Assign the current ID and increment the counter
         Make = make;
@@ -127,9 +121,9 @@ public class Car
         foreach (Timeslot aTimeSlot in RegisteredTimeSlots) 
         {
             // Check if the timeslot falls within the start and end times
-            if ((start >= aTimeSlot.TimeSlot) && (end <= aTimeSlot.TimeSlot))
+            if ((start <= aTimeSlot.TimeSlot) && (end > aTimeSlot.TimeSlot))   
             {
-                numberOfTimeslotsRegistered++;
+                numberOfTimeslotsRegistered += 1;
                 if (aTimeSlot.AvailabilityStatus == false)
                 {
                     allSlotsAvailable = false;

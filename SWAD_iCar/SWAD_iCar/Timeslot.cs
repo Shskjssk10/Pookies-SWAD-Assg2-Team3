@@ -45,9 +45,9 @@ public class Timeslot {
 		set { car = value; }
 	}
 
-    public void ToString()
+    public override string ToString()
     {
-        Console.WriteLine($"Timeslot Id: {id}, TimeSlot: {timeSlot}, Availability: {availabilityStatus}");
-        return;
+        return $"Timeslot Id: {id}, TimeSlot: {timeSlot}, Availability: {availabilityStatus}";
+
     }
 }

@@ -8,7 +8,7 @@ public class PhysicalAddress : Location  {
 		set { fee = value; }
 	}
 
-	public PhysicalAddress(float addressFee, string address) : base(address)
+	public PhysicalAddress(string address, float addressFee) : base(address)
 	{
 		Fee = addressFee;
 	}

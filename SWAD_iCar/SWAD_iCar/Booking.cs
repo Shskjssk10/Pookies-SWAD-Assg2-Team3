@@ -31,6 +31,14 @@ public class Booking
         set { returnMethod = value; }
     }
 
+    private DateTime returnTime;
+    public DateTime ReturnTime
+    {
+        get { return returnTime; }
+        set { returnTime = value; }
+    }
+
+
     private Location pickUpMethod;
     public Location PickUpMethod
     {
@@ -80,6 +88,20 @@ public class Booking
         set { car = value; }
     }
 
+    private Location dropOffTo;
+    public Location DropOffTo
+    {
+        get { return dropOffTo; }
+        set { dropOffTo = value; }
+    }
+
+    private Location pickUpFrom;
+    public Location PickUpFrom
+    {
+        get { return pickUpFrom; }
+        set { pickUpFrom = value; }
+    }
+
     private List<Report> about = new List<Report>();
     public List<Report> About
     {
@@ -115,6 +137,27 @@ public class Booking
         TotalBookingFee = totalBookingFee;
         BookingStatus = bookingStatus;
         Car = car;
+    }
+
+    public Booking(int id, DateTime startDateTime, DateTime endDateTime, DateTime returnTime, Location returnMethod, Location pickUpMethod, bool vehicleInspectionStatus, float penaltyFee, float damagesFee, float totalBookingFee, string bookingStatus, Car car, Location dropOffTo, Location pickUpFrom, List<Report> about, Admin updates, List<Transaction> bookingTransactions)
+    {
+        this.id = id;
+        this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
+        this.returnTime = returnTime;
+        this.returnMethod = returnMethod;
+        this.pickUpMethod = pickUpMethod;
+        this.vehicleInspectionStatus = vehicleInspectionStatus;
+        this.penaltyFee = penaltyFee;
+        this.damagesFee = damagesFee;
+        this.totalBookingFee = totalBookingFee;
+        this.bookingStatus = bookingStatus;
+        this.car = car;
+        this.dropOffTo = dropOffTo;
+        this.pickUpFrom = pickUpFrom;
+        this.about = about;
+        this.updatedBy = updates;
+        this.bookingTransactions = bookingTransactions;
     }
 
     public string GetBookingDetails()
@@ -173,7 +216,7 @@ public class Booking
                $"Vehicle Inspection Status: {VehicleInspectionStatus}, Penalty Fee: {PenaltyFee}, " +
                $"Damages Fee: {DamagesFee}, Total Booking Fee: {TotalBookingFee}, " +
                $"Booking Status: {BookingStatus}, Car: {Car}" +
-               $"Reports: {About.Length}, Number of Transactions: {BookingTransactions.Count}";
+               $"Reports: {About.Count}, Number of Transactions: {BookingTransactions.Count}";
     }
 
 }

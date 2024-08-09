@@ -37,5 +37,13 @@ public class User
         this.username = username;
         this.card = card;
     }
+    public User(int id, string name, string username, Card card)
+    {
+        this.id = id;
+        this.name = name;
+        this.username = username;
+        this.card = card;
+    }
+
 
 }
