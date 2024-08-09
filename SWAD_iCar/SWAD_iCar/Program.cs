@@ -115,8 +115,8 @@ namespace SWAD_iCar
             var license2 = new License(new DateTime(2019, 5, 1), 1002, "Authority B", new DateTime(2024, 5, 1), 1, new List<string> { "photo2.jpg" }, null);
 
             // Renter
-            var renter3 = new Renter(1, "John Doe", "jdoe", card1, new DateTime(1990, 5, 20), 1234567890, true, "password123", "jdoe@example.com", new List<Booking>(), null, wallet1, license1, null);
-            var renter4 = new Renter(2, "Jane Smith", "jsmith", card2, new DateTime(1985, 8, 15), 987654210, false, "password456", "jsmith@example.com", new List<Booking>(), null, wallet2, license2, null);
+            var renter3 = new Renter(3, "John Doe", "jdoe", card1, new DateTime(1990, 5, 20), 1234567890, true, "password123", "jdoe@example.com", new List<Booking>(), null, wallet1, license1, null);
+            var renter4 = new Renter(4, "Jane Smith", "jsmith", card2, new DateTime(1985, 8, 15), 987654210, false, "password456", "jsmith@example.com", new List<Booking>(), null, wallet2, license2, null);
 
             // Admin
             var admin1 = new Admin(1, "Admin User", "admin", card1, new List<Booking>(), new List<Renter> { renter3, renter4 }, new List<Report>());
@@ -151,9 +151,9 @@ namespace SWAD_iCar
 
 
             var booking3 = new Booking(
-                1,
-                new DateTime(2024, 10, 1, 10, 0, 0),
-                new DateTime(2024, 10, 10, 10, 0, 0),
+                3,
+                new DateTime(2024, 11, 1, 10, 0, 0),
+                new DateTime(2024, 11, 10, 10, 0, 0),
                 DateTime.Now.AddDays(5), // Assuming a return time 5 days after booking start
                 new Location("Delivery"),
                 new Location("iCar Station"),
@@ -171,7 +171,7 @@ namespace SWAD_iCar
             );
 
             var booking4 = new Booking(
-                2,
+                4,
                 new DateTime(2024, 9, 1, 10, 0, 0),
                 new DateTime(2024, 9, 10, 10, 0, 0),
                 DateTime.Now.AddDays(3), // Assuming a return time 3 days after booking start
@@ -209,16 +209,16 @@ namespace SWAD_iCar
 
             // Create Controller and UI
             var modifyBookingController = new CTL_modifyBooking(3, listOfRenters);
-            var modifyBookingUI = new UI_modifyBooking(modifyBookingController, 1);
+            var modifyBookingUI = new UI_modifyBooking(modifyBookingController, 3);
 
             // Modify booking
-            modifyBookingUI.ModifyBooking(renter1.Id, booking1.Id);
+            modifyBookingUI.ModifyBooking(renter3.Id, booking3.Id);
 
             //alt way
-            CTL_ReturnVehicle ctlReturnVehicle = new CTL_ReturnVehicle();
-            UI_ReturnVehicle uiReturnVehicle = ctlReturnVehicle.uiReturnVehicle;
+            //CTL_ReturnVehicle ctlReturnVehicle = new CTL_ReturnVehicle();
+            //UI_ReturnVehicle uiReturnVehicle = ctlReturnVehicle.uiReturnVehicle;
 
-            uiReturnVehicle.ReturnCar(renter1.Id);
+            //uiReturnVehicle.ReturnCar(renter1.Id);
         }
     }
 }
