@@ -210,7 +210,13 @@ namespace SWAD_iCar
 
         public string ToDisplay()
         {
-            return $"Make: {make}, model: {model}, year:{year}, mileage:{mileage}, licensePlate: {licensePlate}, rentalRate:{rentalRate}, insurance: {CarInsurance}";
+            return $"Make: {make}\n" +
+                $"Model: {model}\n" +
+                $"Year:{year}\n" +
+                $"Mileage:{mileage}\n" +
+                $"LicensePlate: {licensePlate}\n" +
+                $"RentalRate:{rentalRate}\n" +
+                $"insurance: {CarInsurance}";
         }
         public override string ToString()
         {

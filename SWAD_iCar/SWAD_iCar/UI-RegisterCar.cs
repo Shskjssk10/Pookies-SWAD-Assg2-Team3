@@ -137,7 +137,7 @@ namespace SWAD_iCar
                 {
                     submitConfirmation(make, model, year, mileage,licensePlate, rentalRate, photos, insuranceDetails);
                     //it does call
-                    Console.WriteLine("here");
+                    Console.WriteLine();
                     ctlRegisterCar.getAllCars();
                     break;
                 }
