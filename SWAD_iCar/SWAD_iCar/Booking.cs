@@ -2,6 +2,7 @@ using System;
 
 public class Booking
 {
+    private static int nextId = 1; // Static field to track the next ID
     private int id;
     public int Id
     {
@@ -86,21 +87,6 @@ public class Booking
         set { car = value; }
     }
 
-    private Location dropOffTo;
-    public Location DropOffTo
-    {
-        get { return dropOffTo; }
-        set { dropOffTo = value; }
-    }
-
-    private Location pickUpFrom;
-    public Location PickUpFrom
-    {
-        get { return pickUpFrom; }
-        set { pickUpFrom = value; }
-    }
-
-
     private List<Report> about = new List<Report>();
     public List<Report> About
     {
@@ -108,11 +94,11 @@ public class Booking
         set { about = value; }
     }
 
-    private Admin updates;
-    public Admin Updates
+    private Admin updatedBy;
+    public Admin UpdatedBy
     {
-        get { return updates; }
-        set { updates = value; }
+        get { return updatedBy; }
+        set { updatedBy = value; }
     }
 
     private List<Transaction> bookingTransactions = new List<Transaction>();
@@ -163,7 +149,7 @@ public class Booking
 
     public void AddNewTransaction(Transaction transaction)
     {
-        throw new System.NotImplementedException("Not implemented");
+        bookingTransactions.Add(transaction);
     }
 
     //may not be needed 
@@ -223,9 +209,8 @@ public class Booking
                $"Return Method: {ReturnMethod}, Pick Up Method: {PickUpMethod}, " +
                $"Vehicle Inspection Status: {VehicleInspectionStatus}, Penalty Fee: {PenaltyFee}, " +
                $"Damages Fee: {DamagesFee}, Total Booking Fee: {TotalBookingFee}, " +
-               $"Booking Status: {BookingStatus}, Car: {Car}, Drop Off To: {DropOffTo}, " +
-               $"Pick Up From: {PickUpFrom}, Reports: {About.Count}, " +
-               $"Updated By: {Updates}, Number of Transactions: {BookingTransactions.Count}";
+               $"Booking Status: {BookingStatus}, Car: {Car}" +
+               $"Reports: {About.Length}, Number of Transactions: {BookingTransactions.Count}";
     }
 
 }

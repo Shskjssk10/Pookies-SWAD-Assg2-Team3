@@ -10,3 +10,4 @@ public class Regular : Renter
         // Additional initialization for Regular renters can be added here.
     }
 }
+

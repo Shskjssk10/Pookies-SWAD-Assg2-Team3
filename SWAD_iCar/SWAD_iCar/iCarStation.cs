@@ -1,7 +1,8 @@
 using System;
 
 public class ICarStation : Location  {
-	private int id;
+    private static int nextId = 1; // Static field to track the next ID
+    private int id;
 	public int Id
 	{
 		get { return id; }
@@ -15,8 +16,8 @@ public class ICarStation : Location  {
 		set { name = value; }
 	}
 
-	public ICarStation(int id, string name, string address) : base(address) {
-		Id = id;
+	public ICarStation(string name, string address) : base(address) {
+		Id = nextId++;
 		Name = name;
 	}
 }

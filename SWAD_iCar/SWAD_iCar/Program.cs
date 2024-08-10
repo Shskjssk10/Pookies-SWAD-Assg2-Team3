@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Transactions;
 
 namespace SWAD_iCar
@@ -130,6 +130,3 @@ namespace SWAD_iCar
         }
     }
 }
-
-// See https://aka.ms/new-console-template for more information
-//Console.WriteLine("Hello, World!");

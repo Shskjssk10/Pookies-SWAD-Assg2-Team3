@@ -2,6 +2,7 @@ using System;
 
 public class Transaction
 {
+    private static int nextId = 1; // Static field to track the next ID
     private int id;
 
     public int Id
@@ -28,9 +29,9 @@ public class Transaction
 
     public Transaction() { }
 
-    public Transaction(int i, float c, DateTime t)
+    public Transaction(float c, DateTime t)
     {
-        Id = i;
+        Id = nextId++; // Assign the current ID and increment the counter
         Cost = c;
         Time = t;
     }
