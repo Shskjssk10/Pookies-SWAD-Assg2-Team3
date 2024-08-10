@@ -9,18 +9,18 @@ namespace SWAD_iCar
         private List<Renter> listOfRenters;
         private Renter dummyRenter;
         private Admin dummyAdmin;
+        private List<CarOwner> listOfCarOwners;
 
-        public UI_Main(List<Booking> bookings, List<Renter> listOfRenters, Renter dummyRenter, Admin dummyAdmin)
+        public UI_Main(List<Booking> bookings, List<Renter> listOfRenters, Renter dummyRenter, Admin dummyAdmin, List<CarOwner> listOfCarOwners)
         {
             this.bookings = bookings;
             this.listOfRenters = listOfRenters;
             this.dummyRenter = dummyRenter;
             this.dummyAdmin = dummyAdmin;
+            this.listOfCarOwners = listOfCarOwners;
         }
-
-        public void mainMenu()
+        public void login()
         {
-
             Console.WriteLine(" __   ______                     \r\n/  | /      \\                    \r\n$$/ /$$$$$$  | ______    ______  \r\n/  |$$ |  $$/ /      \\  /      \\ \r\n$$ |$$ |      $$$$$$  |/$$$$$$  |\r\n$$ |$$ |   __ /    $$ |$$ |  $$/ \r\n$$ |$$ \\__/  /$$$$$$$ |$$ |      \r\n$$ |$$    $$/$$    $$ |$$ |      \r\n$$/  $$$$$$/  $$$$$$$/ $$/       \r\n                                 \r\n                                 \r\n                                 ");
 
             Console.WriteLine("Enter your user ID:");
@@ -28,7 +28,10 @@ namespace SWAD_iCar
 
             Console.WriteLine("Enter your password:");
             string Password = Console.ReadLine();
-
+            mainMenu(userId);
+        }
+        public void mainMenu(int userId)
+        {
             bool exit = false;
             while (exit == false)
             {
@@ -57,7 +60,9 @@ namespace SWAD_iCar
                 {
                     case "1":
                         {
-                            Console.WriteLine("Not Merged");
+                            CTL_ManageCar manageCarController = new CTL_ManageCar(listOfCarOwners);
+                            UI_ManageCar manageCarUI = new UI_ManageCar(manageCarController, new UI_Main(bookings, listOfRenters, dummyRenter, dummyAdmin, listOfCarOwners));
+                            manageCarUI.getRegisteredCars(userId);
                             break;
                         }
                     case "2":

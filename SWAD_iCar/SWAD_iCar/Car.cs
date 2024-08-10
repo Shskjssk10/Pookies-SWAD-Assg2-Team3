@@ -165,17 +165,10 @@ namespace SWAD_iCar
 
         public bool RemoveTimeSlots(int startID, int endID)
         {
-            bool flag = false;
             List<Timeslot> registeredTimeslots = GetTimeSlots();
-            foreach (Timeslot timeslot in registeredTimeslots)
-            {
-                if (timeslot.Id >= startID || timeslot.Id <= endID)
-                {
-                    registeredTimeslots.Remove(timeslot);
-                    flag = true;
-                }
-            }
-            return flag;
+
+            int removedCount = registeredTimeslots.RemoveAll(timeslot => timeslot.Id >= startID && timeslot.Id <= endID);
+            return true;
         }
 
         public bool UpdateRentalRate(float newRate)
@@ -192,13 +185,20 @@ namespace SWAD_iCar
             }
         }
 
-        public void UpdateTimeSlotsAvailability(DateTime start, DateTime end, bool status)
+        public void UpdateTimeSlotsAvailability(List<Timeslot> selectedTimeslots, int newStatus)
         {
-            foreach (Timeslot aTimeSlot in RegisteredTimeSlots)
+            Timeslot matchingTimeslot;
+            foreach (Timeslot timeslot in selectedTimeslots)
             {
-                if ((start >= aTimeSlot.TimeSlot) && (end <= aTimeSlot.TimeSlot))
+                matchingTimeslot = registeredTimeSlots.FirstOrDefault(t => t.Id == timeslot.Id);
+                switch (newStatus)
                 {
-                    aTimeSlot.UpdateTimeSlotAvailability(status);
+                    case 1:
+                        matchingTimeslot.UpdateTimeSlotAvailability(true);
+                        break;
+                    case 2:
+                        matchingTimeslot.UpdateTimeSlotAvailability(false);
+                        break;  
                 }
             }
         }
