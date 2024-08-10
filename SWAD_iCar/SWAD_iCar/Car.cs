@@ -107,7 +107,7 @@ namespace SWAD_iCar
             Year = year;
             Mileage = mileage;
             Photos = photos ?? new List<string>(); // Use an empty list if null
-            IsWithdrawn = isWithdrawn;
+            IsWithdrawn = false;
             Reviews = reviews ?? new Dictionary<int, string>(); // Use an empty dictionary if null
             LicensePlate = licensePlate;
             RentalRate = rentalRate;
@@ -117,6 +117,7 @@ namespace SWAD_iCar
 
         public Car(string make, string model, int year, float mileage, string licensePlate, float rentalRate, List<string> photos, Insurance insuranceDetails)
         {
+            Id = nextId++;
             Make = make;
             Model = model;
             Year = year;
@@ -204,6 +205,12 @@ namespace SWAD_iCar
         public void AddNewBooking(Booking newBooking)
         {
             CarBookings.Add(newBooking);
+        }
+
+
+        public string ToDisplay()
+        {
+            return $"Make: {make}, model: {model}, year:{year}, mileage:{mileage}, licensePlate: {licensePlate}, rentalRate:{rentalRate}, insurance: {CarInsurance}";
         }
         public override string ToString()
         {

@@ -10,10 +10,26 @@ namespace SWAD_iCar
     internal class CTL_RegisterCar
     {
         List<Car> cars = new List<Car>();
-        public void createCar(string make,string model,int year,float mileage,string licensePlate,float rentalRate, List<string> photos, Insurance insuranceDetails)
+        public void createCar(string make, string model, int year, float mileage, string licensePlate, float rentalRate, List<string> photos, Insurance insuranceDetails)
         {
-            Car car = new Car(make , model, year, mileage, licensePlate, rentalRate, photos, insuranceDetails);
-            cars.Add(car);
+            if (checkIsCorrect(make, model, year, mileage, licensePlate, rentalRate, photos, insuranceDetails))
+            {
+                Car car = new Car(make, model, year, mileage, licensePlate, rentalRate, photos, insuranceDetails);
+                if (isDuplicate(car))
+                {
+                    Console.WriteLine("Car registration failed. A car with this license plate already exists.");
+                }
+                else
+                {
+                    // Add the car to the list if it is not a duplicate
+                    cars.Add(car);
+                    Console.WriteLine("Car registered successfully.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Car registration failed. Please check your inputs and try again.");
+            }
         }
 
         public bool checkIsCorrect(string make, string model, int year, float mileage, string licensePlate, float rentalRate, List<string> photos, Insurance insuranceDetails)
@@ -61,23 +77,16 @@ namespace SWAD_iCar
             return true;
         }
 
-        public bool isDuplicate()
+        public bool isDuplicate(Car newCar)
         {
-            foreach (Car car in cars)
-            {
-                if (true)
-                {
-                    return true;
-                }
-            }
-            return false;
+            return cars.Any(car => car.LicensePlate == newCar.LicensePlate);
         }
 
         public void getAllCars()
         {
             foreach(Car car in cars)
             {
-                Console.WriteLine(car);
+                Console.WriteLine(car.ToDisplay());
             }
         }
     }

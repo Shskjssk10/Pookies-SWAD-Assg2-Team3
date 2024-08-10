@@ -33,21 +33,53 @@ namespace SWAD_iCar
             Console.Write("Enter car model: ");
             string model = Console.ReadLine();
 
-            // Prompt for year
-            Console.Write("Enter car year: ");
-            int year = int.Parse(Console.ReadLine());
-
+            int year;
+            while (true)
+            {
+                Console.Write("Enter car year: ");
+                string yearInput = Console.ReadLine();
+                if (int.TryParse(yearInput, out year))
+                {
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input. Please enter a valid year.");
+                }
+            }
             // Prompt for mileage
-            Console.Write("Enter car mileage: ");
-            int mileage = int.Parse(Console.ReadLine());
-
+            int mileage;
+            while (true)
+            {
+                Console.Write("Enter car mileage: ");
+                string mileageInput = Console.ReadLine();
+                if (int.TryParse(mileageInput, out mileage))
+                {
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input. Please enter a valid mileage.");
+                }
+            }
             // Prompt for license plate
             Console.Write("Enter license plate: ");
             string licensePlate = Console.ReadLine();
 
-            // Prompt for license plate
-            Console.Write("Enter Rental Rate: ");
-            float rentalRate = float.Parse(Console.ReadLine());
+            float rentalRate;
+            while (true)
+            {
+                Console.Write("Enter Rental Rate: ");
+                string rentalRateInput = Console.ReadLine();
+                if (float.TryParse(rentalRateInput, out rentalRate))
+                {
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input. Please enter a valid rental rate.");
+                }
+            }
 
             // Prompt for list of photos
             List<string> photos = new List<string>();
@@ -88,11 +120,11 @@ namespace SWAD_iCar
             // Create a Car object or equivalent to store the data
             Car car = new Car(make, model, year, mileage, licensePlate, rentalRate, photos, insuranceDetails);
 
-            promptConfirmation();
+            promptConfirmation(make, model, year, mileage, licensePlate, rentalRate, photos, insuranceDetails);
         }
 
 
-        public void promptConfirmation()
+        public void promptConfirmation(string make, string model, int year, int mileage, string licensePlate, float rentalRate, List<string> photos, Insurance insuranceDetails)
         {
             string choice;
 
@@ -103,7 +135,10 @@ namespace SWAD_iCar
 
                 if (choice == "yes")
                 {
-                    submitConfirmation();
+                    submitConfirmation(make, model, year, mileage,licensePlate, rentalRate, photos, insuranceDetails);
+                    //it does call
+                    Console.WriteLine("here");
+                    ctlRegisterCar.getAllCars();
                     break;
                 }
                 else if (choice == "no")
@@ -121,17 +156,9 @@ namespace SWAD_iCar
         {
             ctlRegisterCar.createCar(make, model, year, mileage, licensePlate, rentalRate, photos, insuranceDetails);
         }
-        public void submitConfirmation()
+        public void submitConfirmation(string make, string model, int year, int mileage, string licensePlate, float rentalRate, List<string> photos, Insurance insuranceDetails)
         {
-            string make = "Toyota";
-            string model = "Camry";
-            int year = 2024;
-            float mileage = 5000.0f;
-            string licensePlate = "XYZ123";
-            float rentalRate = 50.0f;
-            List<string> photos = new List<string> { "photo1.jpg", "photo2.jpg" };
-            Insurance insuranceDetails = new Insurance(123, new DateTime(2024/12/01), new DateTime(2021/12/01), "AIA"); // Assume Insurance is already defined and properly initialized
-
+            // Pass the parameters to the addNewCar method
             addNewCar(make, model, year, mileage, licensePlate, rentalRate, photos, insuranceDetails);
         }
 
