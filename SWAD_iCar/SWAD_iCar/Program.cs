@@ -73,6 +73,18 @@ namespace SWAD_iCar
                 bookingTransactions: new List<Transaction> { null }
             );
 
+            Car car1 = new Car(
+                make: "Toyota",
+                model: "Camry",
+                year: 2020,
+                mileage: 15000,
+                photos: null,
+                isWithdrawn: false,
+                reviews: null,
+                licensePlate: "XYZ-1234",
+                rentalRate: 50.0f
+            );
+
             Booking currentBooking = new Booking(
                 id: 3,
                 startDateTime: new DateTime(2024, 8, 1, 9, 0, 0), //1st August 2023, 9:00 AM
@@ -82,10 +94,10 @@ namespace SWAD_iCar
                 pickUpMethod: new Location("iCar Station 2"),
                 vehicleInspectionStatus: true,
                 penaltyFee: 0.0f,
-                damagesFee: 0.0f,
+                damagesFee: 500.0f,
                 totalBookingFee: 120.0f,
                 bookingStatus: "Ongoing",
-                car: null,
+                car: car1,
                 dropOffTo: null,
                 pickUpFrom: null,
                 about: new List<Report>(),
@@ -117,7 +129,7 @@ namespace SWAD_iCar
             var card1 = new Card("Visa", 123456789, 123, new DateTime(2025, 12, 31));
             var card2 = new Card("MasterCard", 987654321, 321, new DateTime(2024, 6, 30));
             var card3 = new Card("Visa", 121212121, 123, new DateTime(2026, 12, 31));
-
+            
             // Digital Wallets
             var wallet1 = new DigitalWallet(150.75f);
             var wallet2 = new DigitalWallet(300.50f);
@@ -127,7 +139,7 @@ namespace SWAD_iCar
             var license2 = new License(new DateTime(2019, 5, 1), 1002, "Authority B", new DateTime(2024, 5, 1), 1, new List<string> { "photo2.jpg" }, null);
 
             // Renter
-            var renter3 = new Renter(3, "John Doe", "jdoe", card1, new DateTime(1990, 5, 20), 1234567890, true, "password123", "jdoe@example.com", new List<Booking>(), null, wallet1, license1, null);
+            var renter3 = new Renter(3, "John Doe", "jdoe", card1, new DateTime(1990, 5, 20), 1234567890, true, "password123", "jdoe@example.com", new List<Booking>(), null, wallet1, license1, currentBooking);
             var renter4 = new Renter(4, "Jane Smith", "jsmith", card2, new DateTime(1985, 8, 15), 987654210, false, "password456", "jsmith@example.com", new List<Booking>(), null, wallet2, license2, null);
             var renter5 = new Renter(5, "Caden Toh", "Shskjssk10", card3, new DateTime(2000, 8, 10), 12121212, true, "password123", "cadentohjunyi@gmail.com", new List<Booking>(), null, wallet2, license2, null);
 
@@ -169,7 +181,7 @@ namespace SWAD_iCar
             Car dummyCar2 = new Car(
                 make: "Mercedes",
                 model: "Whatever",
-                year: new DateTime(2020, 1, 1),
+                year: 2020,
                 mileage: 15000,
                 photos: photos,
                 isWithdrawn: false,

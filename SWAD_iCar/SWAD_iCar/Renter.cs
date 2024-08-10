@@ -147,35 +147,18 @@ namespace SWAD_iCar
         public Booking GetCurrentBooking()
         {
             return this.currentBooking;
-            //throw new System.NotImplementedException("Not implemented");
-            // return Booking
         }
+
         public void AddDriverLicense(License license)
         {
             DriversLicense = license;
         }
 
 
-        public bool UpdateBooking()
+        public void CompleteExistingBooking()
         {
-            Booking tempBooking = currentBooking;
-            BookingHistory.Add(tempBooking);
+            BookingHistory.Add(currentBooking);
             currentBooking = null;
-
-            return true;
-            //if (bookingHistory == tempBooking)
-            //{
-            //    return true;
-            //}
-            //else
-            //{
-            //    return false;
-            //}
-
-
-            //return true;
-            //    throw new System.NotImplementedException("Not implemented");
-            //    // return bool
         }
 
         // ToString method

@@ -12,16 +12,8 @@ namespace SWAD_iCar
         private Renter renter1;
         private Booking currentBooking;
         private DateTime returnTime;
-        private float penaltyFee;
-        private float damagesFee;
 
-        public UI_ReturnVehicle uiReturnVehicle;
-        public CTL_ReturnVehicle()
-        {
-            uiReturnVehicle = new UI_ReturnVehicle(this);
-        }
-
-        public Booking ReturnCar(int renterId)
+        public Booking InitiateCarReturn(int renterId)
         {
             renter1 = GetRenter(renterId);
             currentBooking = renter1.GetCurrentBooking();
@@ -32,59 +24,74 @@ namespace SWAD_iCar
         public Renter GetRenter(int renterId)
         {
             //can i use program here
-            return Program.dummyRenter; 
+            return Program.listOfRenters[renterId];
         }
 
         public bool CheckLocation(string currentAddress)
         {
-            return currentBooking.CheckLocation(currentAddress);
-        }
+            //method 1
+            //return currentBooking.CheckLocation(currentAddress);
 
-        public void SetReturnTime()
-        {
-            returnTime = currentBooking.SetReturnTime();
-            bool result = renter1.UpdateBooking();
-            bool penalty = checkPenalty();
-            float PenaltyFee = 0;
-
-            if (penalty)
-            {
-                PenaltyFee = calculatePenalty();
-            }
-            notifyAdmin();
-
-            float DamagesFee = updateInspectionStatus();
-            uiReturnVehicle.displayAnyCharges(PenaltyFee, DamagesFee);
-        }
-
-        public bool checkPenalty()
-        {
-            if (returnTime > currentBooking.EndDateTime)
+            //revised method
+            if (currentAddress == currentBooking.ReturnMethod.Address)
             {
                 return true;
             }
             return false;
         }
 
-        public float calculatePenalty()
+        public void SetReturnTime()
         {
-            penaltyFee = currentBooking.CalculatePenalty(returnTime);
+            returnTime = currentBooking.SetReturnTime();
+            renter1.CompleteExistingBooking(); //CompleteExistingBooking
+
+            //
+            //bool penalty = checkPenalty();
+            //float PenaltyFee = 0;
+
+            //if (penalty)
+            //{
+            //    PenaltyFee = calculatePenalty();
+            //}
+            //notifyAdmin();
+
+            //float DamagesFee = updateInspectionStatus();
+            //uiReturnVehicle.displayAnyCharges(PenaltyFee, DamagesFee);
+        }
+
+        public float checkPenalty()
+        {
+            float penaltyFee = 0;
+            //how is this in seq diagram
+            if (returnTime > currentBooking.EndDateTime)
+            {
+                penaltyFee = currentBooking.CalculatePenalty(returnTime);
+            }
+
             return penaltyFee;
         }
+
+        //public float calculatePenalty()
+        //{
+        //    penaltyFee = currentBooking.CalculatePenalty(returnTime);
+        //    return penaltyFee;
+        //}
 
         public void notifyAdmin()
         {
             Program.pendingBookings.Add(currentBooking);
         }
 
-        public float updateInspectionStatus()
+        public float checkDamagesFee()
         {
-            return damagesFee = Program.dummyAdmin.UpdateInspectionStatus();
+            return currentBooking.DamagesFee;
         }
 
-        public Transaction makePayment(float bookingFee)
+        public Transaction makePayment(float bookingFee)    
         {
-            return renter1.MakePayment(bookingFee);
+            Transaction transaction = renter1.MakePayment(bookingFee);
+            addNewTransaction(transaction);
+            return transaction;
         }
 
         public void addNewTransaction(Transaction transaction)

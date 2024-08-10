@@ -76,7 +76,16 @@ namespace SWAD_iCar
                         }
                     case "3":
                         {
-                            Console.WriteLine("Not Merged");
+                            if (listOfRenters[userId].CurrentBooking != null)
+                            {
+                                UI_ReturnVehicle uiReturnVehicle = new UI_ReturnVehicle();
+                                uiReturnVehicle.InitiateCarReturn(userId);
+                            }
+                            else
+                            {
+                                Console.WriteLine("There is no current booking for this renter.\n");
+                            }
+                            
                             break;
                         }
                     case "4":
