@@ -37,7 +37,7 @@ namespace SWAD_iCar
 
                 Console.WriteLine("Welcome back!\nWhat would you Like to do?:");
                 Console.WriteLine("1. Manage Car (Caden)");
-                Console.WriteLine("2. Register Vehicle (Hendrik)");
+                Console.WriteLine("2. Register Car (Hendrik)");
                 Console.WriteLine("3. Return Car (Vincent)");
                 Console.WriteLine("4. Modify Booking (Neil)");
                 Console.WriteLine("5. Rent Vehicles (Diontae)");
@@ -62,7 +62,11 @@ namespace SWAD_iCar
                         }
                     case "2":
                         {
-                            Console.WriteLine("Not Merged");
+                            var registerCarController = new CTL_RegisterCar();
+                            var registerCarUI = new UI_RegisterCar();
+
+                            registerCarUI.addNewCar();
+
                             break;
                         }
                     case "3":

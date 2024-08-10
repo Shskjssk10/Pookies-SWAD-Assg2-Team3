@@ -1,6 +1,6 @@
 using SWAD_iCar;
 using System;
-
+using System.Security.Cryptography.X509Certificates;
 
 namespace SWAD_iCar
 {
@@ -29,8 +29,8 @@ namespace SWAD_iCar
             set { model = value; }
         }
 
-        private DateTime year;
-        public DateTime Year
+        private int year;
+        public int Year
         {
             get { return year; }
             set { year = value; }
@@ -99,7 +99,7 @@ namespace SWAD_iCar
             set { carBookings = value; }
         }
 
-        public Car(string make, string model, DateTime year, float mileage, List<string> photos, bool isWithdrawn, Dictionary<int, string> reviews, string licensePlate, float rentalRate)
+        public Car(string make, string model, int year, float mileage, List<string> photos, bool isWithdrawn, Dictionary<int, string> reviews, string licensePlate, float rentalRate)
         {
             Id = nextId++; // Assign the current ID and increment the counter
             Make = make;
@@ -107,12 +107,25 @@ namespace SWAD_iCar
             Year = year;
             Mileage = mileage;
             Photos = photos ?? new List<string>(); // Use an empty list if null
-            IsWithdrawn = isWithdrawn;
+            IsWithdrawn = false;
             Reviews = reviews ?? new Dictionary<int, string>(); // Use an empty dictionary if null
             LicensePlate = licensePlate;
             RentalRate = rentalRate;
             RegisteredTimeSlots = new List<Timeslot>();
             CarBookings = new List<Booking>();
+        }
+
+        public Car(string make, string model, int year, float mileage, string licensePlate, float rentalRate, List<string> photos, Insurance insuranceDetails)
+        {
+            Id = nextId++;
+            Make = make;
+            Model = model;
+            Year = year;
+            Mileage = mileage;
+            LicensePlate = licensePlate;
+            RentalRate = rentalRate;
+            Photos = new List<string>();
+            carInsurance = insuranceDetails; 
         }
 
         public bool CheckAvailability(DateTime start, DateTime end)
@@ -192,6 +205,12 @@ namespace SWAD_iCar
         public void AddNewBooking(Booking newBooking)
         {
             CarBookings.Add(newBooking);
+        }
+
+
+        public string ToDisplay()
+        {
+            return $"Make: {make}, model: {model}, year:{year}, mileage:{mileage}, licensePlate: {licensePlate}, rentalRate:{rentalRate}, insurance: {CarInsurance}";
         }
         public override string ToString()
         {
