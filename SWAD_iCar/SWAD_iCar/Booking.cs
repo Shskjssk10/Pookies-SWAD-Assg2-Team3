@@ -166,6 +166,7 @@ public class Booking
         throw new System.NotImplementedException("Not implemented");
     }
 
+    //may not be needed 
     public bool CheckLocation(string currentAddress)
     {
         if (returnMethod.Address == currentAddress) return true;
@@ -194,13 +195,19 @@ public class Booking
 
     public float CalculatePenalty(DateTime returnTime)
     {
+        float rentalRate = this.car.RentalRate;
         TimeSpan difference = returnTime - endDateTime;
-        // have to reimburse by checking the rental rate in the timeslot
-        float penaltyFee = difference.Hours * 5;
-        return penaltyFee;
 
-        //throw new System.NotImplementedException("Not implemented");
-        // return float
+        // If the difference is greater than 0, calculate penalty
+        if (difference.TotalSeconds > 0)
+        {
+            // Calculate the total hours passed
+            double totalHours = Math.Ceiling(difference.TotalHours);
+            float penaltyFee = (float)totalHours * rentalRate;
+            return penaltyFee;
+        }
+
+        return 0.0f; // No penalty if returned on time or earlier
     }
 
     public void addNewTransaction(Transaction transaction)

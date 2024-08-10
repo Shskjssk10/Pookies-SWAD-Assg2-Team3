@@ -17,9 +17,9 @@ namespace SWAD_iCar
             this.ctlReturnVehicle = ctlReturnVehicle;
         }
 
-        public void ReturnCar(int renterId)
+        public void InitiateCarReturn(int renterId)
         {
-            Booking currentBooking = ctlReturnVehicle.ReturnCar(renterId);
+            Booking currentBooking = ctlReturnVehicle.InitiateCarReturn(renterId);
             DisplayBookingDetails(currentBooking);
             promptAddress(); 
         }
@@ -38,27 +38,85 @@ namespace SWAD_iCar
 
         public void promptAddress()
         {
-            Console.Write("Enter your current address: ");
+            Console.WriteLine("Enter your current address: ");
             enterAddress();
         }
 
         public void enterAddress()
         {
+            //while loop (infinite)
+            //bool result = false;
+            //while (!result)
+            //{
+            //    string currentAddress = Console.ReadLine().Trim();
+            //    result = ctlReturnVehicle.CheckLocation(currentAddress);
+            //    //does this need to be displayed in seq diagram
+            //    if (!result)
+            //    {
+            //        Console.WriteLine("Wrong Address!\n"); 
+            //    }
+            //}
+
+            //loop with tries (3 max times)
+            //int tries = 0;
+            //int maximumTries = 3;
+            //while (tries < maximumTries)
+            //{
+            //    string currentAddress = Console.ReadLine().Trim();
+            //    result = ctlReturnVehicle.CheckLocation(currentAddress);
+            //    if (!result)
+            //    {
+            //        Console.WriteLine("Wrong Address!\n");
+            //    }
+            //}
+
             bool result = false;
-            do
+            int tries = 0;
+            int maximumTries = 3;
+
+            while (tries < maximumTries && !result)
             {
                 string currentAddress = Console.ReadLine().Trim();
                 result = ctlReturnVehicle.CheckLocation(currentAddress);
-                if (!result)
+
+                if (result == false)
                 {
-                    Console.WriteLine("Wrong Address!\n"); //does this need to be displayed in seq diagram
-                } 
-            } while (!result);
+                    Console.WriteLine("Wrong Address!\n");
+                    tries++;
+                }
+            }
+
+            if (result == false)
+            {
+                // Continue with the next function (out of the loop)
+                Console.WriteLine("Maximum tries reached. Exiting.");
+            }
+            else
+            {
+                // Handle the case when the maximum number of tries is reached without success
+                promptReturnConfirmation();
+            }
 
 
             //is this ok?????
-            ctlReturnVehicle.SetReturnTime();
-            displayUpdateSuccess();
+
+            //ctlReturnVehicle.SetReturnTime();
+            //displayUpdateSuccess();
+            //float penaltyFee = ctlReturnVehicle.checkPenalty();
+            //ctlReturnVehicle.notifyAdmin();
+            //float damagesFee = ctlReturnVehicle.updateInspectionStatus();
+            //displayAnyCharges(penaltyFee, damagesFee);
+
+            //if (penaltyFee > 0)
+            //{
+            //    payPenalty(penaltyFee);
+            //}
+
+            //if (damagesFee > 0)
+            //{
+            //    payDamages(damagesFee);
+            //}
+
 
 
             //bool penalty = ctlReturnVehicle.checkPenalty();
@@ -71,7 +129,7 @@ namespace SWAD_iCar
 
             //ctlReturnVehicle.notifyAdmin();
             //float damagesFee = ctlReturnVehicle.updateInspectionStatus();
-            
+
             //HMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
             //if(penaltyFee != 0)
             //{
@@ -85,46 +143,90 @@ namespace SWAD_iCar
             //}
         }
 
+        public void promptReturnConfirmation()
+        {
+            Console.Write("\nProceed with returning of car? (yes/no): ");
+            proceedWithReturn();
+        }
+
+        public void proceedWithReturn()
+        {
+            string confirmation = Console.ReadLine().Trim().ToLower();
+            if (confirmation == "yes")
+            {
+                ctlReturnVehicle.SetReturnTime();
+                displayUpdateSuccess();
+                float penaltyFee = ctlReturnVehicle.checkPenalty();
+                ctlReturnVehicle.notifyAdmin();
+                float damagesFee = ctlReturnVehicle.checkDamagesFee();
+                displayAnyCharges(penaltyFee, damagesFee);
+
+                if (penaltyFee > 0)
+                {
+                    displayPromptPenalty();
+                    payPenalty(penaltyFee);
+                }
+
+                if (damagesFee > 0)
+                {
+                    displayPromptDamages();
+                    payDamages(damagesFee);
+                }
+            }
+            else
+            {
+                Console.WriteLine("Returning of car failed.\n");
+            }
+        }
+
         public void displayUpdateSuccess()
         {
-            Console.WriteLine("Booking updated");
+            Console.WriteLine("\nBooking is completed.\n");
         }
         
         public void payPenalty(float penaltyFee)
         {
-            Console.WriteLine("Make Payment for Penalty Fee");
-            Console.Write("Enter yes to pay penalty: ");
-            string answer = Console.ReadLine().Trim().ToLower();
-            if (answer == "yes")
+
+            string confirmation = Console.ReadLine().Trim().ToLower();
+            if (confirmation == "yes")
             {
                 Transaction transaction = ctlReturnVehicle.makePayment(penaltyFee);
-                ctlReturnVehicle.addNewTransaction(transaction);
+                //ctlReturnVehicle.addNewTransaction(transaction);
                 displayPaymentSuccess(transaction);
             }
             else
             {
-                Console.WriteLine("Payment Unsuccessful.");
+                Console.WriteLine("Payment Unsuccessful.\n");
             }
             
         }
 
         public void payDamages(float damagesFee)
         {
-            //should this be in the seq diagram
-            Console.WriteLine("Make Payment for Damages Fee");
-            Console.Write("Enter yes to pay damages: ");
-            string answer = Console.ReadLine().Trim().ToLower();
-            if (answer == "yes")
+            string confirmation = Console.ReadLine().Trim().ToLower();
+            if (confirmation == "yes")
             {
                 Transaction transaction = ctlReturnVehicle.makePayment(damagesFee);
-                ctlReturnVehicle.addNewTransaction(transaction);
+                //ctlReturnVehicle.addNewTransaction(transaction);
                 displayPaymentSuccess(transaction);
             }
             else
             {
-                Console.WriteLine("Payment Unsuccessful.");
+                Console.WriteLine("Payment Unsuccessful.\n");
             }
             
+        }
+
+        public void displayPromptPenalty()
+        {
+            Console.WriteLine("Make Payment for Penalty Fee");
+            Console.Write("Proceed with the payment for penalty? (yes/no): ");
+        }
+
+        public void displayPromptDamages()
+        {
+            Console.WriteLine("Make Payment for Damages Fee");
+            Console.Write("Proceed with the payment for damages? (yes/no): ");
         }
 
         public void displayPaymentSuccess(Transaction transaction)
@@ -141,16 +243,6 @@ namespace SWAD_iCar
             Console.WriteLine("Pending Fees: \n" +
                 $"Penalty Fee: {PenaltyFee}\n" +
                 $"Damages Fee: {DamagesFee}\n");
-
-            if (PenaltyFee != 0)
-            {
-                payPenalty(PenaltyFee);
-            }
-
-            if (DamagesFee != 0)
-            {
-                payDamages(DamagesFee);
-            }
         }
     }
 }

@@ -101,6 +101,7 @@ public class Renter : User
 
     public Transaction MakePayment(float bookingFee)
     {
+        
         //random transaction id 
         Random rnd = new Random();
         int num = rnd.Next();
@@ -125,13 +126,11 @@ public class Renter : User
         // return Booking
     }
 
-    public bool UpdateBooking()
+    public void CompleteExistingBooking()
     {
-        Booking tempBooking = currentBooking;
-        BookingHistory.Add(tempBooking);
+        BookingHistory.Add(currentBooking);
         currentBooking = null;
 
-        return true;
         //if (bookingHistory == tempBooking)
         //{
         //    return true;

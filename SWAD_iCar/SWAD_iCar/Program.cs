@@ -9,7 +9,7 @@ namespace SWAD_iCar
         public static Renter dummyRenter;
         public static Admin dummyAdmin;
         public static List<Booking> pendingBookings = new List<Booking>();
-        
+
         static void Main(string[] args)
         {
 
@@ -62,25 +62,35 @@ namespace SWAD_iCar
                 bookingTransactions: new List<Transaction> { null }
             );
 
+            //Current booking
+            Car car1 = new Car("Toyota", "Camry", new DateTime(2018, 1, 1), 30000.5f,
+                    null,
+                    false,
+                    null,
+                    "ABC1234", 45.99f);
+
             Booking currentBooking = new Booking(
                 id: 3,
                 startDateTime: new DateTime(2024, 8, 1, 9, 0, 0), //1st August 2023, 9:00 AM
-                endDateTime: new DateTime(2024, 8, 8, 1, 0, 0),
+                endDateTime: new DateTime(2024, 8, 10, 2, 0, 0),
                 returnTime: new DateTime(2024, 8, 1, 12, 0, 0), //not affected anyways
                 returnMethod: new Location("iCar Station"),
                 pickUpMethod: new Location("iCar Station 2"),
                 vehicleInspectionStatus: true,
                 penaltyFee: 0.0f,
-                damagesFee: 0.0f,
+                damagesFee: 500.0f,
                 totalBookingFee: 120.0f,
                 bookingStatus: "Ongoing",
-                car: null,
+                car: car1,
                 dropOffTo: null,
                 pickUpFrom: null,
                 about: new List<Report>(),
                 updates: null,
                 bookingTransactions: new List<Transaction>()
             );
+
+            
+  
 
             Renter renter1 = new Renter(
                 id: 1,
@@ -99,7 +109,7 @@ namespace SWAD_iCar
                 currentBooking: currentBooking
             );
 
-            Admin admin = new Admin(1, "Admin", "admin", null, null, null, null);
+            Admin admin = new Admin  (1, "Admin", "admin", null, null, null, null);
 
 
             ///define the dummy data
@@ -116,7 +126,7 @@ namespace SWAD_iCar
             CTL_ReturnVehicle ctlReturnVehicle = new CTL_ReturnVehicle();
             UI_ReturnVehicle uiReturnVehicle = ctlReturnVehicle.uiReturnVehicle;
 
-            uiReturnVehicle.ReturnCar(renter1.Id);
+            uiReturnVehicle.InitiateCarReturn(renter1.Id);
         }
     }
 }
