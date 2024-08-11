@@ -9,9 +9,8 @@ namespace SWAD_iCar
     internal class CTL_modifyBooking
     {
         private List<Renter> renters;
-        private Booking originalBooking;
+        private Booking originalBookingData;
         private Renter renter;
-
 
         public CTL_modifyBooking(List<Renter> renters)
         {
@@ -27,24 +26,23 @@ namespace SWAD_iCar
                 return (null, "Renter not found.");
             }
 
-            originalBooking = renter.GetBooking(bookingId);
- 
-            if (originalBooking == null)
+            originalBookingData = renter.GetBooking(bookingId);
+
+            if (originalBookingData == null)
             {
                 return (null, "Booking not found.");
             }
 
-            bool isLessThan24Hours = checkIfLessThan24Hours(originalBooking);
+            bool isLessThan24Hours = CheckIfLessThan24Hours(originalBookingData);
 
-            if (isLessThan24Hours)
+            if (isLessThan24Hours == true)
             {
                 return (null, "Cannot modify booking. Less than 24 hours remaining.");
             }
 
             // Booking can be modified
-            return (originalBooking, null);
+            return (originalBookingData, null);
         }
-
 
         public Renter GetRenter(int renterId)
         {
@@ -53,22 +51,23 @@ namespace SWAD_iCar
             return renter;
         }
 
-        public bool checkIfLessThan24Hours(Booking booking)
+        public bool CheckIfLessThan24Hours(Booking booking)
         {
             if (booking == null)
             {
                 throw new ArgumentNullException(nameof(booking));
             }
+
             return (booking.StartDateTime - DateTime.Now).TotalHours < 24;
         }
 
-        public void updateBooking(int bookingId, Booking booking)
+        public void UpdateBooking(int bookingId, Booking booking)
         {
             // Validate the booking before updating
-            //bool isValid = validateUpdateBooking(booking);
+            //bool isValid = ValidateUpdateBooking(booking);
         }
 
-        public (Booking booking, string errorMessage) validateUpdateBooking(Booking updatedBooking)
+        public (Booking booking, string errorMessage) ValidateUpdateBooking(Booking updatedBooking)
         {
             // Validate StartDateTime
             if (updatedBooking.StartDateTime <= DateTime.Now)
@@ -110,18 +109,17 @@ namespace SWAD_iCar
             return (updatedBooking, string.Empty);
         }
 
-
-        public string confirmUpdateBooking(Booking updatedBooking)
+        public string ConfirmUpdateBooking(Booking updatedBooking)
         {
-            string bookingUpdateResult = originalBooking.ConfirmUpdateBooking(updatedBooking);
+            string bookingUpdateResult = originalBookingData.ConfirmUpdateBooking(updatedBooking);
             return bookingUpdateResult;
         }
 
-        public string cancelBooking(Booking booking, int renterId)
+        public string CancelBooking(Booking booking, int renterId)
         {
             try
             {
-                if (originalBooking != null && originalBooking.Id == booking.Id)
+                if (originalBookingData != null && originalBookingData.Id == booking.Id)
                 {
                     Renter renter = GetRenter(renterId);
 
@@ -130,8 +128,8 @@ namespace SWAD_iCar
                         throw new Exception("Renter not found.");
                     }
 
-                    string SucessMessage = booking.ProcessCancelBooking(renter);
-                    return SucessMessage;
+                    string successMessage = booking.ProcessCancelBooking(renter);
+                    return successMessage;
                 }
                 else
                 {
@@ -144,6 +142,5 @@ namespace SWAD_iCar
                 return errorMessage;
             }
         }
-
     }
 }

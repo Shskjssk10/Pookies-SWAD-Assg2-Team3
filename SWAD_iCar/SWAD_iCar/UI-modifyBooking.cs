@@ -12,7 +12,6 @@ namespace SWAD_iCar
         private CTL_modifyBooking modifyBookingController;
         private int renterId;
 
-
         public UI_modifyBooking(CTL_modifyBooking modifyBookingController, int renterId)
         {
             this.modifyBookingController = modifyBookingController;
@@ -23,7 +22,7 @@ namespace SWAD_iCar
         {
             Console.WriteLine($"Modifying booking {bookingId}");
             var originalBooking = modifyBookingController.ModifyBooking(renterId, bookingId);
-            
+
             Booking originalBookingData = originalBooking.booking;
             string errorMessage = originalBooking.errorMessage;
 
@@ -31,14 +30,11 @@ namespace SWAD_iCar
             {
                 DisplayBookingDetails(originalBookingData);
                 DisplayBookingOptions(originalBookingData);
-
             }
             else
             {
                 DisplayError(errorMessage);
             }
-
-
         }
 
         public void DisplayBookingDetails(Booking booking)
@@ -68,16 +64,15 @@ namespace SWAD_iCar
             Console.WriteLine("2. Cancel Booking");
             Console.WriteLine("------------------------------------");
 
-
             string choice = Console.ReadLine();
 
             switch (choice)
             {
                 case "1":
-                    selectUpdateBooking(booking);
+                    SelectUpdateBooking(booking);
                     break;
                 case "2":
-                    selectCancelBookingOption(booking);
+                    SelectCancelBookingOption(booking);
                     break;
                 default:
                     Console.WriteLine("Invalid choice. Please try again.");
@@ -86,45 +81,38 @@ namespace SWAD_iCar
             }
         }
 
-        public void selectUpdateBooking(Booking originalBookingData)
+        public void SelectUpdateBooking(Booking originalBookingData)
         {
-            displayUpdateForm();
+            DisplayUpdateForm();
 
             bool isValidChange = false;
 
             while (!isValidChange)
             {
-                Booking updatedBooking = submitUpdatedBookingDetails(originalBookingData);
+                Booking updatedBookingData = SubmitUpdatedBookingDetails(originalBookingData);
 
-                if (updatedBooking != null)
+                modifyBookingController.UpdateBooking(updatedBookingData.Id, updatedBookingData);
+                var validatedBooking = modifyBookingController.ValidateUpdateBooking(updatedBookingData);
+
+                if (validatedBooking.booking == null)
                 {
-                    modifyBookingController.updateBooking(updatedBooking.Id, updatedBooking);
-                    var validatedBooking = modifyBookingController.validateUpdateBooking(updatedBooking);
-
-                    if (validatedBooking.booking == null)
-                    {
-                        isValidChange = false;
-                        DisplayError(validatedBooking.errorMessage);
-                    }
-                    else
-                    {
-                        isValidChange = true;
-                        displayUpdateConfirmation(updatedBooking);   
-                    }
+                    isValidChange = false;
+                    DisplayError(validatedBooking.errorMessage);
                 }
                 else
                 {
-                    Console.WriteLine("Update was cancelled or invalid. Please try again.");
+                    isValidChange = true;
+                    DisplayUpdateConfirmation(validatedBooking.booking);
                 }
             }
         }
 
-        public void selectCancelBookingOption(Booking booking)
+        public void SelectCancelBookingOption(Booking booking)
         {
-            displayCancelConfirmation(booking);
+            DisplayCancelConfirmation(booking);
         }
 
-        public void displayCancelConfirmation(Booking booking)
+        public void DisplayCancelConfirmation(Booking booking)
         {
             Console.WriteLine("------------------------------------");
             Console.WriteLine("Are you sure you want to cancel the booking?");
@@ -136,18 +124,17 @@ namespace SWAD_iCar
             switch (choice)
             {
                 case "1":
-                    confirmCancellation(booking);
+                    ConfirmCancellation(booking);
                     break;
                 case "2":
-                    declineCancellation();
+                    DeclineCancellation();
                     DisplayBookingDetails(booking);
                     DisplayBookingOptions(booking);
                     break;
             }
         }
 
-
-        public void displayUpdateForm()
+        public void DisplayUpdateForm()
         {
             Console.WriteLine("------------------------------------");
             Console.WriteLine("Select the attribute you want to update:");
@@ -158,32 +145,30 @@ namespace SWAD_iCar
             Console.WriteLine("5. Drop Off To");
             Console.WriteLine("6. Pick Up From");
             Console.WriteLine("------------------------------------");
-
         }
 
-        public void confirmCancellation(Booking booking)
+        public void ConfirmCancellation(Booking booking)
         {
-            string Message = modifyBookingController.cancelBooking(booking, renterId);
+            string message = modifyBookingController.CancelBooking(booking, renterId);
 
-            if (Message.Contains("successfully cancelled"))
+            if (message.Contains("successfully cancelled"))
             {
-                string successMessage = Message;
+                string successMessage = message;
                 DisplaySuccessMessage(successMessage);
             }
             else
             {
-                string errorMessage = Message;
+                string errorMessage = message;
                 DisplayError(errorMessage);
             }
         }
 
-
-        public void declineCancellation()
+        public void DeclineCancellation()
         {
             Console.WriteLine("Booking cancellation declined.");
         }
 
-        public Booking submitUpdatedBookingDetails(Booking booking)
+        public Booking SubmitUpdatedBookingDetails(Booking booking)
         {
             string choice = Console.ReadLine();
 
@@ -202,7 +187,7 @@ namespace SWAD_iCar
                     else
                     {
                         Console.WriteLine("Invalid format. Please use yyyy-MM-dd HH:mm.");
-                        return null; // Exit if the format is invalid
+                        return null;
                     }
                     return booking;
                 case "2":
@@ -218,7 +203,7 @@ namespace SWAD_iCar
                     else
                     {
                         Console.WriteLine("Invalid format. Please use yyyy-MM-dd HH:mm.");
-                        return null; // Exit if the format is invalid
+                        return null;
                     }
                     return booking;
                 case "3":
@@ -251,11 +236,11 @@ namespace SWAD_iCar
                     return booking;
                 default:
                     Console.WriteLine("Invalid choice. Please try again.");
-                    return null; // Exit if the choice is invalid
+                    return null;
             }
         }
 
-        public void displayUpdateConfirmation(Booking updatedBookingData)
+        public void DisplayUpdateConfirmation(Booking updatedBookingData)
         {
             Console.WriteLine("------------------------------------");
             Console.WriteLine("Are you sure you want to update the booking?");
@@ -263,61 +248,58 @@ namespace SWAD_iCar
             Console.WriteLine("2. No");
             Console.WriteLine("------------------------------------");
 
-
             string choice = Console.ReadLine();
 
             switch (choice)
             {
                 case "1":
-                    confirmUpdate(updatedBookingData);
+                    ConfirmUpdate(updatedBookingData);
                     break;
                 case "2":
                     Console.WriteLine("Update cancelled");
                     break;
                 default:
                     Console.WriteLine("Invalid choice. Please try again.");
-                    displayUpdateConfirmation(updatedBookingData); // Redisplay confirmation if invalid input
+                    DisplayUpdateConfirmation(updatedBookingData);
                     break;
             }
         }
 
-        public void confirmUpdate(Booking booking)
+        public void ConfirmUpdate(Booking booking)
         {
-            string resultMessage = modifyBookingController.confirmUpdateBooking(booking);
+            string bookingUpdateResult = modifyBookingController.ConfirmUpdateBooking(booking);
 
-            if (resultMessage == "Booking updated Successfully")
+            if (bookingUpdateResult == "Booking updated Successfully")
             {
                 Console.WriteLine("************************************");
-                DisplaySuccessMessage(resultMessage);
+                DisplaySuccessMessage(bookingUpdateResult);
                 Console.WriteLine("************************************");
 
-                var bookingDetails = getBookingDetails(booking.Id);
+                var bookingDetails = GetBookingDetails(booking.Id);
                 DisplayBookingDetails(bookingDetails.booking);
-                
             }
             else
             {
-                DisplayError(resultMessage);
+                DisplayError(bookingUpdateResult);
             }
         }
-
 
         public void DisplaySuccessMessage(string message)
         {
             Console.WriteLine(message);
         }
-    
-        public void DisplayError(string message) 
-        { 
+
+        public void DisplayError(string message)
+        {
             Console.WriteLine(message);
         }
 
-        public (Booking booking, string errorMessage) getBookingDetails(int bookingId)
+        public (Booking booking, string errorMessage) GetBookingDetails(int bookingId)
         {
-            var result = modifyBookingController.ModifyBooking(renterId, bookingId);
+            var booking = modifyBookingController.ModifyBooking(renterId, bookingId);
 
-            Booking updatedBookingData = result.booking;
-            string errorMessage = result.errorMessage;
+            Booking updatedBookingData = booking.booking;
+            string errorMessage = booking.errorMessage;
 
             return (updatedBookingData, errorMessage);
         }
@@ -332,9 +314,6 @@ namespace SWAD_iCar
                 DisplayBookingDetails(booking);
                 Console.WriteLine("------------------------------------");
             }
-
-
         }
-
     }
 }
