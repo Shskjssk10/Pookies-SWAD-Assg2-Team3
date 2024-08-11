@@ -104,11 +104,11 @@ namespace SWAD_iCar
             set { pickUpFrom = value; }
         }
 
-        private List<Report> about = new List<Report>();
-        public List<Report> About
+        private List<Report> reports = new List<Report>();
+        public List<Report> Reports
         {
-            get { return about; }
-            set { about = value; }
+            get { return reports; }
+            set { reports = value; }
         }
 
         private Admin updatedBy;
@@ -142,7 +142,7 @@ namespace SWAD_iCar
             Car = car;
         }
 
-        public Booking(int id, DateTime startDateTime, DateTime endDateTime, DateTime? returnTime, Location returnMethod, Location pickUpMethod, bool vehicleInspectionStatus, float penaltyFee, float damagesFee, float totalBookingFee, string bookingStatus, Car car, Location dropOffTo, Location pickUpFrom, List<Report> about, Admin updates, List<Transaction> bookingTransactions)
+        public Booking(int id, DateTime startDateTime, DateTime endDateTime, DateTime? returnTime, Location returnMethod, Location pickUpMethod, bool vehicleInspectionStatus, float penaltyFee, float damagesFee, float totalBookingFee, string bookingStatus, Car car, Location dropOffTo, Location pickUpFrom, List<Report> reports, Admin updates, List<Transaction> bookingTransactions)
         {
             this.id = id;
             this.startDateTime = startDateTime;
@@ -158,7 +158,7 @@ namespace SWAD_iCar
             this.car = car;
             this.dropOffTo = dropOffTo;
             this.pickUpFrom = pickUpFrom;
-            this.about = about;
+            this.reports = reports;
             this.updatedBy = updates;
             this.bookingTransactions = bookingTransactions;
         }
