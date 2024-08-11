@@ -78,16 +78,8 @@ namespace SWAD_iCar
                         }
                     case "3":
                         {
-                            //int? currentRenterId = null;
-                            //foreach (Renter renter in listOfRenters)
-                            //{
-                            //    if (renter.Id == userId)
-                            //    {
-                            //        currentRenterId = userId;
-                            //    }
-                            //}
-                            UI_ReturnCar uiReturnVehicle = new UI_ReturnCar();
-                            uiReturnVehicle.InitiateCarReturn(userId);
+                            UI_ReturnCar uiReturnCar = new UI_ReturnCar();
+                            uiReturnCar.InitiateCarReturn(userId);
                             break;
                         }
                     case "4":
