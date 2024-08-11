@@ -28,8 +28,6 @@ namespace SWAD_iCar
             Console.WriteLine("Enter your user ID:");
             int userId = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine("Enter your password:");
-            string Password = Console.ReadLine();
             mainMenu(userId);
         }
         public void mainMenu(int userId)
