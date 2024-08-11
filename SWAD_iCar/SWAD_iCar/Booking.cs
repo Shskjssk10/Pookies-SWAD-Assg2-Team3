@@ -27,8 +27,8 @@ namespace SWAD_iCar
             set { endDateTime = value; }
         }
 
-        private DateTime returnTime;
-        public DateTime ReturnTime
+        private DateTime? returnTime;
+        public DateTime? ReturnTime
         {
             get { return returnTime; }
             set { returnTime = value; }
@@ -104,11 +104,11 @@ namespace SWAD_iCar
             set { pickUpFrom = value; }
         }
 
-        private List<Report> about = new List<Report>();
-        public List<Report> About
+        private List<Report> reports = new List<Report>();
+        public List<Report> Reports
         {
-            get { return about; }
-            set { about = value; }
+            get { return reports; }
+            set { reports = value; }
         }
 
         private Admin updatedBy;
@@ -131,6 +131,7 @@ namespace SWAD_iCar
             Id = nextId++; // Assign the current ID and increment the counter
             StartDateTime = startDateTime;
             EndDateTime = endDateTime;
+            ReturnTime = null;
             ReturnMethod = returnMethod;
             PickUpMethod = pickUpMethod;
             VehicleInspectionStatus = false; // by default
@@ -141,12 +142,12 @@ namespace SWAD_iCar
             Car = car;
         }
 
-        public Booking(int id, DateTime startDateTime, DateTime endDateTime, DateTime returnTime, Location returnMethod, Location pickUpMethod, bool vehicleInspectionStatus, float penaltyFee, float damagesFee, float totalBookingFee, string bookingStatus, Car car, Location dropOffTo, Location pickUpFrom, List<Report> about, Admin updates, List<Transaction> bookingTransactions)
+        public Booking(int id, DateTime startDateTime, DateTime endDateTime, DateTime? returnTime, Location returnMethod, Location pickUpMethod, bool vehicleInspectionStatus, float penaltyFee, float damagesFee, float totalBookingFee, string bookingStatus, Car car, Location dropOffTo, Location pickUpFrom, List<Report> reports, Admin updates, List<Transaction> bookingTransactions)
         {
             this.id = id;
             this.startDateTime = startDateTime;
             this.endDateTime = endDateTime;
-            this.returnTime = returnTime;
+            this.returnTime = null;
             this.returnMethod = returnMethod;
             this.pickUpMethod = pickUpMethod;
             this.vehicleInspectionStatus = vehicleInspectionStatus;
@@ -157,14 +158,14 @@ namespace SWAD_iCar
             this.car = car;
             this.dropOffTo = dropOffTo;
             this.pickUpFrom = pickUpFrom;
-            this.about = about;
+            this.reports = reports;
             this.updatedBy = updates;
             this.bookingTransactions = bookingTransactions;
         }
 
         public DateTime SetReturnTime()
         {
-            return this.returnTime = DateTime.Now;
+            return (DateTime)(this.returnTime = DateTime.Now);
         }
 
         public string ConfirmUpdateBooking(Booking updatedBooking)
@@ -218,28 +219,6 @@ namespace SWAD_iCar
             bookingTransactions.Add(transaction);
         }
 
-        public bool CheckLocation(string currentAddress)
-        {
-            if (returnMethod.Address == currentAddress) return true;
-            else return false;
-        }
-
-        //public bool UpdateBooking()
-        //{
-        //    throw new System.NotImplementedException("Not implemented");
-        //    // return bool
-        //}
-
-        //public bool CheckPenalty()
-        //{
-        //    if (DateTime.Now <= endDateTime)
-        //    {
-                
-        //    }
-
-        //    throw new System.NotImplementedException("Not implemented");
-        //    // return bool
-        //}
 
         public float CalculatePenalty(DateTime returnTime)
         {
@@ -258,11 +237,6 @@ namespace SWAD_iCar
             return 0.0f; // No penalty if returned on time or earlier
         }
 
-        public void addNewTransaction(Transaction transaction)
-        {
-            bookingTransactions.Add(transaction);
-        }
-
 
         // ToString method
         public override string ToString()
@@ -272,6 +246,6 @@ namespace SWAD_iCar
                 $"Vehicle Inspection Status: {VehicleInspectionStatus}, Penalty Fee: {PenaltyFee}, " +
                 $"Damages Fee: {DamagesFee}, Total Booking Fee: {TotalBookingFee}, " +
                 $"Booking Status: {BookingStatus}, Car: {Car}" +
-                $"Reports: {About.Count}, Number of Transactions: {BookingTransactions.Count}";
+                $"Reports: {reports.Count}, Number of Transactions: {BookingTransactions.Count}";
         }
 }   }

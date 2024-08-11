@@ -28,8 +28,6 @@ namespace SWAD_iCar
             Console.WriteLine("Enter your user ID:");
             int userId = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine("Enter your password:");
-            string Password = Console.ReadLine();
             mainMenu(userId);
         }
         public void mainMenu(int userId)
@@ -78,16 +76,8 @@ namespace SWAD_iCar
                         }
                     case "3":
                         {
-                            if (listOfRenters[userId].CurrentBooking != null)
-                            {
-                                UI_ReturnVehicle uiReturnVehicle = new UI_ReturnVehicle();
-                                uiReturnVehicle.InitiateCarReturn(userId);
-                            }
-                            else
-                            {
-                                Console.WriteLine("There is no current booking for this renter.\n");
-                            }
-                            
+                            UI_ReturnCar uiReturnCar = new UI_ReturnCar();
+                            uiReturnCar.InitiateCarReturn(userId);
                             break;
                         }
                     case "4":
