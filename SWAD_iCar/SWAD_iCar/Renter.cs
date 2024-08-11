@@ -120,22 +120,22 @@ namespace SWAD_iCar
             return false;
         }
 
-        public Booking CreateBooking(DateTime start, DateTime end, float bookingFee, Location pickUpMethod, Location returnMethod, Car car1)
+        public Booking CreateBooking(DateTime start, DateTime end, float bookingFee, Location pickUpMethod, Location returnMethod, Car car)
         {
             string bookingStatus = "Booked";
-            Booking newBooking = new Booking(start, end, returnMethod, pickUpMethod, bookingFee, bookingStatus, car1);
+            Booking newBooking = new Booking(start, end, returnMethod, pickUpMethod, bookingFee, bookingStatus, car);
             BookingHistory.Add(newBooking);
             return newBooking;
         }
 
-        public Transaction MakePayment(float bookingFee)
+        public Transaction MakePayment(float fee)
         {
             //random transaction id 
             Random rnd = new Random();
             int num = rnd.Next();
 
             //assume transaction will always be completed
-            return new Transaction(bookingFee, DateTime.Now);
+            return new Transaction(fee, DateTime.Now);
         }
 
         public Booking GetBooking(int bookingId)
@@ -171,4 +171,4 @@ namespace SWAD_iCar
                    $"Digital Wallet Balance: {Wallet?.Balance ?? 0}, Driver's License: {DriversLicense.SerialNo}";
         }
     }
-}
+}   
