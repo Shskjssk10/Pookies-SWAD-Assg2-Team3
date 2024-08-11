@@ -21,7 +21,7 @@ namespace SWAD_iCar
         {
             Booking currentBooking = ctlReturnVehicle.InitiateCarReturn(renterId);
             DisplayBookingDetails(currentBooking);
-            promptAddress();
+            PromptAddress();
         }
 
         public void DisplayBookingDetails(Booking currentBooking)
@@ -36,13 +36,13 @@ namespace SWAD_iCar
             Console.WriteLine($"Car: {currentBooking.Car.Make} {currentBooking.Car.Model}");
         }
 
-        public void promptAddress()
+        public void PromptAddress()
         {
             Console.WriteLine("\nEnter your current address: ");
-            enterAddress();
+            EnterAddress();
         }
 
-        public void enterAddress()
+        public void EnterAddress()
         {
 
             bool result = false;
@@ -56,7 +56,7 @@ namespace SWAD_iCar
 
                 if (result == false)
                 {
-                    Console.WriteLine("Wrong Address!\n");
+                    DisplayIncorrectLocation();
                     tries++;
                 }
             }
@@ -69,18 +69,23 @@ namespace SWAD_iCar
             else
             {
                 // Handle the case when the maximum number of tries is reached without success
-                promptReturnConfirmation();
+                PromptReturnConfirmation();
             }
 
         }
 
-        public void promptReturnConfirmation()
+        public void DisplayIncorrectLocation()
         {
-            Console.Write("\nProceed with returning of car? (yes/no): ");
-            proceedWithReturn();
+            Console.WriteLine("Wrong Address!\n");
         }
 
-        public void proceedWithReturn()
+        public void PromptReturnConfirmation()
+        {
+            Console.Write("\nProceed with returning of car? (yes/no): ");
+            ProceedWithReturn();
+        }
+
+        public void ProceedWithReturn()
         {
             string confirmation = Console.ReadLine().Trim().ToLower();
             if (confirmation == "yes")
@@ -88,12 +93,12 @@ namespace SWAD_iCar
                 ctlReturnVehicle.SetReturnTime();
                 Booking currentBooking = ctlReturnVehicle.CompleteExistingBooking();
                 DisplayBookingDetails(currentBooking);
-                displayUpdateSuccess();
-                float penaltyFee = ctlReturnVehicle.checkPenalty();
-                ctlReturnVehicle.notifyAdmin();
-                float damagesFee = ctlReturnVehicle.checkDamagesFee();
+                DisplayUpdateSuccess();
+                float penaltyFee = ctlReturnVehicle.CheckPenalty();
+                ctlReturnVehicle.NotifyAdmin();
+                float damagesFee = ctlReturnVehicle.CheckDamagesFee();
 
-                proceedWithPayment(penaltyFee, damagesFee);
+                ProceedWithPayment(penaltyFee, damagesFee);
 
             }
             else
@@ -102,19 +107,19 @@ namespace SWAD_iCar
             }
         }
 
-        public void displayUpdateSuccess()
+        public void DisplayUpdateSuccess()
         {
             Console.WriteLine("\nBooking is completed.\n");
         }
 
-        public void payPenalty(float penaltyFee)
+        public void PayPenalty(float penaltyFee)
         {
 
             string confirmation = Console.ReadLine().Trim().ToLower();
             if (confirmation == "yes")
             {
-                Transaction transaction = ctlReturnVehicle.makePayment(penaltyFee);
-                displayPaymentSuccess(transaction);
+                Transaction transaction = ctlReturnVehicle.MakePayment(penaltyFee);
+                DisplayPaymentSuccess(transaction);
             }
             else
             {
@@ -123,13 +128,13 @@ namespace SWAD_iCar
 
         }
 
-        public void payDamages(float damagesFee)
+        public void PayDamages(float damagesFee)
         {
             string confirmation = Console.ReadLine().Trim().ToLower();
             if (confirmation == "yes")
             {
-                Transaction transaction = ctlReturnVehicle.makePayment(damagesFee);
-                displayPaymentSuccess(transaction);
+                Transaction transaction = ctlReturnVehicle.MakePayment(damagesFee);
+                DisplayPaymentSuccess(transaction);
             }
             else
             {
@@ -138,54 +143,54 @@ namespace SWAD_iCar
 
         }
 
-        public void displayPromptPenalty()
+        public void DisplayPromptPenalty()
         {
             Console.WriteLine("Make Payment for Penalty Fee");
             Console.Write("Proceed with the payment for penalty? (yes/no): ");
         }
 
-        public void displayPromptDamages()
+        public void DisplayPromptDamages()
         {
             Console.WriteLine("Make Payment for Damages Fee");
             Console.Write("Proceed with the payment for damages? (yes/no): ");
         }
 
-        public void displayPaymentSuccess(Transaction transaction)
+        public void DisplayPaymentSuccess(Transaction transaction)
         {
             Console.WriteLine("\nPayment has been made successfully.");
             Console.WriteLine($"Transaction ID: {transaction.Id}, Cost: {transaction.Cost}, Time: {transaction.Time}.\n");
         }
 
-        public void displayAnyCharges(string chargesType, float chargesFee)
+        public void DisplayAnyCharges(string chargesType, float chargesFee)
         {
             Console.WriteLine($"Pending {chargesType} Fee: {chargesFee}\n");
         }
 
-        public void proceedWithPayment(float penaltyFee, float damagesFee)
+        public void ProceedWithPayment(float penaltyFee, float damagesFee)
         {
             if (penaltyFee > 0)
             {
-                penaltyPayment(penaltyFee);
+                PenaltyPayment(penaltyFee);
             }
 
             if (damagesFee > 0)
             {
-                damagesPayment(damagesFee);
+                DamagesPayment(damagesFee);
             }
         }
 
-        public void penaltyPayment(float penaltyFee)
+        public void PenaltyPayment(float penaltyFee)
         {
-            displayAnyCharges("Penalty", penaltyFee);
-            displayPromptPenalty();
-            payPenalty(penaltyFee);
+            DisplayAnyCharges("Penalty", penaltyFee);
+            DisplayPromptPenalty();
+            PayPenalty(penaltyFee);
         }
 
-        public void damagesPayment(float damagesFee)
+        public void DamagesPayment(float damagesFee)
         {
-            displayAnyCharges("Damages", damagesFee);
-            displayPromptDamages();
-            payDamages(damagesFee);
+            DisplayAnyCharges("Damages", damagesFee);
+            DisplayPromptDamages();
+            PayDamages(damagesFee);
         }
     }
 }

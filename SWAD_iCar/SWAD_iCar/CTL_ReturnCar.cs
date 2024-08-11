@@ -45,7 +45,7 @@ namespace SWAD_iCar
             return currentBooking;
         }
 
-        public float checkPenalty()
+        public float CheckPenalty()
         {
             float penaltyFee = 0;
             if (returnTime > currentBooking.EndDateTime)
@@ -56,17 +56,17 @@ namespace SWAD_iCar
             return penaltyFee;
         }
 
-        public void notifyAdmin()
+        public void NotifyAdmin()
         {
             Program.pendingBookings.Add(currentBooking);
         }
 
-        public float checkDamagesFee()
+        public float CheckDamagesFee()
         {
             return currentBooking.DamagesFee;
         }
 
-        public Transaction makePayment(float bookingFee)
+        public Transaction MakePayment(float bookingFee)
         {
             Transaction transaction = renter1.MakePayment(bookingFee);
             currentBooking.AddNewTransaction(transaction);
