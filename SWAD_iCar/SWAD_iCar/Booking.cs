@@ -246,6 +246,6 @@ namespace SWAD_iCar
                 $"Vehicle Inspection Status: {VehicleInspectionStatus}, Penalty Fee: {PenaltyFee}, " +
                 $"Damages Fee: {DamagesFee}, Total Booking Fee: {TotalBookingFee}, " +
                 $"Booking Status: {BookingStatus}, Car: {Car}" +
-                $"Reports: {About.Count}, Number of Transactions: {BookingTransactions.Count}";
+                $"Reports: {reports.Count}, Number of Transactions: {BookingTransactions.Count}";
         }
 }   }

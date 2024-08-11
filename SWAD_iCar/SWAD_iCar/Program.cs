@@ -51,7 +51,7 @@ namespace SWAD_iCar
                 car: null,
                 dropOffTo: null,
                 pickUpFrom: null,
-                about: new List<Report> { null },
+                reports: new List<Report> { null },
                 updates: null,
                 bookingTransactions: new List<Transaction> { null }
             );
@@ -71,7 +71,7 @@ namespace SWAD_iCar
                 car: null,
                 dropOffTo: null,
                 pickUpFrom: null,
-                about: new List<Report> { null },
+                reports: new List<Report> { null },
                 updates: null,
                 bookingTransactions: new List<Transaction> { null }
             );
@@ -103,7 +103,7 @@ namespace SWAD_iCar
                 car: car1,
                 dropOffTo: null,
                 pickUpFrom: null,
-                about: new List<Report>(),
+                reports: new List<Report>(),
                 updates: null,
                 bookingTransactions: new List<Transaction>()
             );
@@ -123,7 +123,7 @@ namespace SWAD_iCar
                 car: car1,
                 dropOffTo: null,
                 pickUpFrom: null,
-                about: new List<Report>(),
+                reports: new List<Report>(),
                 updates: null,
                 bookingTransactions: new List<Transaction>()
             );
@@ -143,7 +143,7 @@ namespace SWAD_iCar
                 car: car1,
                 dropOffTo: null,
                 pickUpFrom: null,
-                about: new List<Report>(),
+                reports: new List<Report>(),
                 updates: null,
                 bookingTransactions: new List<Transaction>()
             );
@@ -163,7 +163,7 @@ namespace SWAD_iCar
                 car: car1,
                 dropOffTo: null,
                 pickUpFrom: null,
-                about: new List<Report>(),
+                reports: new List<Report>(),
                 updates: null,
                 bookingTransactions: new List<Transaction>()
             );
