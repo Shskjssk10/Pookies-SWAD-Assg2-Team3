@@ -27,8 +27,8 @@ namespace SWAD_iCar
             set { endDateTime = value; }
         }
 
-        private DateTime returnTime;
-        public DateTime ReturnTime
+        private DateTime? returnTime;
+        public DateTime? ReturnTime
         {
             get { return returnTime; }
             set { returnTime = value; }
@@ -131,6 +131,7 @@ namespace SWAD_iCar
             Id = nextId++; // Assign the current ID and increment the counter
             StartDateTime = startDateTime;
             EndDateTime = endDateTime;
+            ReturnTime = null;
             ReturnMethod = returnMethod;
             PickUpMethod = pickUpMethod;
             VehicleInspectionStatus = false; // by default
@@ -141,12 +142,12 @@ namespace SWAD_iCar
             Car = car;
         }
 
-        public Booking(int id, DateTime startDateTime, DateTime endDateTime, DateTime returnTime, Location returnMethod, Location pickUpMethod, bool vehicleInspectionStatus, float penaltyFee, float damagesFee, float totalBookingFee, string bookingStatus, Car car, Location dropOffTo, Location pickUpFrom, List<Report> about, Admin updates, List<Transaction> bookingTransactions)
+        public Booking(int id, DateTime startDateTime, DateTime endDateTime, DateTime? returnTime, Location returnMethod, Location pickUpMethod, bool vehicleInspectionStatus, float penaltyFee, float damagesFee, float totalBookingFee, string bookingStatus, Car car, Location dropOffTo, Location pickUpFrom, List<Report> about, Admin updates, List<Transaction> bookingTransactions)
         {
             this.id = id;
             this.startDateTime = startDateTime;
             this.endDateTime = endDateTime;
-            this.returnTime = returnTime;
+            this.returnTime = null;
             this.returnMethod = returnMethod;
             this.pickUpMethod = pickUpMethod;
             this.vehicleInspectionStatus = vehicleInspectionStatus;
@@ -164,7 +165,7 @@ namespace SWAD_iCar
 
         public DateTime SetReturnTime()
         {
-            return this.returnTime = DateTime.Now;
+            return (DateTime)(this.returnTime = DateTime.Now);
         }
 
         public string ConfirmUpdateBooking(Booking updatedBooking)
@@ -218,28 +219,6 @@ namespace SWAD_iCar
             bookingTransactions.Add(transaction);
         }
 
-        public bool CheckLocation(string currentAddress)
-        {
-            if (returnMethod.Address == currentAddress) return true;
-            else return false;
-        }
-
-        //public bool UpdateBooking()
-        //{
-        //    throw new System.NotImplementedException("Not implemented");
-        //    // return bool
-        //}
-
-        //public bool CheckPenalty()
-        //{
-        //    if (DateTime.Now <= endDateTime)
-        //    {
-                
-        //    }
-
-        //    throw new System.NotImplementedException("Not implemented");
-        //    // return bool
-        //}
 
         public float CalculatePenalty(DateTime returnTime)
         {
@@ -256,11 +235,6 @@ namespace SWAD_iCar
             }
 
             return 0.0f; // No penalty if returned on time or earlier
-        }
-
-        public void addNewTransaction(Transaction transaction)
-        {
-            bookingTransactions.Add(transaction);
         }
 
 

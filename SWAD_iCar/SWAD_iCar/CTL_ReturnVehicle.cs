@@ -24,7 +24,7 @@ namespace SWAD_iCar
         public Renter GetRenter(int renterId)
         {
             //can i use program here
-            return Program.listOfRenters[renterId];
+            return Program.listOfRenters[renterId-1];
         }
 
         public bool CheckLocation(string currentAddress)
@@ -90,13 +90,8 @@ namespace SWAD_iCar
         public Transaction makePayment(float bookingFee)    
         {
             Transaction transaction = renter1.MakePayment(bookingFee);
-            addNewTransaction(transaction);
+            currentBooking.AddNewTransaction(transaction);
             return transaction;
-        }
-
-        public void addNewTransaction(Transaction transaction)
-        {
-            currentBooking.addNewTransaction(transaction);
         }
     }
 }
