@@ -8,13 +8,13 @@ using System.Transactions;
 
 namespace SWAD_iCar
 {
-    public class UI_ReturnVehicle
+    public class UI_ReturnCar
     {
-        private CTL_ReturnVehicle ctlReturnVehicle;
+        private CTL_ReturnCar ctlReturnVehicle;
 
-        public UI_ReturnVehicle()
+        public UI_ReturnCar()
         {
-            ctlReturnVehicle = new CTL_ReturnVehicle();
+            ctlReturnVehicle = new CTL_ReturnCar();
         }
 
         public void InitiateCarReturn(int renterId)
@@ -33,15 +33,7 @@ namespace SWAD_iCar
             Console.WriteLine($"Return DateTime: {(currentBooking.ReturnTime == null ? "Car has yet to be returned" : currentBooking.ReturnTime.ToString())}");
             Console.WriteLine($"Return Method: {currentBooking.ReturnMethod.Address}");
             Console.WriteLine($"Pick Up Method: {currentBooking.PickUpMethod.Address}");
-            Console.WriteLine($"Vehicle Inspection Status: {currentBooking.VehicleInspectionStatus}");
-            Console.WriteLine($"Penalty Fee: {currentBooking.PenaltyFee}");
-            Console.WriteLine($"Damages Fee: {currentBooking.DamagesFee}");
-            Console.WriteLine($"Total Booking Fee: ${currentBooking.TotalBookingFee}");
-            Console.WriteLine($"Booking Status: {currentBooking.BookingStatus}");
             Console.WriteLine($"Car: {currentBooking.Car.Make} {currentBooking.Car.Model}");
-            //Console.WriteLine($"Drop Off To: {currentBooking.DropOffTo.Address}");
-            //Console.WriteLine($"Pick Up From: {currentBooking.PickUpFrom.Address}");
-            Console.WriteLine($"Transactions: {string.Join(", ", currentBooking.BookingTransactions)}");
         }
 
         public void promptAddress()
@@ -94,6 +86,8 @@ namespace SWAD_iCar
             if (confirmation == "yes")
             {
                 ctlReturnVehicle.SetReturnTime();
+                Booking currentBooking = ctlReturnVehicle.CompleteExistingBooking();
+                DisplayBookingDetails(currentBooking);
                 displayUpdateSuccess();
                 float penaltyFee = ctlReturnVehicle.checkPenalty();
                 ctlReturnVehicle.notifyAdmin();
@@ -120,7 +114,6 @@ namespace SWAD_iCar
             if (confirmation == "yes")
             {
                 Transaction transaction = ctlReturnVehicle.makePayment(penaltyFee);
-                //ctlReturnVehicle.addNewTransaction(transaction);
                 displayPaymentSuccess(transaction);
             }
             else
@@ -136,7 +129,6 @@ namespace SWAD_iCar
             if (confirmation == "yes")
             {
                 Transaction transaction = ctlReturnVehicle.makePayment(damagesFee);
-                //ctlReturnVehicle.addNewTransaction(transaction);
                 displayPaymentSuccess(transaction);
             }
             else
@@ -163,10 +155,6 @@ namespace SWAD_iCar
             Console.WriteLine("\nPayment has been made successfully.");
             Console.WriteLine($"Transaction ID: {transaction.Id}, Cost: {transaction.Cost}, Time: {transaction.Time}.\n");
         }
-        //public void checkLocation(string currentAddress)
-        //{
-        //    ctlReturnVehicle.checkLocation(currentAddress);
-        //}
 
         public void displayAnyCharges(string chargesType, float chargesFee)
         {
@@ -175,9 +163,6 @@ namespace SWAD_iCar
 
         public void proceedWithPayment(float penaltyFee, float damagesFee)
         {
-            //bool penaltyIsPaid = false;
-            //bool damagesIsPaid = false;
-
             if (penaltyFee > 0)
             {
                 penaltyPayment(penaltyFee);
@@ -187,22 +172,6 @@ namespace SWAD_iCar
             {
                 damagesPayment(damagesFee);
             }
-
-            // Determine which additional charges are unpaid and display accordingly
-            //float totalPendingCharges = 0;
-            //if (!penaltyIsPaid)
-            //{
-            //    totalPendingCharges += penaltyFee;
-            //}
-            //if (!damagesIsPaid)
-            //{
-            //    totalPendingCharges += damagesFee;
-            //}
-
-            //if (totalPendingCharges > 0)
-            //{
-            //    Console.WriteLine($"Total Pending Additional Charges: ${totalPendingCharges}");
-            //}
         }
 
         public void penaltyPayment(float penaltyFee)

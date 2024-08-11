@@ -86,7 +86,7 @@ namespace SWAD_iCar
                             //        currentRenterId = userId;
                             //    }
                             //}
-                            UI_ReturnVehicle uiReturnVehicle = new UI_ReturnVehicle();
+                            UI_ReturnCar uiReturnVehicle = new UI_ReturnCar();
                             uiReturnVehicle.InitiateCarReturn(userId);
                             break;
                         }
