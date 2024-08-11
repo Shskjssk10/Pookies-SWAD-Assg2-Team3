@@ -2,7 +2,7 @@ using System;
 
 namespace SWAD_iCar
 {
-    public class Card
+    public class Card : PaymentMethod
     {
         private string type;
 
@@ -36,9 +36,9 @@ namespace SWAD_iCar
             set { expiryDate = value; }
         }
 
-        public Card() { }
+        public Card() : base() { }
 
-        public Card(string t, int cn, int cv, DateTime ed)
+        public Card(string t, int cn, int cv, DateTime ed) : base()
         {
             Type = t;
             CardNo = cn;

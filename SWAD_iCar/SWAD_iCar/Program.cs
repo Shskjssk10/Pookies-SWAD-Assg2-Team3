@@ -10,15 +10,18 @@ namespace SWAD_iCar
         public static List<Booking> bookings = new List<Booking>();
         public static Renter dummyRenter;
         public static Admin dummyAdmin;
+        public static Car dummyCar;
+        public static ICarStation dummyiCarStation;
         public static List<Booking> pendingBookings = new List<Booking>();
-        
+        public static List<ICarStation> ListOfiCarStations = new List<ICarStation>();
+
         static void Main(string[] args)
         {
             // Adding dummy data
             AddDummyData();
 
             // Main menu
-            UI_Main uiMain = new UI_Main(bookings, listOfRenters, dummyRenter, dummyAdmin, listOfCarOwners);
+            UI_Main uiMain = new UI_Main(bookings, listOfRenters, dummyRenter, dummyAdmin, listOfCarOwners, dummyCar);
             uiMain.login();
         }
 
@@ -130,6 +133,9 @@ namespace SWAD_iCar
                 startDateTime: new DateTime(2024, 8, 1, 9, 0, 0), //1st August 2023, 9:00 AM
                 endDateTime: new DateTime(2024, 8, 8, 1, 0, 0),
                 returnTime: null,
+                startDateTime: DateTime.Now.AddDays(-1),
+                endDateTime: DateTime.Now.AddDays(2),
+                returnTime: DateTime.Now,
                 returnMethod: new Location("iCar Station"),
                 pickUpMethod: new Location("iCar Station 2"),
                 vehicleInspectionStatus: true,
@@ -175,7 +181,7 @@ namespace SWAD_iCar
                 isVerified: true,
                 password: "password123",
                 email: "johndoe@example.com",
-                bookingHistory: new List<Booking>() { booking1 },
+                bookingHistory: new List<Booking> { booking1 },
                 isVerifiedBy: null,
                 wallet: null,
                 driversLicense: null,
@@ -278,7 +284,7 @@ namespace SWAD_iCar
 
 
             // Instantiate the Car object with dummy data
-            Car dummyCar = new Car(
+            dummyCar = new Car(
                 make: "Toyota",
                 model: "Camry",
                 year: 2020,
@@ -306,7 +312,7 @@ namespace SWAD_iCar
             var booking4 = new Booking(
                 4,
                 new DateTime(2024, 11, 1, 10, 0, 0),
-                new DateTime(2024, 11, 10, 10, 0, 0),
+                new DateTime(2024, 11, 14, 10, 0, 0),
                 DateTime.Now.AddDays(5), // Assuming a return time 5 days after booking start
                 new Location("Delivery"),
                 new Location("iCar Station"),
@@ -342,13 +348,56 @@ namespace SWAD_iCar
                 admin,
                 new List<Transaction>()
             );
+            List<Timeslot> GenerateDummyTimeslots(Car car, DateTime startDate, DateTime endDate)
+            {
+                List<Timeslot> timeslots = new List<Timeslot>();
+
+                DateTime current = startDate;
+                while (current <= endDate)
+                {
+                    for (int hour = 0; hour < 24; hour++)
+                    {
+                        timeslots.Add(new Timeslot(current.AddHours(hour), true, car));
+                    }
+                    current = current.AddDays(1);
+                }
+                return timeslots;
+            }
+
+            DateTime currentDate = DateTime.Now;
+
+            List<Timeslot> timeslots = GenerateDummyTimeslots(dummyCar, currentDate.AddDays(1), currentDate.AddDays(11));
+
+            foreach (Timeslot timeslot in timeslots)
+            {
+                dummyCar.AddNewTimeSlot(timeslot);
+            }
+
+            // Dummy data for creating an ICarStation object
+            ICarStation station1 = new ICarStation(
+                name: "Downtown Station",
+                address: "123 Main St, Springfield, USA"
+            );
+
+            ICarStation station2 = new ICarStation(
+                name: "Diontae Station",
+                address: "888 Diontae Road, Singapore"
+            );
+
+            ///define the dummy data
+
+            dummyRenter = renter1;
+            dummyiCarStation = station1;
+            ListOfiCarStations.Add(dummyiCarStation);
+            ListOfiCarStations.Add(station2);
+
             // Add bookings to renter's history
             renter3.BookingHistory.Add(booking4);
             renter4.BookingHistory.Add(booking5);
 
             // Add Cars to CarOwners
-            carOwner1.linkCarToCarOwner(dummyCar);
-            carOwner1.linkCarToCarOwner(dummyCar2);
+            carOwner1.LinkCarToCarOwner(dummyCar);
+            carOwner1.LinkCarToCarOwner(dummyCar2);
 
             ///define the dummy data
             bookings.Add(booking1);
