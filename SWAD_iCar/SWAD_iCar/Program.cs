@@ -197,7 +197,7 @@ namespace SWAD_iCar
             var booking4 = new Booking(
                 4,
                 new DateTime(2024, 11, 1, 10, 0, 0),
-                new DateTime(2024, 11, 10, 10, 0, 0),
+                new DateTime(2024, 11, 14, 10, 0, 0),
                 DateTime.Now.AddDays(5), // Assuming a return time 5 days after booking start
                 new Location("Delivery"),
                 new Location("iCar Station"),
@@ -281,8 +281,8 @@ namespace SWAD_iCar
             renter4.BookingHistory.Add(booking5);
 
             // Add Cars to CarOwners
-            carOwner1.linkCarToCarOwner(dummyCar);
-            carOwner1.linkCarToCarOwner(dummyCar2);
+            carOwner1.LinkCarToCarOwner(dummyCar);
+            carOwner1.LinkCarToCarOwner(dummyCar2);
 
             ///define the dummy data
             bookings.Add(booking1);
