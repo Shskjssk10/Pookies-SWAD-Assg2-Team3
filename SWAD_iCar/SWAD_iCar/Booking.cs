@@ -199,7 +199,7 @@ namespace SWAD_iCar
 
                 float ogFunds = renter.Wallet.Balance;
                 // Add the total booking fee to the renter's wallet
-                renter.Wallet.addFunds(totalBookingFee);
+                renter.Wallet.AddFunds(totalBookingFee);
 
                 // Return a success message
                 string successMessage = $"Booking successfully cancelled.\nYour balance before refund is {ogFunds} \nYour current balance is: {renter.Wallet.Balance}";
