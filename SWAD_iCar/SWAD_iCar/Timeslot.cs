@@ -1,53 +1,57 @@
 using System;
 using System.Runtime.CompilerServices;
-
-public class Timeslot {
-    private static int nextId = 1; // Static field to track the next ID
-    public Timeslot(DateTime timeSlot, bool availabilityStatus, Car car)
-    {
-        Id = nextId++; // Assign the current ID and increment the counter
-        TimeSlot = timeSlot;
-        AvailabilityStatus = availabilityStatus;
-        Car = car;
-    }
-
-    private int id;
-	public int Id
+namespace SWAD_iCar
+{
+	public class Timeslot
 	{
-		get { return id; }
-		set { id = value; }
-	}
+		private static int nextId = 1; // Static field to track the next ID
+		public Timeslot(DateTime timeSlot, bool availabilityStatus, Car car)
+		{
+			Id = nextId++; // Assign the current ID and increment the counter
+			TimeSlot = timeSlot;
+			AvailabilityStatus = availabilityStatus;
+			Car = car;
+		}
 
-	private DateTime timeSlot;
-	public DateTime TimeSlot
-	{
-		get { return timeSlot; }
-		set { timeSlot = value; }
-	}
+		private int id;
+		public int Id
+		{
+			get { return id; }
+			set { id = value; }
+		}
+
+		private DateTime timeSlot;
+		public DateTime TimeSlot
+		{
+			get { return timeSlot; }
+			set { timeSlot = value; }
+		}
 
 
-	private bool availabilityStatus;
-	public bool AvailabilityStatus
-	{
-		get { return availabilityStatus; }
-		set { availabilityStatus = value; }
-	}
+		private bool availabilityStatus;
+		public bool AvailabilityStatus
+		{
+			get { return availabilityStatus; }
+			set { availabilityStatus = value; }
+		}
 
-	public void UpdateTimeSlotAvailability(bool status) {
-		availabilityStatus = status;
-		return;
-	}
+		public void UpdateTimeSlotAvailability(bool status)
+		{
+			availabilityStatus = status;
+			return;
+		}
 
-    private Car car;
-	public Car Car
-	{
-		get { return car; }
-		set { car = value; }
-	}
+		private Car car;
+		public Car Car
+		{
+			get { return car; }
+			set { car = value; }
+		}
 
-    public override string ToString()
-    {
-        return $"Timeslot Id: {id}, TimeSlot: {timeSlot}, Availability: {availabilityStatus}";
+		public override string ToString()
+		{
+			 return $"Timeslot Id: {id}, TimeSlot: {timeSlot}, Availability: {availabilityStatus}";
 
+        }
     }
 }

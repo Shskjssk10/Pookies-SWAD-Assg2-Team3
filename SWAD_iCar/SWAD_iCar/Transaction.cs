@@ -1,38 +1,40 @@
 using System;
-
-public class Transaction
+namespace SWAD_iCar
 {
-    private static int nextId = 1; // Static field to track the next ID
-    private int id;
-
-    public int Id
+    public class Transaction
     {
-        get { return id; }
-        set { id = value; }
-    }
+        private static int nextId = 1; // Static field to track the next ID
+        private int id;
 
-    private float cost;
+        public int Id
+        {
+            get { return id; }
+            set { id = value; }
+        }
 
-    public float Cost
-    {
-        get { return cost; }
-        set { cost = value; }
-    }
+        private float cost;
 
-    private DateTime time;
+        public float Cost
+        {
+            get { return cost; }
+            set { cost = value; }
+        }
 
-    public DateTime Time
-    {
-        get { return time; }
-        set { time = value; }
-    }
+        private DateTime time;
 
-    public Transaction() { }
+        public DateTime Time
+        {
+            get { return time; }
+            set { time = value; }
+        }
 
-    public Transaction(float c, DateTime t)
-    {
-        Id = nextId++; // Assign the current ID and increment the counter
-        Cost = c;
-        Time = t;
+        public Transaction() { }
+
+        public Transaction(float c, DateTime t)
+        {
+            Id = nextId++; // Assign the current ID and increment the counter
+            Cost = c;
+            Time = t;
+        }
     }
 }
