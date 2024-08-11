@@ -80,7 +80,7 @@ namespace SWAD_iCar
 
                     bool status = false;
                     SetStatusToFalse(status);
-                    car1.UpdateTimeSlotsAvailability(start, end, status);
+                    //car1.UpdateTimeSlotsAvailability(start, end, status);
                     newBooking.AddNewTransaction(transaction);
 
                     uiRentVehicle.DisplayAllDetails(car1, newBooking);
@@ -142,8 +142,8 @@ namespace SWAD_iCar
                 addressFee = CalculateAddressFee(pickUpLocation);
                 AddToTotalCost(addressFee);
 
-                PhysicalAddress physicalAddress = createPhysicalAddress(pickUpLocation, addressFee);
-                SetPhysicalAddressAsPickUpMethod(physicalAddress);
+                //PhysicalAddress physicalAddress = createPhysicalAddress(pickUpLocation, addressFee);
+                //SetPhysicalAddressAsPickUpMethod(physicalAddress);
             }
         }
 
@@ -241,8 +241,8 @@ namespace SWAD_iCar
                 addressFee = CalculateAddressFee(returnLocation);
                 AddToTotalCost(addressFee);
 
-                PhysicalAddress physicalAddress = createPhysicalAddress(returnLocation, addressFee);
-                SetPhysicalAddressAsReturnMethod(physicalAddress);
+                //PhysicalAddress physicalAddress = createPhysicalAddress(returnLocation, addressFee);
+                //SetPhysicalAddressAsReturnMethod(physicalAddress);
             }
         }
 
@@ -266,11 +266,11 @@ namespace SWAD_iCar
             status = false;
         }
 
-        public PhysicalAddress createPhysicalAddress(string physicalAddress, float addressFee)
-        {
-            PhysicalAddress address = new PhysicalAddress(physicalAddress, addressFee);
-            return address;
-        }
+        //public PhysicalAddress createPhysicalAddress(string physicalAddress, float addressFee)
+        //{
+        //    PhysicalAddress address = new PhysicalAddress(physicalAddress, addressFee);
+        //    return address;
+        //}
 
         public Booking CreateBooking(DateTime start, DateTime end, float bookingFee, Location pickUpMethod, Location returnMethod, Car car)
         {

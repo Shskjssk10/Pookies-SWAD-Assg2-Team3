@@ -133,9 +133,6 @@ namespace SWAD_iCar
                 startDateTime: new DateTime(2024, 8, 1, 9, 0, 0), //1st August 2023, 9:00 AM
                 endDateTime: new DateTime(2024, 8, 8, 1, 0, 0),
                 returnTime: null,
-                startDateTime: DateTime.Now.AddDays(-1),
-                endDateTime: DateTime.Now.AddDays(2),
-                returnTime: DateTime.Now,
                 returnMethod: new Location("iCar Station"),
                 pickUpMethod: new Location("iCar Station 2"),
                 vehicleInspectionStatus: true,
