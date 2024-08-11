@@ -35,7 +35,7 @@ namespace SWAD_iCar
 
             bool isLessThan24Hours = CheckIfLessThan24Hours(originalBookingData);
 
-            if (isLessThan24Hours == false)
+            if (isLessThan24Hours == true)
             {
                 return (null, "Cannot modify booking. Less than 24 hours remaining.");
             }
@@ -111,7 +111,7 @@ namespace SWAD_iCar
 
         public string ConfirmUpdateBooking(Booking updatedBooking)
         {
-            string bookingUpdateResult = originalBooking.ConfirmUpdateBooking(updatedBooking);
+            string bookingUpdateResult = originalBookingData.ConfirmUpdateBooking(updatedBooking);
             return bookingUpdateResult;
         }
 
@@ -119,7 +119,7 @@ namespace SWAD_iCar
         {
             try
             {
-                if (originalBooking != null && originalBooking.Id == booking.Id)
+                if (originalBookingData != null && originalBookingData.Id == booking.Id)
                 {
                     Renter renter = GetRenter(renterId);
 
