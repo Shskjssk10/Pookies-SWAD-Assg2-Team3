@@ -104,7 +104,7 @@ namespace SWAD_iCar
         }
 
         public bool CheckAnyOngoingBooking(DateTime start, DateTime end)
-        {   
+        {
             if (BookingHistory.Count == 0)
             {
                 return true;
@@ -141,7 +141,7 @@ namespace SWAD_iCar
         public Booking GetBooking(int bookingId)
         {
             Booking originalBookingData = bookingHistory.FirstOrDefault(b => b.Id == bookingId);
-            
+
             return originalBookingData;
         }
 
@@ -171,3 +171,4 @@ namespace SWAD_iCar
                    $"Digital Wallet Balance: {Wallet?.Balance ?? 0}, Driver's License: {DriversLicense.SerialNo}";
         }
     }
+}

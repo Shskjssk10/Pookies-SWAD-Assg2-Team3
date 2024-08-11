@@ -7,17 +7,19 @@ namespace SWAD_iCar
     {
         private List<Booking> bookings;
         private List<Renter> listOfRenters;
+        private Car dummyCar;
         private Renter dummyRenter;
         private Admin dummyAdmin;
         private List<CarOwner> listOfCarOwners;
 
-        public UI_Main(List<Booking> bookings, List<Renter> listOfRenters, Renter dummyRenter, Admin dummyAdmin, List<CarOwner> listOfCarOwners)
-        {
+        public UI_Main(List<Booking> bookings, List<Renter> listOfRenters, Renter dummyRenter, Admin dummyAdmin, List<CarOwner> listOfCarOwners,Car dummyCar)
+        { 
             this.bookings = bookings;
             this.listOfRenters = listOfRenters;
             this.dummyRenter = dummyRenter;
             this.dummyAdmin = dummyAdmin;
             this.listOfCarOwners = listOfCarOwners;
+            this.dummyCar = dummyCar;
         }
         public void login()
         {
@@ -61,7 +63,7 @@ namespace SWAD_iCar
                     case "1":
                         {
                             CTL_ManageCar manageCarController = new CTL_ManageCar(listOfCarOwners);
-                            UI_ManageCar manageCarUI = new UI_ManageCar(manageCarController, new UI_Main(bookings, listOfRenters, dummyRenter, dummyAdmin, listOfCarOwners));
+                            UI_ManageCar manageCarUI = new UI_ManageCar(manageCarController, new UI_Main(bookings, listOfRenters, dummyRenter, dummyAdmin, listOfCarOwners, dummyCar));
                             manageCarUI.getRegisteredCars(userId);
                             break;
                         }
@@ -104,7 +106,13 @@ namespace SWAD_iCar
                         }
                     case "5":
                         {
-                            Console.WriteLine("Not Merged");
+
+                            //List<Renter> listOfRenters = new List<Renter>() { renter1 };
+                            //List<Car> listOfCars = new List<Car> { car1 };
+                            CTL_RentVehicle ctlRentVehicle = new CTL_RentVehicle();
+                            UI_RentVehicle uiRentVehicle = new UI_RentVehicle(ctlRentVehicle); // To be continued
+
+                            uiRentVehicle.RentVehicle(dummyCar.Id, dummyRenter.Id);
                             break;
                         }
                     case "0":
