@@ -76,16 +76,16 @@ namespace SWAD_iCar
                         }
                     case "3":
                         {
-                            if (listOfRenters[userId].CurrentBooking != null)
-                            {
-                                UI_ReturnVehicle uiReturnVehicle = new UI_ReturnVehicle();
-                                uiReturnVehicle.InitiateCarReturn(userId);
-                            }
-                            else
-                            {
-                                Console.WriteLine("There is no current booking for this renter.\n");
-                            }
-                            
+                            //int? currentRenterId = null;
+                            //foreach (Renter renter in listOfRenters)
+                            //{
+                            //    if (renter.Id == userId)
+                            //    {
+                            //        currentRenterId = userId;
+                            //    }
+                            //}
+                            UI_ReturnVehicle uiReturnVehicle = new UI_ReturnVehicle();
+                            uiReturnVehicle.InitiateCarReturn(userId);
                             break;
                         }
                     case "4":

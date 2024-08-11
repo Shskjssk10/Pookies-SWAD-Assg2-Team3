@@ -30,6 +30,7 @@ namespace SWAD_iCar
             Console.WriteLine($"ID: {currentBooking.Id}");
             Console.WriteLine($"Start DateTime: {currentBooking.StartDateTime}");
             Console.WriteLine($"End DateTime: {currentBooking.EndDateTime}");
+            Console.WriteLine($"Return DateTime: {(currentBooking.ReturnTime == null ? "Car has yet to be returned" : currentBooking.ReturnTime.ToString())}");
             Console.WriteLine($"Return Method: {currentBooking.ReturnMethod.Address}");
             Console.WriteLine($"Pick Up Method: {currentBooking.PickUpMethod.Address}");
             Console.WriteLine($"Vehicle Inspection Status: {currentBooking.VehicleInspectionStatus}");
@@ -97,19 +98,9 @@ namespace SWAD_iCar
                 float penaltyFee = ctlReturnVehicle.checkPenalty();
                 ctlReturnVehicle.notifyAdmin();
                 float damagesFee = ctlReturnVehicle.checkDamagesFee();
-                displayAnyCharges(penaltyFee, damagesFee);
 
-                if (penaltyFee > 0)
-                {
-                    displayPromptPenalty();
-                    payPenalty(penaltyFee);
-                }
+                proceedWithPayment(penaltyFee, damagesFee);
 
-                if (damagesFee > 0)
-                {
-                    displayPromptDamages();
-                    payDamages(damagesFee);
-                }
             }
             else
             {
@@ -134,7 +125,7 @@ namespace SWAD_iCar
             }
             else
             {
-                Console.WriteLine("Payment Unsuccessful.\n");
+                Console.WriteLine("No payment is made.\n");
             }
 
         }
@@ -150,7 +141,7 @@ namespace SWAD_iCar
             }
             else
             {
-                Console.WriteLine("Payment Unsuccessful.\n");
+                Console.WriteLine("No payment is made.\n");
             }
 
         }
@@ -169,6 +160,7 @@ namespace SWAD_iCar
 
         public void displayPaymentSuccess(Transaction transaction)
         {
+            Console.WriteLine("\nPayment has been made successfully.");
             Console.WriteLine($"Transaction ID: {transaction.Id}, Cost: {transaction.Cost}, Time: {transaction.Time}.\n");
         }
         //public void checkLocation(string currentAddress)
@@ -176,11 +168,55 @@ namespace SWAD_iCar
         //    ctlReturnVehicle.checkLocation(currentAddress);
         //}
 
-        public void displayAnyCharges(float PenaltyFee, float DamagesFee)
+        public void displayAnyCharges(string chargesType, float chargesFee)
         {
-            Console.WriteLine("Pending Fees: \n" +
-                $"Penalty Fee: {PenaltyFee}\n" +
-                $"Damages Fee: {DamagesFee}\n");
+            Console.WriteLine($"Pending {chargesType} Fee: {chargesFee}\n");
+        }
+
+        public void proceedWithPayment(float penaltyFee, float damagesFee)
+        {
+            //bool penaltyIsPaid = false;
+            //bool damagesIsPaid = false;
+
+            if (penaltyFee > 0)
+            {
+                penaltyPayment(penaltyFee);
+            }
+
+            if (damagesFee > 0)
+            {
+                damagesPayment(damagesFee);
+            }
+
+            // Determine which additional charges are unpaid and display accordingly
+            //float totalPendingCharges = 0;
+            //if (!penaltyIsPaid)
+            //{
+            //    totalPendingCharges += penaltyFee;
+            //}
+            //if (!damagesIsPaid)
+            //{
+            //    totalPendingCharges += damagesFee;
+            //}
+
+            //if (totalPendingCharges > 0)
+            //{
+            //    Console.WriteLine($"Total Pending Additional Charges: ${totalPendingCharges}");
+            //}
+        }
+
+        public void penaltyPayment(float penaltyFee)
+        {
+            displayAnyCharges("Penalty", penaltyFee);
+            displayPromptPenalty();
+            payPenalty(penaltyFee);
+        }
+
+        public void damagesPayment(float damagesFee)
+        {
+            displayAnyCharges("Damages", damagesFee);
+            displayPromptDamages();
+            payDamages(damagesFee);
         }
     }
 }

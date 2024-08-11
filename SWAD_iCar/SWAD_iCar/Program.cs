@@ -89,12 +89,72 @@ namespace SWAD_iCar
                 id: 3,
                 startDateTime: new DateTime(2024, 8, 1, 9, 0, 0), //1st August 2023, 9:00 AM
                 endDateTime: new DateTime(2024, 8, 8, 1, 0, 0),
-                returnTime: new DateTime(2024, 8, 1, 12, 0, 0), //not affected anyways
+                returnTime: null,
+                returnMethod: new Location("iCar Station"),
+                pickUpMethod: new Location("iCar Station 2"),
+                vehicleInspectionStatus: true,
+                penaltyFee: 0.0f,
+                damagesFee: 0.0f,
+                totalBookingFee: 120.0f,
+                bookingStatus: "Ongoing",
+                car: car1,
+                dropOffTo: null,
+                pickUpFrom: null,
+                about: new List<Report>(),
+                updates: null,
+                bookingTransactions: new List<Transaction>()
+            );
+
+            Booking currentBooking2 = new Booking(
+                id: 4,
+                startDateTime: new DateTime(2024, 8, 1, 9, 0, 0), //1st August 2023, 9:00 AM
+                endDateTime: new DateTime(2024, 8, 30, 1, 0, 0),
+                returnTime: null,
                 returnMethod: new Location("iCar Station"),
                 pickUpMethod: new Location("iCar Station 2"),
                 vehicleInspectionStatus: true,
                 penaltyFee: 0.0f,
                 damagesFee: 500.0f,
+                totalBookingFee: 120.0f,
+                bookingStatus: "Ongoing",
+                car: car1,
+                dropOffTo: null,
+                pickUpFrom: null,
+                about: new List<Report>(),
+                updates: null,
+                bookingTransactions: new List<Transaction>()
+            );
+
+            Booking currentBooking3 = new Booking(
+                id: 5,
+                startDateTime: new DateTime(2024, 8, 1, 9, 0, 0), //1st August 2023, 9:00 AM
+                endDateTime: new DateTime(2024, 8, 8, 1, 0, 0),
+                returnTime: null,
+                returnMethod: new Location("iCar Station"),
+                pickUpMethod: new Location("iCar Station 2"),
+                vehicleInspectionStatus: true,
+                penaltyFee: 0.0f,
+                damagesFee: 500.0f,
+                totalBookingFee: 120.0f,
+                bookingStatus: "Ongoing",
+                car: car1,
+                dropOffTo: null,
+                pickUpFrom: null,
+                about: new List<Report>(),
+                updates: null,
+                bookingTransactions: new List<Transaction>()
+            );
+
+            Booking currentBooking4 = new Booking(
+                id: 7,
+                startDateTime: new DateTime(2024, 8, 1, 9, 0, 0), //1st August 2023, 9:00 AM
+                endDateTime: DateTime.Now.AddDays(1),
+                returnTime: null,
+                returnMethod: new Location("iCar Station"),
+                pickUpMethod: new Location("iCar Station 2"),
+                vehicleInspectionStatus: true,
+                penaltyFee: 0.0f,
+                damagesFee: 0.0f,
                 totalBookingFee: 120.0f,
                 bookingStatus: "Ongoing",
                 car: car1,
@@ -120,6 +180,58 @@ namespace SWAD_iCar
                 wallet: null,
                 driversLicense: null,
                 currentBooking: currentBooking
+            );
+
+            Renter renter2 = new Renter(
+                id: 2,
+                name: "John Doe2",
+                username: "johndoe2",
+                card: null,
+                dateOfBirth: new DateTime(1990, 1, 1),
+                contact: 1234567890,
+                isVerified: true,
+                password: "password123",
+                email: "johndoe@example.com",
+                bookingHistory: new List<Booking>() { booking1 },
+                isVerifiedBy: null,
+                wallet: null,
+                driversLicense: null,
+                currentBooking: currentBooking2
+            );
+
+
+            Renter renter6 = new Renter(
+                id: 6,
+                name: "John Doe6",
+                username: "johndoe6",
+                card: null,
+                dateOfBirth: new DateTime(1990, 1, 1),
+                contact: 1234567890,
+                isVerified: true,
+                password: "password123",
+                email: "johndoe@example.com",
+                bookingHistory: new List<Booking>() { booking1 },
+                isVerifiedBy: null,
+                wallet: null,
+                driversLicense: null,
+                currentBooking: currentBooking3
+            );
+
+            Renter renter7 = new Renter(
+                id: 7,
+                name: "John Doe7",
+                username: "johndoe7",
+                card: null,
+                dateOfBirth: new DateTime(1990, 1, 1),
+                contact: 1234567890,
+                isVerified: true,
+                password: "password123",
+                email: "johndoe@example.com",
+                bookingHistory: new List<Booking>() { booking1 },
+                isVerifiedBy: null,
+                wallet: null,
+                driversLicense: null,
+                currentBooking: currentBooking4
             );
 
             Admin admin = new Admin(1, "Admin", "admin", null, null, null, null);
@@ -249,8 +361,12 @@ namespace SWAD_iCar
             dummyAdmin = admin;
 
             listOfRenters.Add(renter1);
+            listOfRenters.Add(renter2);
             listOfRenters.Add(renter3);
             listOfRenters.Add(renter4);
+            listOfRenters.Add(renter5);
+            listOfRenters.Add(renter6);
+            listOfRenters.Add(renter7);
 
             listOfCarOwners.Add(carOwner1);
 
