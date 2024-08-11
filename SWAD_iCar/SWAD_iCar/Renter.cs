@@ -87,6 +87,7 @@ namespace SWAD_iCar
             this.email = email;
             BookingHistory = new List<Booking>();
         }
+
         public Renter(int id, string name, string username, Card card, DateTime dateOfBirth, int contact, bool isVerified, string password, string email, List<Booking> bookingHistory, Admin isVerifiedBy, DigitalWallet wallet, License driversLicense, Booking? currentBooking)
             : base(id, name, username, card)
         {
@@ -147,8 +148,6 @@ namespace SWAD_iCar
         public Booking GetCurrentBooking()
         {
             return this.currentBooking;
-            //throw new System.NotImplementedException("Not implemented");
-            // return Booking
         }
 
         public void AddDriverLicense(License license)
@@ -156,26 +155,11 @@ namespace SWAD_iCar
             DriversLicense = license;
         }
 
-        public bool UpdateBooking()
+
+        public void CompleteExistingBooking()
         {
-            Booking tempBooking = currentBooking;
-            BookingHistory.Add(tempBooking);
+            BookingHistory.Add(currentBooking);
             currentBooking = null;
-
-            return true;
-            //if (bookingHistory == tempBooking)
-            //{
-            //    return true;
-            //}
-            //else
-            //{
-            //    return false;
-            //}
-
-
-            //return true;
-            //    throw new System.NotImplementedException("Not implemented");
-            //    // return bool
         }
 
         // ToString method

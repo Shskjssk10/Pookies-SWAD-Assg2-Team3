@@ -1,4 +1,6 @@
+using SWAD_iCar;
 using System;
+
 namespace SWAD_iCar
 {
     public class CarOwner : User
@@ -19,10 +21,29 @@ namespace SWAD_iCar
             set { contact = value; }
         }
 
+        private List<Car> registeredCars = new List<Car>();
+
         public CarOwner(int id, string name, string username, Card card, DateTime dob, int contact) : base(id, name, username, card)
         {
             dateOfBirth = dob;
             this.contact = contact;
+        }
+
+        public bool linkCarToCarOwner(Car car)
+        {
+            registeredCars.Add(car);
+            return true;
+        }
+
+        public bool RemoveCarFromCarOwner(Car car)
+        {
+            registeredCars.Remove(car);
+            return true;
+        }
+
+        public List<Car> getAllRegisteredCars()
+        {
+            return registeredCars;
         }
     }
 }
