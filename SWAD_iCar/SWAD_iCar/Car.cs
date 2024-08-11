@@ -203,6 +203,17 @@ namespace SWAD_iCar
                 }
             }
         }
+
+        public void UpdateTimeSlotsAvailability(DateTime start, DateTime end, bool status)
+        {
+            foreach (Timeslot aTimeSlot in RegisteredTimeSlots)
+            {
+                if ((start >= aTimeSlot.TimeSlot) && (end <= aTimeSlot.TimeSlot))
+                {
+                    aTimeSlot.UpdateTimeSlotAvailability(status);
+                }
+            }
+        }
         public void AddNewBooking(Booking newBooking)
         {
             CarBookings.Add(newBooking);

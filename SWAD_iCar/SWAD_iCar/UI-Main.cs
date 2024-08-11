@@ -109,8 +109,8 @@ namespace SWAD_iCar
 
                             //List<Renter> listOfRenters = new List<Renter>() { renter1 };
                             //List<Car> listOfCars = new List<Car> { car1 };
-                            CTL_RentVehicle ctlRentVehicle = new CTL_RentVehicle();
-                            UI_RentVehicle uiRentVehicle = new UI_RentVehicle(ctlRentVehicle); // To be continued
+                            //CTL_RentVehicle ctlRentVehicle = new CTL_RentVehicle();
+                            UI_RentVehicle uiRentVehicle = new UI_RentVehicle(); // To be continued
 
                             uiRentVehicle.RentVehicle(dummyCar.Id, dummyRenter.Id);
                             break;

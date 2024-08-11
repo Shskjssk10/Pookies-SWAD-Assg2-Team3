@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,21 +10,40 @@ namespace SWAD_iCar
 {
     public class UI_RentVehicle
     {
+        private bool validStartEnd;
+        private DateTime start;
+        private DateTime end;
+        private bool validPhysicalAddress;
+        private string physicalAddress; 
+
         public CTL_RentVehicle ctlRentVehicle;
-        public UI_RentVehicle(CTL_RentVehicle ctlRentVehicle) 
+        public UI_RentVehicle() 
         {
-            this.ctlRentVehicle = ctlRentVehicle;
+            ctlRentVehicle = new CTL_RentVehicle();
         }
         public void RentVehicle(int carId, int renterId)
         {
-            ctlRentVehicle.RentVehicle(carId, renterId);
+            validStartEnd = ctlRentVehicle.RentVehicle(carId, renterId);
+            while (!validStartEnd)
+            {
+                PromptStartAndEndDate();
+            }
+
+            bool allSlotsAvailable = ctlRentVehicle.CheckAvailability(start, end);
+            bool anyOngoingBooking = ctlRentVehicle.CheckAnyOngoingBooking(start, end);
+
+            if (anyOngoingBooking == false && allSlotsAvailable == true)
+            {
+                PromptPickUpMethod();
+                PromptReturnMethod();
+                float bookingFee = ctlRentVehicle.GetTotalCost();
+                DisplayTotalCost(bookingFee);
+                PromptMakePayment();
+            }
         }
 
         public void PromptStartAndEndDate()
         {
-            DateTime start;
-            DateTime end;
-
             while (true)
             {
                 try
@@ -53,9 +73,45 @@ namespace SWAD_iCar
 
         public void EnterStartAndEndDate(DateTime start, DateTime end)
         {
-            ctlRentVehicle.EnterStartAndEndDate(start, end);
+            DateTime currentDate = DateTime.Now;
+            DateOnly currentDateOnly = DateOnly.FromDateTime(currentDate);
+            DateOnly startDate = DateOnly.FromDateTime(start);
+            TimeOnly startTime = TimeOnly.FromDateTime(start);
+            TimeOnly endTime = TimeOnly.FromDateTime(end);
+            DateOnly endDate = DateOnly.FromDateTime(end);
+
+            if (startDate <= currentDateOnly || endDate <= currentDateOnly)
+            {
+                DisplayPastDateMessage();
+            }
+            else if (end < start)
+            {
+                DisplayEndBeforeStartMessage();
+            }
+            else if (startDate == endDate && startTime >= endTime)
+            {
+                DisplayEndBeforeStartTimeMessage();
+            }
+            else
+            {
+                validStartEnd = true;
+            }
         }
 
+        public void DisplayPastDateMessage()
+        {
+            Console.WriteLine("Start or end date is in the past, please enter a future date.");
+        }
+
+        public void DisplayEndBeforeStartMessage()
+        {
+            Console.WriteLine("End of booking is before start of booking, please try again.");
+        }
+
+        public void DisplayEndBeforeStartTimeMessage()
+        {
+            Console.WriteLine("Booking end time is before start time of booking on the same day, please try again.");
+        }
         public void DisplayInvalidDateTimeMessage()
         {
             Console.WriteLine("Invalid date and time. Please try again.");
@@ -69,7 +125,34 @@ namespace SWAD_iCar
 
         public void SelectPickUpMethod(string pickUpMethod)
         {
-            ctlRentVehicle.SelectPickUpMethod(pickUpMethod);
+            if (pickUpMethod == "iCar Station")
+            {   
+                List<ICarStation> ListOfiCarStations = ctlRentVehicle.GetAlliCarStations();
+                DisplayAlliCarStations(ListOfiCarStations);
+                PromptiCarStation();
+
+                
+            }
+            else if (pickUpMethod == "Physical Address")
+            {
+                validPhysicalAddress = false;
+
+                while (validPhysicalAddress == false)
+                {
+                    PromptPhysicalAddress();
+
+                    if (validPhysicalAddress == false)
+                    {
+                        DisplayInvalidAddressMessage();
+                    }
+                    else
+                    {
+                        validPhysicalAddress = true;
+                    }
+                }
+
+                ctlRentVehicle.CreatePhysicalAddress(physicalAddress);
+            }
         }
 
         public void DisplayAlliCarStations(List<ICarStation> iCarStations)
@@ -80,8 +163,6 @@ namespace SWAD_iCar
                 Console.WriteLine($"iCarStation ID: {c.Id}\n" +
                     $"iCarStation Name: {c.Name}");
             }
-
-            PromptiCarStation();
         }
 
         public void PromptiCarStation()
@@ -99,7 +180,7 @@ namespace SWAD_iCar
         }
         public void EnterPhysicalAddress(string physicalAddress)
         {
-            ctlRentVehicle.EnterPhysicalAddress(physicalAddress);
+            validPhysicalAddress = ctlRentVehicle.ValidatePhysicalAddress(physicalAddress);
         }
 
         public void DisplayInvalidAddressMessage()
@@ -116,7 +197,33 @@ namespace SWAD_iCar
 
         public void SelectReturnMethod(string returnMethod)
         {
-            ctlRentVehicle.SelectReturnMethod(returnMethod);
+            if (returnMethod == "iCar Station")
+            {
+                List<ICarStation> ListOfiCarStations = ctlRentVehicle.GetAlliCarStations();
+                DisplayAlliCarStations(ListOfiCarStations);
+                PromptiCarStation();
+            }
+            else if (returnMethod == "Physical Address")
+            {
+                validPhysicalAddress = false;
+
+                while (validPhysicalAddress == false)
+                {
+                    PromptPhysicalAddress();
+
+                    if (validPhysicalAddress == false)
+                    {
+                        DisplayInvalidAddressMessage();
+                    }
+                    else
+                    {
+                        validPhysicalAddress = true;
+                    }
+                }
+
+                ctlRentVehicle.CreatePhysicalAddress(physicalAddress);
+            }
+
         }
 
         public void SelectiCarStation(int iCarStation)
@@ -127,7 +234,6 @@ namespace SWAD_iCar
         public void DisplayTotalCost(float bookingFee)
         {
             Console.WriteLine($"Total Cost: {bookingFee}");
-            PromptMakePayment();
         }
 
         public void PromptMakePayment()
@@ -146,7 +252,11 @@ namespace SWAD_iCar
 
         public void MakePayment()
         {
-            ctlRentVehicle.MakePayment();
+            (Car car, Booking newBooking) = ctlRentVehicle.MakePayment();
+            if (car != null && newBooking != null)
+            {
+                DisplayAllDetails(car, newBooking);
+            }
         }
 
         public void DisplayAllDetails(Car car, Booking newBooking)
