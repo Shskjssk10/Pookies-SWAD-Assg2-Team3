@@ -29,7 +29,7 @@ namespace SWAD_iCar
             this.contact = contact;
         }
 
-        public bool linkCarToCarOwner(Car car)
+        public bool LinkCarToCarOwner(Car car)
         {
             registeredCars.Add(car);
             return true;
