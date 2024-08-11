@@ -251,7 +251,7 @@ namespace SWAD_iCar
 
             DateTime currentDate = DateTime.Now;
 
-            List<Timeslot> timeslots = GenerateDummyTimeslots(dummyCar, currentDate.AddDays(1), currentDate.AddDays(11));
+            List<Timeslot> timeslots = GenerateDummyTimeslots(dummyCar, currentDate.AddDays(1), currentDate.AddDays(60));
 
             foreach (Timeslot timeslot in timeslots)
             {
