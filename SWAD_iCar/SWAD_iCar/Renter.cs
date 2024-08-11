@@ -42,7 +42,7 @@ namespace SWAD_iCar
             set { email = value; }
         }
 
-        private List<Booking> bookingHistory = new List<Booking>();
+        private List<Booking> bookingHistory;
         public List<Booking> BookingHistory
         {
             get { return bookingHistory; }
@@ -78,8 +78,8 @@ namespace SWAD_iCar
         }
 
         // Constructor
-        public Renter(int id, string name, string username, Card card, DateTime dateOfBirth, int contact, string password, string email)
-            : base(id, name, username, card)
+        public Renter(string name, string username, Card card, DateTime dateOfBirth, int contact, string password, string email)
+            : base(name, username, card)
         {
             this.dateOfBirth = dateOfBirth;
             this.contact = contact;
@@ -103,13 +103,16 @@ namespace SWAD_iCar
             CurrentBooking = currentBooking;
         }
 
-
         public bool CheckAnyOngoingBooking(DateTime start, DateTime end)
         {
-            foreach (Booking booking in bookingHistory)
+            if (BookingHistory.Count == 0)
+            {
+                return true;
+            }
+            foreach (Booking booking in BookingHistory)
             {
                 // at least one already booked timeslot is within the start and end date
-                if ((booking.StartDateTime > start && booking.StartDateTime < end) || (booking.EndDateTime > start && booking.EndDateTime < end))
+                if ((booking.StartDateTime >= start && booking.StartDateTime < end) || (booking.EndDateTime > start && booking.EndDateTime <= end))
                 {
                     return true;
                 }
@@ -138,11 +141,9 @@ namespace SWAD_iCar
         public Booking GetBooking(int bookingId)
         {
             Booking originalBookingData = bookingHistory.FirstOrDefault(b => b.Id == bookingId);
-            
+
             return originalBookingData;
         }
-        
-
 
         public Booking GetCurrentBooking()
         {
@@ -169,6 +170,5 @@ namespace SWAD_iCar
                    $"Number of Bookings: {BookingHistory.Count}, Verified By: {IsVerifiedBy?.Name ?? "N/A"}, " +
                    $"Digital Wallet Balance: {Wallet?.Balance ?? 0}, Driver's License: {DriversLicense.SerialNo}";
         }
-
     }
 }

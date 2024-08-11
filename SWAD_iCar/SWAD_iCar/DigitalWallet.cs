@@ -1,7 +1,7 @@
 using System;
 namespace SWAD_iCar
 {
-    public class DigitalWallet
+    public class DigitalWallet : PaymentMethod
     {
         private static int nextId = 1; // Static field to track the next ID
         private int id;
@@ -20,22 +20,22 @@ namespace SWAD_iCar
             set { balance = value; }
         }
 
-        public DigitalWallet()
+        public DigitalWallet() : base()
         {
 
         }
-        public DigitalWallet(float b)
+        public DigitalWallet(float b) : base() 
         {
             Id = nextId++;
             Balance = b;
         }
 
-        public void addFunds(float amount)
+        public void AddFunds(float amount)
         {
             balance += amount;
         }
 
-        public void removeFunds(float amount)
+        public void RemoveFunds(float amount)
         {
             balance -= amount;
         }

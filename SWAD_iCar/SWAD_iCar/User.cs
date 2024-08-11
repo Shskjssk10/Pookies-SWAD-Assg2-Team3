@@ -31,12 +31,19 @@ namespace SWAD_iCar
             get { return card; }
             set { card = value; }
         }
+        public User(string name, string username, Card card)
+        {
+            this.id = nextId++;
+            this.name = name;
+            this.username = username;
+            this.card = card;
+        }
         public User(int id, string name, string username, Card card)
         {
-            this.Id = id;
-            this.Name = name;
-            this.Username = username;
-            this.Card = card;
+            this.id = id;
+            this.name = name;
+            this.username = username;
+            this.card = card;
         }
     }
 }

@@ -28,6 +28,12 @@ namespace SWAD_iCar
             set { time = value; }
         }
 
+        private PaymentMethod paymentMethod;
+        public PaymentMethod PaymentMethod
+        {
+            get { return paymentMethod; }
+            set { paymentMethod = value; }
+        }
         public Transaction() { }
 
         public Transaction(float c, DateTime t)
