@@ -115,6 +115,7 @@ namespace SWAD_iCar
             CarBookings = new List<Booking>();
         }
 
+
         public Car(string make, string model, int year, float mileage, string licensePlate, float rentalRate, List<string> photos, Insurance insuranceDetails)
         {
             Id = nextId++;
@@ -138,7 +139,7 @@ namespace SWAD_iCar
             foreach (Timeslot aTimeSlot in RegisteredTimeSlots)
             {
                 // Check if the timeslot falls within the start and end times
-                if ((start >= aTimeSlot.TimeSlot) && (end <= aTimeSlot.TimeSlot))
+                if ((start <= aTimeSlot.TimeSlot) && (end > aTimeSlot.TimeSlot))
                 {
                     numberOfTimeslotsRegistered++;
                     if (aTimeSlot.AvailabilityStatus == false)
