@@ -34,6 +34,14 @@ namespace SWAD_iCar
             get { return paymentMethod; }
             set { paymentMethod = value; }
         }
+
+        private Insurance insurance;
+        public Insurance Insurance
+        {
+            get { return insurance; }
+            set { insurance = value; }
+        }
+
         public Transaction() { }
 
         public Transaction(float c, DateTime t)

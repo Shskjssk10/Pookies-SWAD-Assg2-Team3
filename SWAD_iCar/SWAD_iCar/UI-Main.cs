@@ -24,6 +24,8 @@ namespace SWAD_iCar
         public void login()
         {
             Console.WriteLine(" __   ______                     \r\n/  | /      \\                    \r\n$$/ /$$$$$$  | ______    ______  \r\n/  |$$ |  $$/ /      \\  /      \\ \r\n$$ |$$ |      $$$$$$  |/$$$$$$  |\r\n$$ |$$ |   __ /    $$ |$$ |  $$/ \r\n$$ |$$ \\__/  /$$$$$$$ |$$ |      \r\n$$ |$$    $$/$$    $$ |$$ |      \r\n$$/  $$$$$$/  $$$$$$$/ $$/       \r\n                                 \r\n                                 \r\n                                 ");
+            Console.WriteLine("User ID 3: Renter");
+            Console.WriteLine("User ID 6: Car Owner");
 
             Console.WriteLine("Enter your user ID:");
             int userId = Convert.ToInt32(Console.ReadLine());
@@ -96,11 +98,7 @@ namespace SWAD_iCar
                         }
                     case "5":
                         {
-
-                            //List<Renter> listOfRenters = new List<Renter>() { renter1 };
-                            //List<Car> listOfCars = new List<Car> { car1 };
-                            //CTL_RentVehicle ctlRentVehicle = new CTL_RentVehicle();
-                            UI_RentVehicle uiRentVehicle = new UI_RentVehicle(); // To be continued
+                            UI_RentVehicle uiRentVehicle = new UI_RentVehicle();
 
                             uiRentVehicle.RentVehicle(dummyCar.Id, dummyRenter.Id);
                             break;

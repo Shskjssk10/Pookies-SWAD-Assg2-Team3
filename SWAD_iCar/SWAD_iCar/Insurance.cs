@@ -31,6 +31,13 @@ namespace SWAD_iCar
             set { insurer = value; }
         }
 
+        private Transaction transaction;
+        public Transaction Transaction
+        {
+            get { return transaction; }
+            set { transaction = value; }
+        }
+
         // Constructor with parameters for all fields
         public Insurance(int policyNo, DateTime expiryDate, DateTime issueDate, string insurer)
         {

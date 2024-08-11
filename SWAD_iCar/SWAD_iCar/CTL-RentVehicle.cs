@@ -127,7 +127,6 @@ namespace SWAD_iCar
         {
             addressFee = CalculateAddressFee(physicalAddress);
             AddToTotalCost(addressFee);
-            Console.WriteLine("TOtla fee now: " + bookingFee);
             PhysicalAddress address = new PhysicalAddress(addressFee, physicalAddress);
             if (pickUpMethod == null)
             {
